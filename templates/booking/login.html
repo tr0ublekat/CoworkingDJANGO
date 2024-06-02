@@ -1,0 +1,15 @@
+{%extends "base.html" %}
+
+{%block title%}Бронирование{%endblock%}
+
+{%block main%}
+<h1 style="text-align: center;">Hello!</h1>
+<form action="{% url 'login' %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Введите студенческий билет"><br><br>
+    <input type="text" name="password" placeholder="Введите пароль"><br><br>
+    <input type="submit" value="Подтвердить">
+</form>
+
+
+{%endblock%}

@@ -1,0 +1,50 @@
+{%extends "base.html"%}
+
+{%block title%}Бронирование{%endblock%}
+
+{%block main%}
+        <h1 style="text-align: center;">Бронирование мест</h1>
+
+        {% if request.user.is_authenticated %}
+
+        <form action="{% url 'filter' %}" method="get">
+            {% csrf_token %}
+            <input type="date" required name="data" placeholder="Input date" value="{{ filtered_data }}"><br><br>
+            <input type="number" required name="place" placeholder="Input place" value="{{ filtered_place }}"><br><br>
+            <input type="submit" value="Submit">
+        </form>
+
+        <form action="{% url 'booking' %}" method="post">
+            {% csrf_token %}
+            <input type="date" hidden name="data" value="{{ filtered_data }}"><br><br>
+            <input type="number" hidden name="place" value="{{ filtered_place }}"><br><br>
+
+            {% for i in numbers %}
+                <input type="checkbox" name="times[]" value="{{ i }}" {% if i in filtered_times %}disabled{% endif %}> {{ i }}<br>
+            {% endfor %}
+
+            <input type="number" hidden required name="student_id" value="{{ request.user }}"><br><br>
+
+            <input type="submit" value="Submit">
+        </form>
+
+        <br><br>
+        {% if filtered_books %}
+            {% for book in filtered_books %}
+            <div style="background-color:cadetblue; border-radius: 10px; padding: 10px;">
+                <h5>Data: {{book.data}}</h5>
+                <h5>ID: {{book.student_id}}</h5>
+                <h5>Place: {{book.place}}</h5>
+                <h5>Time: {{book.time}}</h5>
+            </div><br>
+            {% endfor %}
+        {% endif %}
+
+    {% else %}
+        <h2>Пожалуйста войдите в аккаунт</h2>
+    {% endif %}
+
+
+
+
+{%endblock%}

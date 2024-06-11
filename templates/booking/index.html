@@ -5,15 +5,252 @@
 {%block main%}
         <h1 style="text-align: center;">Бронирование мест</h1>
 
-        {% if request.user.is_authenticated %}
+        <!-- {% if request.user.is_authenticated %} -->
 
         <form action="{% url 'filter' %}" method="get">
-            {% csrf_token %}
+            <!-- {% csrf_token %} -->
             <input type="date" required name="data" placeholder="Input date" value="{{ filtered_data }}"><br><br>
-            <input type="number" required name="place" placeholder="Input place" value="{{ filtered_place }}"><br><br>
-            <input type="submit" value="Submit">
+            <!-- <input type="number" required name="place" placeholder="Input place" value="{{ filtered_place }}"><br><br> -->
+            <input type="submit" value="Submit" >
+            
         </form>
+        <!-- Кнопка для всплывающего окна с схемой -->
+        <p>Выберите стол: </p>
+        <button onclick = "showPopup()">Выбрать</button>
+        <!-- Сами элементы всплюывающей схемы -->
+        <div class = popup-schema style="display: none;">
+            <div class = "schema">
+                <p>Схема расположения: </p>
+                <button id="table_1" class = "square" style="background-color: red; position: absolute; top: 10%; right: 5%;"></button>
+                <button id="table_2" class = "square" style="background-color: blue; position: absolute; top: 10%; left: 5%;" ></button>    
+                <button id="table_3" class = "square" style="background-color: green; position: absolute; top: 10%; left: 50%; transform: translateX(-50%);"></button>
+                <button id="table_4" class = "square" style="background-color: yellow; position: absolute; top: 45%; left: 50%; transform: translateX(-50%);"></button>
+                <button id="table_5" class = "squarex3" style="background-color: black; position: absolute; top: 45%; left: 5%;"></button>
+                <button id="table_6" class = "squarex3" style="background-color: rgba(238, 15, 212, 0.886); position: absolute; top: 45%; right: 5%;"></button>
+                <button id="table_7" class = "squarex2" style="background-color: rgba(83, 180, 143, 0.886); position: absolute; bottom: 10%; left: 50%; transform: translateX(-50%);"></button>
+                <button onclick = "closePopup()" class = "close-icon" style = "position: absolute; top: 3%; right: 3%;">
+                    <i >X</i>
+                </button>
+            </div>
+        </div>
+        <!-- Всплывающее окно с интервалами(элементы) -->
+        <div class = "popup-interval" style="display: none;">
+            <div>
+            <input type = "checkbox" id = "check1" name = "check" value = "8:00 - 9:00"/>
+            <label for = "check">8:00 - 9:00</label>
+            </div>
+            <div>
+            <input type = "checkbox" id = "check2" name = "check" value="9:00 - 10:00"/>
+            <label for = "check">9:00 - 10:00</label>
+            </div>
+            <div>
+            <input type = "checkbox" id = "check3" name = "check" value="10:00 - 11:00"/>
+            <label for = "check">10:00 - 11:00</label>
+            </div>
+            <div>
+            <input type = "checkbox" id = "check4" name = "check" value="11:00 - 12:00"/>
+            <label for = "check">11:00 - 12:00</label>
+            </div>
+            <div>
+            <input type = "checkbox" id = "check5" name = "check" value="12:00 - 13:00"/>
+            <label for = "check">12:00 - 13:00</label>
+            </div>
+            <div>
+            <input type = "checkbox" id = "check6" name = "check" value="13:00 - 14:00"/>
+            <label for = "check">13:00 - 14:00</label>
+            </div>
+            <div>
+            <input type = "checkbox" id = "check7" name = "check" value="14:00 - 15:00"/>
+            <label for = "check">14:00 - 15:00</label>
+            </div>
+            <div>
+            <input type = "checkbox" id = "check8" name = "check" value="15:00 - 16:00"/>
+            <label for = "check">15:00 - 16:00</label>
+            </div>
+            <div>
+            <input type = "checkbox" id = "check9" name = "check" value="16:00 - 17:00"/>
+            <label for = "check">16:00 - 17:00</label>
+            </div>
+            <div>
+            <input type = "checkbox" id = "check10" name = "check" value="17:00 - 18:00"/>
+            <label for = "check">17:00 - 18:00</label>
+            </div>
+            <button onclick="selectIntervals()">Подтвердить</button>
+            <button onclick="closePopup1()">Закрыть</button>
+        </div>
+        <!-- Вывод рещультата выбора столика и интервалов -->
+        <div id = "result" style = "margin-top: 20px;"></div>
+        <!-- Добавление участников -->
+        <div id = "add-participant">
+            <label for = "student-id">Введите студ билет студентика:</label>
+            <input type = "text" id = "student-id" name = "student-id"/>
+            <button onclick = "addParticipant()">Добавить участника</button>
+        </div>
+        <!-- Вывод рещультата выбора участников -->
+        <div id = "participants-result" style = "margin-top: 20px;"></div>
+        <!-- Стили((((())))) -->
+        <style>
+            /* Всплывающее окно с схемой */
+            .popup-schema {
+                text-align: center;
+                font-size: 20px;
+                margin: 20px 0;
+                border: 1px solid black;
+                padding: 10px;
+                height: 40%;
+                width: 40%;
+                margin: 0 auto;
+                top: 30%;
+                position:fixed;
+                left: 30%;
+                border-radius: 5%;
+            }
+            /* элемент схемы */
+            .square {
+                width: 10%;
+                height: 10%;
+                border: 1px solid black;
+                display: inline-block;
+                margin: 10px;
+            }
+            /* троекратный элемент схемы */
+            .squarex3 {
+                width: 10%;
+                height: 30%;
+                border: 1px solid black;
+                display: inline-block;
+                margin: 10px;
+            }
+            /* двоекратный элемент схемы */
+            .squarex2 {
+                width: 30%;
+                height: 10%;
+                border: 1px solid black;
+                display: inline-block;
+                margin: 10px;
+            }
+            /* всплывающий выбор интервалов */
+            .popup-interval {
+                position: absolute;
+                top:80%;
+                left:50%;
+                transform: translate(-50%,-50%);
+                width: 30%;
+                height: 40%;
+                background: #fff;
+                border-radius: 10px;
+                border: 1px solid black;
+                opacity: 1;
+                z-index: 9999;
+            }
+        </style>
 
+        <script>
+            // кнопка открытия окна со схемой
+            function showPopup() {
+                var popup = document.querySelector(".popup-schema");
+                popup.style.display = "block";
+            }
+            // кнопка закрытия окна со схемой
+            function closePopup() {
+                var popup = document.querySelector(".popup-schema");
+                popup.style.display = "none";
+            }
+            // функция выбора интервалов и последующее закрытие всех всплывающих окон
+            function selectIntervals(){
+                var checkboxes = document.querySelectorAll(".popup-interval input[type='checkbox']");
+                selectedIntervals = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
+
+                displayResult();
+                closePopup1();
+                closePopup();
+            }
+            // функция вывода результата столика и интерваов
+            function displayResult(){
+                var resultElement = document.getElementById("result");
+                resultElement.innerHTML = `<p>Выбранный стол: ${selectedTable}</p>
+                <p>Выбранные интервалы:</p>
+                <ul>
+                    ${selectedIntervals.map(interval => `<li>${interval}</li>`).join('')}
+                </ul>`; 
+            }
+            // переменная массив участников
+            var participants = [];
+            // функция добавления участника
+            function addParticipant() {
+                // получение значения из поля ввода
+                var studentIdInput = document.getElementById("student-id");
+                var studentId = studentIdInput.value;
+                // проверка на пустоту
+                if(studentId) {
+                   participants.push(studentId);
+                   studentIdInput.value = "";
+                   displayParticipants(); 
+                }else{
+                    alert("Введите студ билет студентика!");
+                }
+            }
+            // функция вывода участников
+            function displayParticipants(){
+                var participantsElement = document.getElementById("participants-result");
+                participantsElement.innerHTML = `<p>Добавленные участники:</p>
+                <ul>
+                    ${participants.map(participant => `<li>${participant}</li>`).join('')}
+                </ul>`;
+            }
+            // определение переменных под столики
+            var table_1 = document.getElementById("table_1");
+            var table_2 = document.getElementById("table_2");
+            var table_3 = document.getElementById("table_3");
+            var table_4 = document.getElementById("table_4");
+            var table_5 = document.getElementById("table_5");
+            var table_6 = document.getElementById("table_6");
+            var table_7 = document.getElementById("table_7");
+            // переменная выбора интервалов
+            var popupInterval = document.querySelector(".popup-interval");
+            // переменная выбранного столика
+            var selectedTable = 0;
+            // переменная выбранных интервалов
+            var selectedIntervals = [];
+            // функции выбора столика
+            table_1.addEventListener("click", function(){
+                selectedTable = 1;
+                popupInterval.style.display = "block";
+            });
+            table_2.addEventListener("click", function(){
+                selectedTable = 2;
+                popupInterval.style.display = "block";
+            });
+            table_3.addEventListener("click", function(){
+                selectedTable = 3;
+                popupInterval.style.display = "block";
+            });
+            table_4.addEventListener("click", function(){
+                selectedTable = 4;
+                popupInterval.style.display = "block";
+            });
+            table_5.addEventListener("click", function(){
+                selectedTable = 5;
+                popupInterval.style.display = "block";
+            });
+            table_6.addEventListener("click", function(){
+                selectedTable = 6;
+                popupInterval.style.display = "block";
+            });
+            table_7.addEventListener("click", function(){
+                selectedTable = 7;
+                popupInterval.style.display = "block";
+            });
+            //var closeButton = document.querySelector(".popup button");
+            // функция закрытия всплывающего окна интервалов
+            function closePopup1() {
+                var popup = document.querySelector(".popup-interval");
+                popup.style.display = "none";
+            }
+            // closeButton.addEventListener("click", function() {
+            //     popupInterval.style.display = "none";
+            // });
+        </script>
         <form action="{% url 'booking' %}" method="post">
             {% csrf_token %}
             <input type="date" hidden name="data" value="{{ filtered_data }}"><br><br>

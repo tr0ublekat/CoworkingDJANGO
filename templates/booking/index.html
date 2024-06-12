@@ -8,6 +8,10 @@
 
         <!-- {% if request.user.is_authenticated %} -->
 
+        {% if error %}
+            <h2>Ошибка: {{error}}</h2>
+        {% endif %}
+
         <form action="{% url 'filter' %}" method="get">
             <!-- {% csrf_token %} -->
             <input type="date" required name="data" placeholder="Input date" value="{{ filtered_data }}"><br><br>
@@ -37,43 +41,43 @@
         <!-- Всплывающее окно с интервалами(элементы) -->
         <div class = "popup-interval" style="display: none;">
             <div>
-            <input type = "checkbox" id = "check1" name = "check" value = "8:00 - 9:00"/>
+            <input type = "checkbox" id = "check1" name = "check" value = "1"/>
             <label for = "check">8:00 - 9:00</label>
             </div>
             <div>
-            <input type = "checkbox" id = "check2" name = "check" value="9:00 - 10:00"/>
+            <input type = "checkbox" id = "check2" name = "check" value="2"/>
             <label for = "check">9:00 - 10:00</label>
             </div>
             <div>
-            <input type = "checkbox" id = "check3" name = "check" value="10:00 - 11:00"/>
+            <input type = "checkbox" id = "check3" name = "check" value="3"/>
             <label for = "check">10:00 - 11:00</label>
             </div>
             <div>
-            <input type = "checkbox" id = "check4" name = "check" value="11:00 - 12:00"/>
+            <input type = "checkbox" id = "check4" name = "check" value="4"/>
             <label for = "check">11:00 - 12:00</label>
             </div>
             <div>
-            <input type = "checkbox" id = "check5" name = "check" value="12:00 - 13:00"/>
+            <input type = "checkbox" id = "check5" name = "check" value="5"/>
             <label for = "check">12:00 - 13:00</label>
             </div>
             <div>
-            <input type = "checkbox" id = "check6" name = "check" value="13:00 - 14:00"/>
+            <input type = "checkbox" id = "check6" name = "check" value="6"/>
             <label for = "check">13:00 - 14:00</label>
             </div>
             <div>
-            <input type = "checkbox" id = "check7" name = "check" value="14:00 - 15:00"/>
+            <input type = "checkbox" id = "check7" name = "check" value="7"/>
             <label for = "check">14:00 - 15:00</label>
             </div>
             <div>
-            <input type = "checkbox" id = "check8" name = "check" value="15:00 - 16:00"/>
+            <input type = "checkbox" id = "check8" name = "check" value="8"/>
             <label for = "check">15:00 - 16:00</label>
             </div>
             <div>
-            <input type = "checkbox" id = "check9" name = "check" value="16:00 - 17:00"/>
+            <input type = "checkbox" id = "check9" name = "check" value="9"/>
             <label for = "check">16:00 - 17:00</label>
             </div>
             <div>
-            <input type = "checkbox" id = "check10" name = "check" value="17:00 - 18:00"/>
+            <input type = "checkbox" id = "check10" name = "check" value="10"/>
             <label for = "check">17:00 - 18:00</label>
             </div>
             <button onclick="selectIntervals()">Подтвердить</button>
@@ -91,10 +95,16 @@
         <div id = "participants-result" style = "margin-top: 20px;"></div>
         <!-- Стили((((())))) -->
 
-        <form action="{% url 'booking' %}" method="post">
+        <form id="bookingForm" method="post" action="{% url 'booking' %}">
             {% csrf_token %}
-            <input type="submit" value="Submit">
+            <input type="hidden" name="data" id="data" value="{{ filtered_data }}">
+            <input type="hidden" name="place" id="place">
+            <input type="hidden" name="student_ids" id="student_ids">
+            <input type="hidden" name="times" id="times">
+            <button type="submit" id="submitBooking">Подтвердить</button>
         </form>
+
+        
 
     {% else %}
         <h2>Пожалуйста войдите в аккаунт</h2>

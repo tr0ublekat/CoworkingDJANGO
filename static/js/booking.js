@@ -1,3 +1,10 @@
+// функция передачи данных из переменных js в переменные django
+document.getElementById('submitBooking').addEventListener('click', function(event) {
+    document.getElementById('place').value = selectedTable;
+    document.getElementById('student_ids').value = JSON.stringify(participants);
+    document.getElementById('times').value = JSON.stringify(selectedIntervals);
+});
+
 // кнопка открытия окна со схемой
 function showPopup() {
     var popup = document.querySelector(".popup-schema");
@@ -11,8 +18,10 @@ function closePopup() {
 // функция выбора интервалов и последующее закрытие всех всплывающих окон
 function selectIntervals(){
     var checkboxes = document.querySelectorAll(".popup-interval input[type='checkbox']");
-    selectedIntervals = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
-
+    // selectedIntervals = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
+    selectedIntervals = Array.from(checkboxes)
+                                     .filter(checkbox => checkbox.checked)
+                                     .map(checkbox => parseInt(checkbox.value));
     displayResult();
     closePopup1();
     closePopup();
@@ -35,7 +44,8 @@ function addParticipant() {
     var studentId = studentIdInput.value;
     // проверка на пустоту
     if(studentId) {
-       participants.push(studentId);
+       //participants.push(studentId);
+       participants.push(parseInt(studentId));
        studentIdInput.value = "";
        displayParticipants(); 
     }else{
@@ -102,3 +112,5 @@ function closePopup1() {
 // closeButton.addEventListener("click", function() {
 //     popupInterval.style.display = "none";
 // });
+
+

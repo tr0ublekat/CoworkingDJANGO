@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from .managers import CustomUserManager
 
 class CustomUser(AbstractUser):
-    role = models.CharField(max_length=20)
+    role = models.IntegerField()
 
     username = None
     email = None

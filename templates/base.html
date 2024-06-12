@@ -13,7 +13,17 @@
 <body class="container">
     {% if request.user.is_authenticated %}
         <h3><sp> {{ request.user }} </sp></h3>
-        <h4><sp>{{ request.user.last_name }} {{ request.user.first_name }}</sp></h4>
+        <h4>
+            <sp>{{ request.user.last_name }} {{ request.user.first_name }} {{ request.user.middle_name }}</sp>
+            <br>
+            {% if request.user.role == 0 %}
+                <sp>Администратор</sp>
+            {% elif request.user.role == 1 %}
+                <sp>Студент</sp>
+            {% elif request.user.role == 2 %}
+                <sp>Преподаватель</sp>
+            {% endif %}
+        </h4>
         <a href="{% url 'logout' %}">Выйти</a>
 
     {% else %}

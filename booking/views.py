@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect, HttpResponse
-from django.contrib.auth import authenticate, login, logout
-from .models import Book
+from .models import Book, CustomUser
 import json
 
 def booking(request):
@@ -26,12 +25,16 @@ def booking(request):
                 if time:
                     for student_id in student_ids:
                         if student_id:
-                            book = Book()
-                            book.data = data
-                            book.place = place
-                            book.student_id = student_id
-                            book.time = time
-                            book.save()
+                            try:
+                                # Получение экземпляра CustomUser по идентификатору
+                                student = CustomUser.objects.get(student_id=student_id)
+                                # Проверка существования записи перед сохранением
+                                if not Book.objects.filter(data=data, place=place, student_id=student, time=time).exists():
+                                    book = Book(data=data, place=place, student_id=student, time=time)
+                                    book.save()
+                            except CustomUser.DoesNotExist:
+                                # Обработка ошибки, если пользователь не найден
+                                return render(request, 'booking/index.html', {'error': f"Студент с таким номером студ. билета ({student_id}) не существует"})
 
         return redirect("booking")
 
@@ -43,19 +46,3 @@ def filter(request):
         filtered_books = Book.objects.filter(data=filtered_data)
         filtered_times = filtered_books.values_list('time', flat=True)
         return render(request, 'booking/index.html', {'filtered_books': filtered_books, 'filtered_data': filtered_data, 'filtered_times': filtered_times, 'numbers': numbers})
-
-def user_login(request):
-    if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user=user)
-            return redirect('booking')
-        else:
-            return HttpResponse("Incorrect login or password")
-    return render(request, 'booking/login.html')
-
-def user_logout(request):
-    logout(request)
-    return redirect("login")

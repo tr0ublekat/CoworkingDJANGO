@@ -1,0 +1,37 @@
+{%extends "base.html" %}
+
+{%block title%}Вход{%endblock%}
+
+{%block main%}
+<h1>Вход</h1>
+<form action="{% url 'login' %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="email" placeholder="Введите почту"><br><br>
+    <input type="password" name="password" placeholder="Введите пароль"><br><br>
+    <input type="submit" value="Подтвердить">
+</form>
+
+<br><br>
+<h2>
+    Тестовые входные данные
+</h2>
+<h3>
+    Администратор: <br>
+    Почта: admin@mail.ru <br>
+    Пароль: admin <br>
+</h3>
+<br>
+<h3>
+    Студент: <br>
+    Почта: kirill@mail.ru <br>
+    Пароль: student <br>
+</h3>
+<br>
+<h3>
+    Студент: <br>
+    Почта: nikita@mail.ru <br>
+    Пароль: student <br>
+</h3>
+
+
+{%endblock%}

@@ -13,7 +13,10 @@ function showPopup() {
 // кнопка закрытия окна со схемой
 function closePopup() {
     var popup = document.querySelector(".popup-schema");
+    resetCheckboxes();
+    closePopup1();
     popup.style.display = "none";
+    
 }
 // функция выбора интервалов и последующее закрытие всех всплывающих окон
 function selectIntervals(){
@@ -21,7 +24,7 @@ function selectIntervals(){
     // selectedIntervals = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
     selectedIntervals = Array.from(checkboxes)
                                      .filter(checkbox => checkbox.checked)
-                                     .map(checkbox => parseInt(checkbox.value));
+                                     .map(checkbox => checkbox.getAttribute('data-interval'));
     displayResult();
     closePopup1();
     closePopup();
@@ -107,10 +110,17 @@ table_7.addEventListener("click", function(){
 // функция закрытия всплывающего окна интервалов
 function closePopup1() {
     var popup = document.querySelector(".popup-interval");
+    resetCheckboxes();
     popup.style.display = "none";
+    
 }
 // closeButton.addEventListener("click", function() {
 //     popupInterval.style.display = "none";
 // });
+// функция сброса состояния чекбоксов
+function resetCheckboxes() {
+    var checkboxes = document.querySelectorAll(".popup-interval input[type='checkbox']");
+    checkboxes.forEach(checkbox => checkbox.checked = false);
+}
 
 

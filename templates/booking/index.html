@@ -92,6 +92,11 @@
             <button onclick = "addParticipant()">Добавить участника</button>
         </div>
         <!-- Вывод рещультата выбора участников -->
+        <!-- <div id = "current_user" style = "margin-top: 20px;"><p>Добавленные участники:</p>
+            <ul>
+                <li>{{ request.user }} (Вы)</li>
+            </ul>
+        </div> -->
         <div id = "participants-result" style = "margin-top: 20px;"></div>
         <!-- Стили((((())))) -->
 
@@ -103,7 +108,10 @@
             <input type="hidden" name="times" id="times">
             <button type="submit" id="submitBooking">Подтвердить</button>
         </form>
-
+        <script>
+            var currentuser = {{ request.user }};
+            console.log(currentuser);
+        </script>
         
 
     {% else %}
@@ -111,7 +119,7 @@
     {% endif %}
 
 {%endblock%}
-
+        
 {% block scripts %}
     <script src="{% static 'js/booking.js' %}"></script>    
 {% endblock %}

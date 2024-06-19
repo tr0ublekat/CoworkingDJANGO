@@ -94,7 +94,7 @@ function selectTable(TableId){
     var allTables = document.querySelectorAll(".square, .squarex2, .squarex3");
     allTables.forEach(table => table.classList.remove("selected"));
 
-    var selectedTable = document.getElementById(`table_${TableId}`);
+    var selectedTableElement = document.getElementById(`table_${TableId}`);
     selectedTable.classList.add("selected");
 }
 // функции выбора столика

@@ -14,7 +14,7 @@
 
         <form action="{% url 'filter' %}" method="get">
             <!-- {% csrf_token %} -->
-            <input type="date" required name="data" placeholder="Input date" value="{{ filtered_data }}"><br><br>
+            <input type="date" required name="data" id="data" placeholder="Input date" value="{{ filtered_data }}"><br><br>
             <!-- <input type="number" required name="place" placeholder="Input place" value="{{ filtered_place }}"><br><br> -->
             <input type="submit" value="Submit" >
             

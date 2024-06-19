@@ -19,24 +19,60 @@ function closePopup() {
     
 }
 // функция выбора интервалов и последующее закрытие всех всплывающих окон
-function selectIntervals(){
+function selectIntervals() {
     var checkboxes = document.querySelectorAll(".popup-interval input[type='checkbox']");
-    // selectedIntervals = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
     selectedIntervals = Array.from(checkboxes)
-                                     .filter(checkbox => checkbox.checked)
-                                     .map(checkbox => checkbox.getAttribute('data-interval'));
+                             .filter(checkbox => checkbox.checked)
+                             .map(checkbox => parseInt(checkbox.value)); // Используем числовое значение
     displayResult();
     closePopup1();
     closePopup();
 }
 // функция вывода результата столика и интерваов
-function displayResult(){
+function displayResult() {
     var resultElement = document.getElementById("result");
     resultElement.innerHTML = `<p>Выбранный стол: ${selectedTable}</p>
     <p>Выбранные интервалы:</p>
     <ul>
-        ${selectedIntervals.map(interval => `<li>${interval}</li>`).join('')}
-    </ul>`; 
+        ${selectedIntervals.map(interval => {
+            let intervalText = "";
+            switch(interval) {
+                case 1:
+                    intervalText = "8:00 - 9:00";
+                    break;
+                case 2:
+                    intervalText = "9:00 - 10:00";
+                    break;
+                case 3:
+                    intervalText = "10:00 - 11:00";
+                    break;
+                case 4:
+                    intervalText = "11:00 - 12:00";
+                    break;
+                case 5:
+                    intervalText = "12:00 - 13:00";
+                    break;
+                case 6:
+                    intervalText = "13:00 - 14:00";
+                    break;
+                case 7:
+                    intervalText = "14:00 - 15:00";
+                    break;
+                case 8:
+                    intervalText = "15:00 - 16:00";
+                    break;
+                case 9:
+                    intervalText = "16:00 - 17:00";
+                    break;
+                case 10:
+                    intervalText = "17:00 - 18:00";
+                    break;
+                default:
+                    intervalText = "Неизвестный интервал";
+            }
+            return `<li>${intervalText}</li>`;
+        }).join('')}
+    </ul>`;
 }
 // переменная массив участников
 

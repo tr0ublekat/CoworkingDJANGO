@@ -123,15 +123,32 @@ var popupInterval = document.querySelector(".popup-interval");
 var selectedTable = 0;
 // переменная выбранных интервалов
 var selectedIntervals = [];
-function selectTable(TableId){
-    selectedTable = TableId;
+function selectTable(tableId) {
     popupInterval.style.display = "block";
+    selectedTable = tableId;
+    var date = document.querySelector('input[name="data"]').value;
+
+    fetch(`/booking/check-availability/?place=${selectedTable}&data=${date}`)
+        .then(response => response.json())
+        .then(data => {
+            var checkboxes = document.querySelectorAll(".popup-interval input[type='checkbox']");
+            checkboxes.forEach(checkbox => {
+                var intervalValue = checkbox.value; // Получаем числовое значение
+                if (data.occupied_times.includes(parseInt(intervalValue))) {
+                    checkbox.disabled = true;
+                } else {
+                    checkbox.disabled = false;
+                }
+            });
+            popupInterval.style.display = "block";
+        })
+        .catch(error => console.error('Error:', error));
 
     var allTables = document.querySelectorAll(".square, .squarex2, .squarex3");
     allTables.forEach(table => table.classList.remove("selected"));
 
-    var selectedTableElement = document.getElementById(`table_${TableId}`);
-    selectedTable.classList.add("selected");
+    var selectedTableElement = document.getElementById(`table_${tableId}`);
+    selectedTableElement.classList.add("selected");
 }
 // функции выбора столика
 table_1.addEventListener("click", function(){
@@ -169,7 +186,9 @@ function closePopup1() {
 // функция сброса состояния чекбоксов
 function resetCheckboxes() {
     var checkboxes = document.querySelectorAll(".popup-interval input[type='checkbox']");
-    checkboxes.forEach(checkbox => checkbox.checked = false);
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = false;
+        checkbox.disabled = false;
+    });
 }
-
 

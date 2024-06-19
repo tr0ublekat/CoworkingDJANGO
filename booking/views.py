@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
 from .models import Book, CustomUser
+from django.http import JsonResponse
 import json
 
 def booking(request):
@@ -41,8 +42,10 @@ def booking(request):
 def filter(request):
     if request.method == "GET":
         filtered_data = request.GET.get("data")
+        return render(request, 'booking/index.html', {'filtered_data': filtered_data})
 
-        numbers = list(range(1, 11))
-        filtered_books = Book.objects.filter(data=filtered_data)
-        filtered_times = filtered_books.values_list('time', flat=True)
-        return render(request, 'booking/index.html', {'filtered_books': filtered_books, 'filtered_data': filtered_data, 'filtered_times': filtered_times, 'numbers': numbers})
+def check_availability(request):
+    place = request.GET.get('place')
+    data = request.GET.get('data')
+    occupied_times = Book.objects.filter(place=place, data=data).values_list('time', flat=True)
+    return JsonResponse({"occupied_times": list(occupied_times)})

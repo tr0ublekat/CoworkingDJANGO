@@ -14,17 +14,32 @@
     <input type="text" name="last_name" required><br>
     <label for="middle_name">Middle Name:</label>
     <input type="text" name="middle_name" required><br>
-    <label for="student_id">Student ID:</label>
-    <input type="number" name="student_id" required><br>  
     <label for="role">Role:</label>
-    <select name="role">
+    <select name="role" id="role">
         <option value="1">Студент</option>
         <option value="2">Преподаватель</option>
+        <option value="3">Сотрудник</option>
     </select>
+    <div id = "student_id_div">
+        <label for="student_id">Student ID:</label>
+        <input type="number" name="student_id" required><br>
+    </div>
     <label for="password">Password:</label>
     <input type="password" name="password" required><br>
     <button type="submit">Register</button>
 </form>
 
-
 {%endblock%}
+
+{% block scripts %}
+    <script>
+        document.getElementById('role').addEventListener('change', function() {
+        var Student_section = document.getElementById('student_id_div');
+        if (this.value == '2' || this.value == '3') {
+        Student_section.classList.add('hidden');
+        } else {
+        Student_section.classList.remove('hidden');
+        }
+        })
+    </script>
+{% endblock %}

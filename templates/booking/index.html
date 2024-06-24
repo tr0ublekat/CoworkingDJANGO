@@ -12,16 +12,15 @@
             <h2>Ошибка: {{error}}</h2>
         {% endif %}
 
-        <form action="{% url 'filter' %}" method="get">
-            <!-- {% csrf_token %} -->
+        <form id="dateForm" action="{% url 'filter' %}" method="get">
             <input type="date" required name="data" id="data" placeholder="Input date" value="{{ filtered_data }}"><br><br>
-            <!-- <input type="number" required name="place" placeholder="Input place" value="{{ filtered_place }}"><br><br> -->
-            <input type="submit" value="Submit" >
-            
         </form>
+        
         <!-- Кнопка для всплывающего окна с схемой -->
-        <p>Выберите стол: </p>
-        <button onclick = "showPopup()">Выбрать</button>
+        <div id = "table-select" class = "hidden">
+            <p>Выберите стол: </p>
+            <button onclick = "showPopup()">Выбрать</button>
+        </div>
         <!-- Сами элементы всплюывающей схемы -->
         <div class = popup-schema style="display: none;">
             <div class = "schema">
@@ -86,10 +85,11 @@
         <!-- Вывод рещультата выбора столика и интервалов -->
         <div id = "result" style = "margin-top: 20px;"></div>
         <!-- Добавление участников -->
-        <div id = "add-participant">
+        <div id = "add-participant" class = "hidden">
             <label for = "student-id">Введите студ билет студентика:</label>
             <input type = "text" id = "student-id" name = "student-id"/>
             <button onclick = "addParticipant()">Добавить участника</button>
+            <div id = "participants-result" style = "margin-top: 20px;"></div>
         </div>
         <!-- Вывод рещультата выбора участников -->
         <!-- <div id = "current_user" style = "margin-top: 20px;"><p>Добавленные участники:</p>
@@ -97,10 +97,10 @@
                 <li>{{ request.user }} (Вы)</li>
             </ul>
         </div> -->
-        <div id = "participants-result" style = "margin-top: 20px;"></div>
+        
         <!-- Стили((((())))) -->
 
-        <form id="bookingForm" method="post" action="{% url 'booking' %}">
+        <form id="bookingForm" method="post" action="{% url 'booking' %}" class = "hidden">
             {% csrf_token %}
             <input type="hidden" name="data" id="data" value="{{ filtered_data }}">
             <input type="hidden" name="place" id="place">
@@ -108,10 +108,7 @@
             <input type="hidden" name="times" id="times">
             <button type="submit" id="submitBooking">Подтвердить</button>
         </form>
-        <script>
-            var currentuser = {{ request.user }};
-            console.log(currentuser);
-        </script>
+        
         
 
     {% else %}
@@ -121,5 +118,30 @@
 {%endblock%}
         
 {% block scripts %}
-    <script src="{% static 'js/booking.js' %}"></script>    
+    <script async src="{% static 'js/booking.js' %}"></script>    
+    <script async>
+        var currentuser = {{ request.user }};
+        console.log(currentuser);
+        document.addEventListener('DOMContentLoaded', function() {
+        const dateInput = document.getElementById('data');
+        const tableSelect = document.getElementById('table-select');
+        function toggleTableSelect() {
+            if (dateInput.value) {
+                tableSelect.classList.remove('hidden');
+            } else {
+                tableSelect.classList.add('hidden');
+            }
+        }
+
+        // Проверка заполненности даты при загрузке страницы
+        toggleTableSelect();
+
+        //Проверка значения при изменении
+        dateInput.addEventListener('change', function() {
+            document.getElementById('dateForm').submit();
+            toggleTableSelect();
+        });
+    });
+        
+    </script>
 {% endblock %}

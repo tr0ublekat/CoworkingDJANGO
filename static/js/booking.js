@@ -5,6 +5,17 @@ document.getElementById('submitBooking').addEventListener('click', function(even
     document.getElementById('times').value = JSON.stringify(selectedIntervals);
 });
 
+const add_participant = document.getElementById('add-participant');
+const participants_result = document.getElementById('participants-result');
+const confirm_booking = document.getElementById('bookingForm');
+// document.getElementById('date_select').addEventListener('change', function() {
+//     const tableSelect = document.getElementById('table_select');
+//     if (this.value) {
+//         tableSelect.classList.remove('hidden');
+//     } else {
+//         tableSelect.classList.add('hidden');
+//     }
+// });
 // кнопка открытия окна со схемой
 function showPopup() {
     var popup = document.querySelector(".popup-schema");
@@ -27,6 +38,9 @@ function selectIntervals() {
     displayResult();
     closePopup1();
     closePopup();
+    add_participant.classList.remove('hidden');
+    participants_result.classList.remove('hidden');
+    confirm_booking.classList.remove('hidden');
 }
 // функция вывода результата столика и интерваов
 function displayResult() {
@@ -73,6 +87,7 @@ function displayResult() {
             return `<li>${intervalText}</li>`;
         }).join('')}
     </ul>`;
+    
 }
 // переменная массив участников
 

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from .models import Book, CustomUser
 from django.http import JsonResponse
 import json
+from django.db import transaction
 
 def booking(request):
     if request.method == "GET":
@@ -22,20 +23,25 @@ def booking(request):
             return render(request, 'booking/index.html', {'error': e})
 
         if data and place and student_ids and times:
-            for time in times:
-                if time:
-                    for student_id in student_ids:
-                        if student_id:
-                            try:
-                                # Получение экземпляра CustomUser по идентификатору
-                                student = CustomUser.objects.get(student_id=student_id)
-                                # Проверка существования записи перед сохранением
-                                if not Book.objects.filter(data=data, place=place, student_id=student, time=time).exists():
-                                    book = Book(data=data, place=place, student_id=student, time=time)
-                                    book.save()
-                            except CustomUser.DoesNotExist:
-                                # Обработка ошибки, если пользователь не найден
-                                return render(request, 'booking/index.html', {'error': f"Студент с таким номером студ. билета ({student_id}) не существует"})
+            try:
+                with transaction.atomic():
+                    for time in times:
+                        if time:
+                            for student_id in student_ids:
+                                if student_id:
+                                    try:
+                                        # Получение экземпляра CustomUser по идентификатору
+                                        student = CustomUser.objects.get(student_id=student_id)
+                                        # Проверка существования записи перед сохранением
+                                        if not Book.objects.filter(data=data, place=place, student_id=student, time=time).exists():
+                                            book = Book(data=data, place=place, student_id=student, time=time)
+                                            book.save()
+                                    except CustomUser.DoesNotExist:
+                                        # Обработка ошибки, если пользователь не найден
+                                        raise Exception(f"Студент с таким номером студ. билета ({student_id}) не существует")
+            except Exception as e:
+                # Обработка ошибки, если какая-либо операция внутри транзакции не удалась
+                return render(request, 'booking/index.html', {'error': str(e)})
 
         return redirect("booking")
 

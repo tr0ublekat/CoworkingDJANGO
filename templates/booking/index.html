@@ -120,7 +120,7 @@
 {% block scripts %}
     <script async src="{% static 'js/booking.js' %}"></script>    
     <script async>
-        var currentuser = {{ request.user }};
+        var currentuser = {{ request.user.student_id }};
         console.log(currentuser);
         document.addEventListener('DOMContentLoaded', function() {
         const dateInput = document.getElementById('data');

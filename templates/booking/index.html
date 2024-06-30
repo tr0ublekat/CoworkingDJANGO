@@ -6,11 +6,14 @@
 
         <h1 style="text-align: center;">Бронирование мест</h1>
 
-        <!-- {% if request.user.is_authenticated %} -->
+    {% if request.user.is_authenticated %}
 
         {% if error %}
             <h2>Ошибка: {{error}}</h2>
         {% endif %}
+        
+        <div id="map" class="container" style="width: 1200px; height: 600px;"></div>
+        <br><br>
 
         <form id="dateForm" action="{% url 'filter' %}" method="get">
             <input type="date" required name="data" id="data" placeholder="Input date" value="{{ filtered_data }}"><br><br>
@@ -114,7 +117,6 @@
     {% else %}
         <h2>Пожалуйста войдите в аккаунт</h2>
     {% endif %}
-    <div id="map" style="width: 600px; height: 400px;"></div>
 {%endblock%}
         
 {% block scripts %}
@@ -144,34 +146,60 @@
     });
         
     </script>
+
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
     <script type="text/javascript">
+        var selectedMark;
         ymaps.ready(init);
-
+    
         function init() {
             var myMap = new ymaps.Map("map", {
-                center: [55.76, 37.64],
-                zoom: 10
+                center: [56.14, 47.18],
+                zoom: 14
             });
-
+    
+            // Создаем стили для обычной и выбранной меток
+            var defaultOptions = {
+                preset: 'islands#blueDotIcon'
+            };
+            var selectedOptions = {
+                preset: 'islands#greenDotIcon'
+            };
+    
             // Пример метки
-            var myPlacemark = new ymaps.Placemark([55.76, 37.64], {
-                hintContent: 'Москва',
-                balloonContent: 'Столица России'
-            });
-
-            // Добавляем метку на карту
-            myMap.geoObjects.add(myPlacemark);
-
-            // Добавляем событие на метку
-            myPlacemark.events.add('click', function (e) {
-                window.location.href = 'https://example.com';
-            });
+            var placemark1 = new ymaps.Placemark([56.143707, 47.209575], {
+                hintContent: 'ЧГУ им. И.Н. Ульянова (Московский проспект, 29)'
+            }, defaultOptions);
+    
+            var placemark2 = new ymaps.Placemark([56.132504, 47.163134], {
+                hintContent: 'ЧГУ им. И.Н. Ульянова (Университетская, 38)'
+            }, defaultOptions);
+    
+            // Добавляем метки на карту
+            myMap.geoObjects.add(placemark1);
+            myMap.geoObjects.add(placemark2);
+    
+            // Функция для обработки клика на метку
+            function onPlacemarkClick(placemark, markId) {
+                return function (e) {
+                    // Сбрасываем стили всех меток
+                    placemark1.options.set(defaultOptions);
+                    placemark2.options.set(defaultOptions);
+    
+                    // Устанавливаем стиль выбранной метки
+                    placemark.options.set(selectedOptions);
+    
+                    // Устанавливаем значение выбранной метки
+                    selectedMark = markId;
+                };
+            }
+    
+            // Добавляем события на метки
+            placemark1.events.add('click', onPlacemarkClick(placemark1, 1));
+            placemark2.events.add('click', onPlacemarkClick(placemark2, 2));
         }
-        myPlacemark.events.add('click', function (e) {
-            window.location.href = 'https://example.com';
-        });  
     </script>
+    
 
 
 {% endblock %}

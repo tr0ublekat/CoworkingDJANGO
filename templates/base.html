@@ -12,7 +12,7 @@
 </head>
 <body class="container">
     {% if request.user.is_authenticated %}
-        <h3><sp> {{ request.user }} </sp></h3>
+        <h3><sp> {{ request.user.student_id }} </sp></h3>
         <h4>
             <sp>{{ request.user.last_name }} {{ request.user.first_name }} {{ request.user.middle_name }}</sp>
             <br>

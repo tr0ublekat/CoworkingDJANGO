@@ -6,25 +6,33 @@
 
         <h1 style="text-align: center;">Бронирование мест</h1>
 
-        <!-- {% if request.user.is_authenticated %} -->
+    {% if request.user.is_authenticated %}
 
         {% if error %}
             <h2>Ошибка: {{error}}</h2>
         {% endif %}
+        
+        <div id="map" class="container" style="width: 1200px; height: 600px;"></div>
+        <br><br>
+
+        <div id="selected_address">
+            <p>Выбранный адрес: <strong><span id="address_value"></span></strong></p>
+        </div>
 
         <form id="dateForm" action="{% url 'filter' %}" method="get">
             <input type="date" required name="data" id="data" placeholder="Input date" value="{{ filtered_data }}"><br><br>
         </form>
         
-        <!-- Кнопка для всплывающего окна с схемой -->
-        <div id = "table-select" class = "hidden">
-            <p>Выберите стол: </p>
-            <button onclick = "showPopup()">Выбрать</button>
-        </div>
+
+        <!-- <div id = "selected_address">
+            <p>Выбранный адрес:<strong><span id = "address_value>"></strong></span></p>
+        </div> -->
+
+        
         <!-- Сами элементы всплюывающей схемы -->
-        <div class = popup-schema style="display: none;">
+        <div class = popup-schema id = "table-select">
             <div class = "schema">
-                <p>Схема расположения: </p>
+                <p>Выберите стол: </p>
                 <button id="table_1" class = "square" style="background-color: red; position: absolute; top: 10%; right: 5%;"></button>
                 <button id="table_2" class = "square" style="background-color: blue; position: absolute; top: 10%; left: 5%;" ></button>    
                 <button id="table_3" class = "square" style="background-color: green; position: absolute; top: 10%; left: 50%; transform: translateX(-50%);"></button>
@@ -32,13 +40,16 @@
                 <button id="table_5" class = "squarex3" style="background-color: black; position: absolute; top: 45%; left: 5%;"></button>
                 <button id="table_6" class = "squarex3" style="background-color: rgba(238, 15, 212, 0.886); position: absolute; top: 45%; right: 5%;"></button>
                 <button id="table_7" class = "squarex2" style="background-color: rgba(83, 180, 143, 0.886); position: absolute; bottom: 10%; left: 50%; transform: translateX(-50%);"></button>
-                <button onclick = "closePopup()" class = "close-icon" style = "position: absolute; top: 3%; right: 3%;">
+                <!-- <button onclick = "closePopup()" class = "close-icon" style = "position: absolute; top: 3%; right: 3%;">
                     <i >X</i>
-                </button>
+                </button> -->
             </div>
         </div>
+
+
         <!-- Всплывающее окно с интервалами(элементы) -->
         <div class = "popup-interval" style="display: none;">
+            <p>Выберите интервал</p>
             <div>
             <input type = "checkbox" id = "check1" name = "check" value = "1" data-interval = "8:00 - 9:00"/>
             <label for = "check">8:00 - 9:00</label>
@@ -82,8 +93,12 @@
             <button onclick="selectIntervals()">Подтвердить</button>
             <button onclick="closePopup1()">Закрыть</button>
         </div>
+
+
         <!-- Вывод рещультата выбора столика и интервалов -->
         <div id = "result" style = "margin-top: 20px;"></div>
+
+
         <!-- Добавление участников -->
         <div id = "add-participant" class = "hidden">
             <label for = "student-id">Введите студ билет студентика:</label>
@@ -91,6 +106,8 @@
             <button onclick = "addParticipant()">Добавить участника</button>
             <div id = "participants-result" style = "margin-top: 20px;"></div>
         </div>
+
+
         <!-- Вывод рещультата выбора участников -->
         <!-- <div id = "current_user" style = "margin-top: 20px;"><p>Добавленные участники:</p>
             <ul>
@@ -114,22 +131,22 @@
     {% else %}
         <h2>Пожалуйста войдите в аккаунт</h2>
     {% endif %}
-
 {%endblock%}
         
 {% block scripts %}
     <script async src="{% static 'js/booking.js' %}"></script>    
     <script async>
-        var currentuser = {{ request.user }};
-        console.log(currentuser);
+        var currentuser = Number("{{ request.user.student_id|escapejs }}");
         document.addEventListener('DOMContentLoaded', function() {
         const dateInput = document.getElementById('data');
         const tableSelect = document.getElementById('table-select');
         function toggleTableSelect() {
             if (dateInput.value) {
-                tableSelect.classList.remove('hidden');
+                // tableSelect.classList.remove('hidden');
+                document.querySelector('.popup-schema').style.display = 'block';
             } else {
-                tableSelect.classList.add('hidden');
+                // tableSelect.classList.add('hidden');
+                document.querySelector('.popup-schema').style.display = 'none';
             }
         }
 
@@ -144,4 +161,74 @@
     });
         
     </script>
+
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+    <script type="text/javascript">
+        var selectedMark;
+        ymaps.ready(init);
+    
+        function init() {
+            var myMap = new ymaps.Map("map", {
+                center: [56.14, 47.18],
+                zoom: 14
+            });
+    
+            // Создаем стили для обычной и выбранной меток
+            var defaultOptions = {
+                preset: 'islands#blueDotIcon'
+            };
+            var selectedOptions = {
+                preset: 'islands#greenDotIcon'
+            };
+    
+            // Пример метки
+            var placemark1 = new ymaps.Placemark([56.143707, 47.209575], {
+                hintContent: 'ЧГУ им. И.Н. Ульянова (Московский проспект, 29)'
+            }, defaultOptions);
+    
+            var placemark2 = new ymaps.Placemark([56.132504, 47.163134], {
+                hintContent: 'ЧГУ им. И.Н. Ульянова (Университетская, 38)'
+            }, defaultOptions);
+
+            var placemark3 = new ymaps.Placemark([56.143890, 47.211975], {
+                hintContent: 'Общежитие №3 Чгу им. И.Н. Ульянова (Московский проспект, 25)'
+            }, defaultOptions);
+    
+            // Добавляем метки на карту
+            myMap.geoObjects.add(placemark1);
+            myMap.geoObjects.add(placemark2);
+            myMap.geoObjects.add(placemark3);
+    
+            // Функция для обработки клика на метку
+            function onPlacemarkClick(placemark, markId) {
+                return function (e) {
+                    // Сбрасываем стили всех меток
+                    placemark1.options.set(defaultOptions);
+                    placemark2.options.set(defaultOptions);
+                    placemark3.options.set(defaultOptions);
+    
+                    // Устанавливаем стиль выбранной метки
+                    placemark.options.set(selectedOptions);
+    
+                    // Устанавливаем значение выбранной метки
+                    selectedMark = markId;
+
+                    var addressElement = document.getElementById('address_value');
+                    if (addressElement) {
+                        addressElement.innerText = placemark.properties.get('hintContent');
+                    } else {
+                        console.error('Элемент address_value не найден.');
+                    }
+                };
+            }
+    
+            // Добавляем события на метки
+            placemark1.events.add('click', onPlacemarkClick(placemark1, 1));
+            placemark2.events.add('click', onPlacemarkClick(placemark2, 2));
+            placemark3.events.add('click', onPlacemarkClick(placemark3, 3));
+        }
+    </script>
+    
+
+
 {% endblock %}

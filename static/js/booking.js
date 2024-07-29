@@ -8,27 +8,23 @@ document.getElementById('submitBooking').addEventListener('click', function(even
 const add_participant = document.getElementById('add-participant');
 const participants_result = document.getElementById('participants-result');
 const confirm_booking = document.getElementById('bookingForm');
-// document.getElementById('date_select').addEventListener('change', function() {
-//     const tableSelect = document.getElementById('table_select');
-//     if (this.value) {
-//         tableSelect.classList.remove('hidden');
-//     } else {
-//         tableSelect.classList.add('hidden');
-//     }
-// });
+
+
 // кнопка открытия окна со схемой
-function showPopup() {
-    var popup = document.querySelector(".popup-schema");
-    popup.style.display = "block";
-}
-// кнопка закрытия окна со схемой
-function closePopup() {
-    var popup = document.querySelector(".popup-schema");
-    resetCheckboxes();
-    closePopup1();
-    popup.style.display = "none";
+// function showPopup() {
+//     var popup = document.querySelector(".popup-schema");
+//     popup.style.display = "block";
+// }
+// // кнопка закрытия окна со схемой
+// function closePopup() {
+//     var popup = document.querySelector(".popup-schema");
+//     resetCheckboxes();
+//     closePopup1();
+//     popup.style.display = "none";
     
-}
+// }
+
+
 // функция выбора интервалов и последующее закрытие всех всплывающих окон
 function selectIntervals() {
     var checkboxes = document.querySelectorAll(".popup-interval input[type='checkbox']");
@@ -37,11 +33,13 @@ function selectIntervals() {
                              .map(checkbox => parseInt(checkbox.value)); // Используем числовое значение
     displayResult();
     closePopup1();
-    closePopup();
+    //closePopup();
     add_participant.classList.remove('hidden');
     participants_result.classList.remove('hidden');
     confirm_booking.classList.remove('hidden');
 }
+
+
 // функция вывода результата столика и интерваов
 function displayResult() {
     var resultElement = document.getElementById("result");
@@ -89,9 +87,12 @@ function displayResult() {
     </ul>`;
     
 }
-// переменная массив участников
 
+
+// переменная массив участников
 var participants = [currentuser];
+
+
 // функция добавления участника
 function addParticipant() {
     // получение значения из поля ввода
@@ -107,6 +108,8 @@ function addParticipant() {
         alert("Введите студ билет студентика!");
     }
 }
+
+
 // функция вывода участников
 function displayParticipants(){
     var participantsElement = document.getElementById("participants-result");
@@ -121,9 +124,13 @@ function displayParticipants(){
         }).join('')}
     </ul>`;
 }
+
+
 window.onload = function() {
     displayParticipants();
 };
+
+
 // определение переменных под столики
 var table_1 = document.getElementById("table_1");
 var table_2 = document.getElementById("table_2");
@@ -132,10 +139,16 @@ var table_4 = document.getElementById("table_4");
 var table_5 = document.getElementById("table_5");
 var table_6 = document.getElementById("table_6");
 var table_7 = document.getElementById("table_7");
+
+
 // переменная выбора интервалов
 var popupInterval = document.querySelector(".popup-interval");
+
+
 // переменная выбранного столика
 var selectedTable = 0;
+
+
 // переменная выбранных интервалов
 var selectedIntervals = [];
 function selectTable(tableId) {
@@ -155,6 +168,16 @@ function selectTable(tableId) {
                     checkbox.disabled = false;
                 }
             });
+            // Позиционирование всплывающего окна
+            var selectedTableElement = document.getElementById(`table_${tableId}`);
+            var rect = selectedTableElement.getBoundingClientRect();
+            // Расчет процентов
+            var topPercent = ((rect.top + window.scrollY - popupInterval.offsetHeight) / window.innerHeight) * 100;
+            var leftPercent = ((rect.left + window.scrollX + (selectedTableElement.offsetWidth - popupInterval.offsetWidth) / 2) / window.innerWidth) * 100;
+
+            // Установка координат всплывающего окна
+            popupInterval.style.top = topPercent + 20 + '%';
+            popupInterval.style.left = leftPercent + '%';
             popupInterval.style.display = "block";
         })
         .catch(error => console.error('Error:', error));
@@ -165,6 +188,8 @@ function selectTable(tableId) {
     var selectedTableElement = document.getElementById(`table_${tableId}`);
     selectedTableElement.classList.add("selected");
 }
+
+
 // функции выбора столика
 table_1.addEventListener("click", function(){
     selectTable(1);
@@ -188,6 +213,8 @@ table_7.addEventListener("click", function(){
     selectTable(7);
 });
 //var closeButton = document.querySelector(".popup button");
+
+
 // функция закрытия всплывающего окна интервалов
 function closePopup1() {
     var popup = document.querySelector(".popup-interval");
@@ -198,6 +225,8 @@ function closePopup1() {
 // closeButton.addEventListener("click", function() {
 //     popupInterval.style.display = "none";
 // });
+
+
 // функция сброса состояния чекбоксов
 function resetCheckboxes() {
     var checkboxes = document.querySelectorAll(".popup-interval input[type='checkbox']");

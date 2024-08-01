@@ -9,7 +9,7 @@ def user_login(request):
         user = authenticate(request, email=email, password=password)
         if user is not None:
             login(request, user=user)
-            return redirect('booking')
+            return redirect('booking-v2')
         else:
             return HttpResponse("Incorrect login or password")
     return render(request, 'user/login.html')
@@ -44,5 +44,5 @@ def user_register(request):
 
         # Automatically log the user in and redirect to the booking page
         login(request, user)
-        return redirect('booking')
+        return redirect('booking-v2')
     return render(request, 'user/register.html')

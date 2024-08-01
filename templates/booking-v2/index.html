@@ -1,0 +1,25 @@
+{%extends "base.html"%}
+
+
+{% load static %}
+
+
+{%block title%}Бронирование 2{%endblock%}
+
+
+{%block main%}
+{% if request.user.is_authenticated %}
+
+    <div>
+        <h1>test</h1>
+    </div>
+
+{% else %}
+        <h2>Пожалуйста войдите в аккаунт</h2>
+{% endif %}
+{%endblock%}
+
+
+{% block scripts %}
+
+{% endblock %}

@@ -11,30 +11,39 @@
     </title>
 </head>
 <body class="container">
-    {% if request.user.is_authenticated %}
-        <h3><sp> {{ request.user.student_id }} </sp></h3>
-        <h4>
-            <sp>{{ request.user.last_name }} {{ request.user.first_name }} {{ request.user.middle_name }}</sp>
-            <br>
-            {% if request.user.role == 0 %}
-                <sp>Администратор</sp>
-            {% elif request.user.role == 1 %}
-                <sp>Студент</sp>
-            {% elif request.user.role == 2 %}
-                <sp>Преподаватель</sp>
+    <div>
+        <header class="d-flex justify-content-center py-3">
+          <ul class="nav nav-pills">
+            {% if request.user.is_authenticated %}
+                <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Главная</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">{{ request.user.student_id }} ({{ request.user.first_name }} {{ request.user.last_name }})</a></li>
+                <li class="nav-item">
+                    {% if request.user.role == 0 %}
+                        <span class="navbar-text">Администратор </span>
+                    {% elif request.user.role == 1 %}
+                        <li class="navbar-text">Студент </li>
+                    {% elif request.user.role == 2 %}
+                        <span class="navbar-text">Преподаватель </span>
+                    {% endif %}
+                </li>
+                <li class="nav-item"> <a class="btn btn-danger" href="{% url 'logout' %}" id="logout"> Выйти</a></li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="btn btn-primary" href="{% url 'login' %}">Вход</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-secondary" href="{% url 'register' %}">Регистрация</a>
+                </li>
             {% endif %}
-        </h4>
-        <a href="{% url 'logout' %}" id = "logout">Выйти</a>
+          </ul>
+        </header>
+    </div>
 
-    {% else %}
-
-        <a href="{% url 'login' %}">Вход</a>
-        <a href="{% url 'register' %}">Регистрация</a>
-
-    {% endif %}
-
-    {%block main%}{%endblock%}
+    <div class="container mt-4">
+        {% block main %}{% endblock %}
+    </div>
 
     {% block scripts%}{% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -138,9 +138,22 @@
     <script async>
         var currentuser = Number("{{ request.user.student_id|escapejs }}");
         document.addEventListener('DOMContentLoaded', function() {
-            var logout = document.getElementById('logout');
+            const logout = document.getElementById('logout');
             const dateInput = document.getElementById('data');
             const tableSelect = document.getElementById('table-select');
+
+            function saveDataToLocalStorage() {
+                localStorage.setItem('selectedDate', dateInput.value);
+            }
+
+            function loadDataFromLocalStorage() {
+                const savedDate = localStorage.getItem('selectedDate');
+                if (savedDate) {
+                    dateInput.value = savedDate;
+                }
+                toggleTableSelect();
+            }
+
             function toggleTableSelect() {
                 if (dateInput.value) {
                     // tableSelect.classList.remove('hidden');
@@ -151,11 +164,14 @@
                 }
             }
 
+            loadDataFromLocalStorage();
+
             // Проверка заполненности даты при загрузке страницы
             toggleTableSelect();
 
             //Проверка значения при изменении
             dateInput.addEventListener('change', function() {
+                saveDataToLocalStorage();
                 document.getElementById('dateForm').submit();
                 toggleTableSelect();
             });

@@ -138,27 +138,36 @@
     <script async>
         var currentuser = Number("{{ request.user.student_id|escapejs }}");
         document.addEventListener('DOMContentLoaded', function() {
-        const dateInput = document.getElementById('data');
-        const tableSelect = document.getElementById('table-select');
-        function toggleTableSelect() {
-            if (dateInput.value) {
-                // tableSelect.classList.remove('hidden');
-                document.querySelector('.popup-schema').style.display = 'block';
-            } else {
-                // tableSelect.classList.add('hidden');
-                document.querySelector('.popup-schema').style.display = 'none';
+            var logout = document.getElementById('logout');
+            const dateInput = document.getElementById('data');
+            const tableSelect = document.getElementById('table-select');
+            function toggleTableSelect() {
+                if (dateInput.value) {
+                    // tableSelect.classList.remove('hidden');
+                    document.querySelector('.popup-schema').style.display = 'block';
+                } else {
+                    // tableSelect.classList.add('hidden');
+                    document.querySelector('.popup-schema').style.display = 'none';
+                }
             }
-        }
 
-        // Проверка заполненности даты при загрузке страницы
-        toggleTableSelect();
-
-        //Проверка значения при изменении
-        dateInput.addEventListener('change', function() {
-            document.getElementById('dateForm').submit();
+            // Проверка заполненности даты при загрузке страницы
             toggleTableSelect();
+
+            //Проверка значения при изменении
+            dateInput.addEventListener('change', function() {
+                document.getElementById('dateForm').submit();
+                toggleTableSelect();
+            });
+
+            function clearLocalStorage() {
+                localStorage.clear();
+            }
+
+            if (logout){
+                logout.addEventListener('click', clearLocalStorage)
+            }
         });
-    });
         
     </script>
 
@@ -219,6 +228,11 @@
                     } else {
                         console.error('Элемент address_value не найден.');
                     }
+
+                    localStorage.setItem('selectedMark', JSON.stringify({
+                        id: markId,
+                        hintContent: placemark.properties.get('hintContent')
+                    }))
                 };
             }
     
@@ -226,7 +240,18 @@
             placemark1.events.add('click', onPlacemarkClick(placemark1, 1));
             placemark2.events.add('click', onPlacemarkClick(placemark2, 2));
             placemark3.events.add('click', onPlacemarkClick(placemark3, 3));
+
+            var savedMark = localStorage.getItem('selectedMark');
+            if(savedMark) {
+                var savedData = JSON.parse(savedMark);
+                if (savedData.id === 1) onPlacemarkClick(placemark1, 1)();
+                if (savedData.id === 2) onPlacemarkClick(placemark2, 2)();
+                if (savedData.id === 3) onPlacemarkClick(placemark3, 3)();
+
+                document.getElementById('address_value').innerText = savedData.hintContent
+            }
         }
+
     </script>
     
 

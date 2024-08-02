@@ -19,9 +19,9 @@ from django.urls import path, include
 from django.views.generic.base import RedirectView
 
 urlpatterns = [
-    path('', RedirectView.as_view(url='booking-v2/', permanent=True)),
+    path('', RedirectView.as_view(url='booking/v2/', permanent=True)),
     path('admin/', admin.site.urls),
     path('booking/', include('booking.urls')),
-    path('booking-v2/', include('api.urls')),
+    path('api/', include('api.urls')),
     path('user/', include('users.urls')),
 ]

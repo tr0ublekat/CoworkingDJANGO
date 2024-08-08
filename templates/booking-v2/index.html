@@ -8,10 +8,38 @@
 
 
 {%block main%}
+    <h1 style="text-align: center;">Бронирование мест</h1>
+
 {% if request.user.is_authenticated %}
 
-    <div>
-        <h1>test</h1>
+    {% if error %}
+    <h2>Ошибка: {{error}}</h2>
+    {% endif %}
+
+    <div id="map" class="container" style="width: 1200px; height: 600px;"></div>
+    <br><br>
+
+    <div id="selected_address">
+        <p>Выбранный адрес: <strong><span id="address_value"></span></strong></p>
+    </div>
+
+    <div id = "rooms-container" class = "container mt-4"></div><br><br>
+
+    <form id="dateForm">
+        <input type="date" required name="data" id="data" placeholder="Input date"><br><br>
+    </form>
+
+    <div class = popup-schema id = "table-select">
+        <div class = "schema">
+            <p>Выберите стол: </p>
+            <button id="table_1" class = "square" style="background-color: red; position: absolute; top: 10%; right: 5%;"></button>
+            <button id="table_2" class = "square" style="background-color: blue; position: absolute; top: 10%; left: 5%;" ></button>    
+            <button id="table_3" class = "square" style="background-color: green; position: absolute; top: 10%; left: 50%; transform: translateX(-50%);"></button>
+            <button id="table_4" class = "square" style="background-color: yellow; position: absolute; top: 45%; left: 50%; transform: translateX(-50%);"></button>
+            <button id="table_5" class = "squarex3" style="background-color: black; position: absolute; top: 45%; left: 5%;"></button>
+            <button id="table_6" class = "squarex3" style="background-color: rgba(238, 15, 212, 0.886); position: absolute; top: 45%; right: 5%;"></button>
+            <button id="table_7" class = "squarex2" style="background-color: rgba(83, 180, 143, 0.886); position: absolute; bottom: 10%; left: 50%; transform: translateX(-50%);"></button>
+        </div>
     </div>
 
 {% else %}
@@ -21,5 +49,204 @@
 
 
 {% block scripts %}
+    <script>
+        var rooms = []
+        async function fetchRooms(institutionId) {
+            try {
+                const response = await fetch('http://127.0.0.1:8000/api/rooms/')
+                rooms = await response.json()
+                displayRooms(rooms,institutionId)
+            } catch (error) {
+                console.error(error)
+            }
+        }
 
+        var institutions = []
+        async function fetchInstitutions() {
+            try {
+                const response = await fetch('http://127.0.0.1:8000/api/institutions/')
+                institutions = await response.json()
+            } catch (error) {
+                console.error(error)
+            }
+        }
+
+        async function fetchIntervals(institutionId, roomNumber, date, tableId) {
+            try{
+                
+            }catch (error) {
+                console.error(error)
+            }
+        }
+    </script>
+    <script async>
+        const dateInput = document.getElementById('data');
+        //const tableSelect = document.getElementById('table-select');
+
+        function displayRooms(rooms, institutionId) {
+            const container = document.getElementById('rooms-container');
+            container.innerHTML = '';
+
+            const filteredRooms = rooms.filter(room => room.institution === institutionId);
+
+            filteredRooms.forEach(room => {
+                const institution = institutions.find(inst => inst.id === room.institution);
+
+                if (!institution) {
+                    console.warn(`Institution with ID ${room.institution} not found.`);
+                    return; // Пропускаем этот room, если institution не найден
+                }
+
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.style.width = '15rem';
+                card.innerHTML = `
+                    <img src="..." class="card-img-top" alt="${'Image'}">
+                    <div class="card-body">
+                        <h5 class="card-title">${room.number || 'Card title'}</h5>
+                        <p class="card-text">${institution.name || 'Institution name'} (${institution.address || 'Address'})</p>
+                        <button onclick="selectRoom(${room.number})" class="btn btn-primary">Выбрать</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function selectRoom(roomNumber) {
+            if (roomNumber) {
+                localStorage.setItem('selectedRoomNumber', roomNumber);
+            }
+        }
+
+        window.addEventListener('load', function() {
+            const savedRoomNumber = localStorage.getItem('selectedRoomNumber')
+        });
+
+        function saveDataToLocalStorage() {
+            localStorage.setItem('selectedDate', dateInput.value);
+        }
+
+        function loadDataFromLocalStorage() {
+            const savedDate = localStorage.getItem('selectedDate');
+            if (savedDate) {
+                dateInput.value = savedDate;
+           }
+            toggleTableSelect();
+        }
+
+        function toggleTableSelect() {
+            if (dateInput.value) {
+                // tableSelect.classList.remove('hidden');
+                document.querySelector('.popup-schema').style.display = 'block';
+            } else {
+                // tableSelect.classList.add('hidden');
+               document.querySelector('.popup-schema').style.display = 'none';
+           }
+        }
+
+        loadDataFromLocalStorage();
+
+        // Проверка заполненности даты при загрузке страницы
+        toggleTableSelect();
+
+        //Проверка значения при изменении
+        dateInput.addEventListener('change', function() {
+            saveDataToLocalStorage();
+            // document.getElementById('dateForm').submit();
+            toggleTableSelect();
+        });
+        function clearLocalStorage() {
+                localStorage.clear();
+            }
+
+        if (logout){
+            logout.addEventListener('click', clearLocalStorage)
+        }
+    </script>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+    <script type="text/javascript">
+        var selectedMark;
+        ymaps.ready(init);
+    
+        function init() {
+            var myMap = new ymaps.Map("map", {
+                center: [56.14, 47.18],
+                zoom: 14
+            });
+    
+            // Создаем стили для обычной и выбранной меток
+            var defaultOptions = {
+                preset: 'islands#blueDotIcon'
+            };
+            var selectedOptions = {
+                preset: 'islands#greenDotIcon'
+            };
+    
+            // Пример метки
+            var placemark1 = new ymaps.Placemark([56.143890, 47.211975], {
+                hintContent: 'Общежитие №3 Чгу им. И.Н. Ульянова (Московский проспект, 25)'
+            }, defaultOptions);
+
+            var placemark2 = new ymaps.Placemark([56.143707, 47.209575], {
+                hintContent: 'ЧГУ им. И.Н. Ульянова (Московский проспект, 29)'
+            }, defaultOptions);
+    
+            var placemark3 = new ymaps.Placemark([56.132504, 47.163134], {
+                hintContent: 'ЧГУ им. И.Н. Ульянова (Университетская, 38)'
+            }, defaultOptions);
+
+            // Добавляем метки на карту
+            myMap.geoObjects.add(placemark1);
+            myMap.geoObjects.add(placemark2);
+            myMap.geoObjects.add(placemark3);
+    
+            // Функция для обработки клика на метку
+            function onPlacemarkClick(placemark, markId) {
+                return async function (e) {
+                    // Сбрасываем стили всех меток
+                    placemark1.options.set(defaultOptions);
+                    placemark2.options.set(defaultOptions);
+                    placemark3.options.set(defaultOptions);
+    
+                    // Устанавливаем стиль выбранной метки
+                    placemark.options.set(selectedOptions);
+    
+                    // Устанавливаем значение выбранной метки
+                    selectedMark = markId;
+
+                    var addressElement = document.getElementById('address_value');
+                    if (addressElement) {
+                        addressElement.innerText = placemark.properties.get('hintContent');
+                    } else {
+                        console.error('Элемент address_value не найден.');
+                    }
+
+                    localStorage.setItem('selectedMark', JSON.stringify({
+                        id: markId,
+                        hintContent: placemark.properties.get('hintContent')
+                    }))
+
+                    await fetchInstitutions();
+
+                    await fetchRooms(markId);
+                };
+            }
+    
+            // Добавляем события на метки
+            placemark1.events.add('click', onPlacemarkClick(placemark1, 1));
+            placemark2.events.add('click', onPlacemarkClick(placemark2, 2));
+            placemark3.events.add('click', onPlacemarkClick(placemark3, 3));
+
+            var savedMark = localStorage.getItem('selectedMark');
+            if(savedMark) {
+                var savedData = JSON.parse(savedMark);
+                if (savedData.id === 1) onPlacemarkClick(placemark1, 1)();
+                if (savedData.id === 2) onPlacemarkClick(placemark2, 2)();
+                if (savedData.id === 3) onPlacemarkClick(placemark3, 3)();
+
+                document.getElementById('address_value').innerText = savedData.hintContent
+            }
+        }
+
+    </script>
 {% endblock %}

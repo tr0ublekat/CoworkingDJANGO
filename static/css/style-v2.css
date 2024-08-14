@@ -55,8 +55,8 @@
     top:30%;
     left:50%;
     transform: translate(-50%,-50%);
-    width: 20%;
-    height: 40%;
+    width: 12%;
+    height: 35%;
     background: #fff;
     border-radius: 10px;
     border: 1px solid black;
@@ -78,4 +78,8 @@
 
 .squarex3.selected {
     border: 4px solid rgb(1, 191, 255);
+}
+
+.hidden{
+    display: none;
 }

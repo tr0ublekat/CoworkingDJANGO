@@ -89,6 +89,25 @@ def booking(request):
     else:
         return JsonResponse({'error': 'Разрешен только POST запрос'}, status=405)
 
+
+@csrf_exempt
+def available_student(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            student_id = data.get('student_id')
+            
+            try:
+                student = CustomUser.objects.get(student_id=student_id)
+                return JsonResponse({'available-student': 'true'}, status=200)
+            except:
+                return JsonResponse({'available-student': 'false'}, status=404)
+            
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+    else:
+        pass
+
 class InstitutionView(viewsets.ModelViewSet):
     queryset = Institution.objects.all()
     serializer_class = InstitutionSerializer

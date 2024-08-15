@@ -25,36 +25,69 @@ from django.views.decorators.http import require_POST
 import json
 
 @csrf_exempt
-@require_POST
 def available_times(request):
-    try:
-        data = json.loads(request.body)
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
 
-        room_id = data.get('room_id')
-        date = data.get('date')
-        place = data.get('place')
+            room_id = data.get('room_id')
+            date = data.get('date')
+            place = data.get('place')
 
-        if not room_id or not date or not place:
-            return JsonResponse({'error': 'Пропущены параметры JSON'}, status=400)
+            if not room_id or not date or not place:
+                return JsonResponse({'error': 'Пропущены параметры JSON'}, status=400)
 
-        availability = [False] * 10
+            availability = [False] * 10
 
-        bookings = Book.objects.filter(room_id=room_id, date=date, place=place)
+            bookings = Book.objects.filter(room_id=room_id, date=date, place=place)
 
-        for booking in bookings:
-            if 1 <= booking.time <= 10:
-                availability[booking.time - 1] = True
+            for booking in bookings:
+                if 1 <= booking.time <= 10:
+                    availability[booking.time - 1] = True
 
-        return JsonResponse({'available-times': availability}, status=200)
+            return JsonResponse({'available-times': availability}, status=200)
 
-    except json.JSONDecodeError:
-        return JsonResponse({'error': 'Неверный JSON'}, status=400)
-
-    except Exception as e:
-        return JsonResponse({'error': str(e)}, status=500)
-
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+    else:
+        return JsonResponse({'error': 'Разрешен только POST запрос'}, status=405)
 
 
+from django.db import transaction
+
+@csrf_exempt
+def booking(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            date = data.get('date')
+            place = data.get('place')
+            times = data.get('times', [])
+            room_id = data.get('room_id')
+            student_ids = data.get('student_ids', [])
+
+            if not (date or place or times or room_id or student_ids):
+                return JsonResponse({'error': 'Пропущены параметры JSON'}, status=400)
+            
+            try:
+                with transaction.atomic():
+                    for time in times:
+                        for studentID in student_ids:
+                            student = CustomUser.objects.get(student_id=studentID).pk
+                            if not Book.objects.filter(date=date, place=place, student_id=student, time=time, room_id=room_id).exists():
+                                book = Book(date=date, place=place, student_id=student, time=time, room_id=room_id)
+                                book.save()
+                            else:
+                                return JsonResponse({'error': 'Место уже забронировано на данное время'}, status=500)
+                return JsonResponse({'message': 'Место успешно забронировано'}, status=201)
+            
+            except Exception as e:
+                return JsonResponse({'error': str(e)}, status=500)
+
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+    else:
+        return JsonResponse({'error': 'Разрешен только POST запрос'}, status=405)
 
 class InstitutionView(viewsets.ModelViewSet):
     queryset = Institution.objects.all()

@@ -97,9 +97,9 @@
         <div id = "participants-result" style = "margin-top: 20px;"></div>
     </div>
 
-    <div id="bookingForm" class = "hidden">
-        {% csrf_token %}
-        <button type = "submit" id = "submitBooking">Подтвердить</button>
+    <div id = "bookingForm" class = "hidden">
+        <!-- {% csrf_token %} -->
+        <button id = "submitBooking">Подтвердить бронирование</button>
     </div>
     
 {% else %}
@@ -122,6 +122,10 @@
     const add_participant = document.getElementById('add-participant');
     const participants_result = document.getElementById('participants-result');
     const confirm_booking = document.getElementById('bookingForm');
+    const addedStudents = new Set();
+    addedStudents.add(currentuser);
+    // переменная массив участников
+    var participants = [currentuser];
 
     async function fetchRooms(institutionId) {
         try {
@@ -165,59 +169,57 @@
     }
 
     async function fetchUsers(studentId) {
-        try{
-            const response = await fetch('http://127.0.0.1:8000/api/users/')
-            const data = await response.json();
-            const exists = data.some(student => student.student_id === parseInt(studentId));
-            console.log('Received data:', data);
-            if (exists) {
-                return true;
-            } else {
-                alert("Студент с таким билетом не зарегистрирован. Пожалуйста зарегистрируйтесь.");
-                return false;
+        try {
+            const response = await fetch('http://127.0.0.1:8000/api/available-student/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    student_id: studentId
+                })
+            });
+            
+            // Проверьте статус ответа и содержимое
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
             }
-        }catch(error){
-            console.error(error);
+            
+            const data = await response.json();
+            console.log('Received data:', data);
+            
+            return data;
+        } catch (error) {
+            console.error('Error fetching users:', error);
+            return {}; // Верните пустой объект в случае ошибки
         }
     }
 
-    // const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    // csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
     async function fetchBooking(date, tableId, intervals, studentId, room_id) {
         try {
-            // Функция для отправки одного запроса
-            const sendBookingRequest = async (interval) => {
-                const response = await fetch('http://127.0.0.1:8000/api/bookings/', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        // 'X-CSRFToken': csrfToken
-                    },
-                    body: JSON.stringify({
-                        date: date,
-                        place: tableId,
-                        time: interval,
-                        student: studentId,
-                        room: room_id
-                    })
-                });
+            const response = await fetch('http://127.0.0.1:8000/api/book/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // 'X-CSRFToken': csrfToken
+                },
+                body: JSON.stringify({
+                    date: date,
+                    place: tableId,
+                    times: intervals,  // Отправляем массив интервалов
+                    room_id: room_id,
+                    student_ids: participants,
+                })
+            });
 
-                const data = await response.json();
-                if (!response.ok) {
-                    throw new Error('Error in booking: ' + JSON.stringify(data));
-                }
-
-                return data;
-            };
-
-            // Отправляем запрос для каждого интервала
-            const results = [];
-            for (const interval of intervals) {
-                const result = await sendBookingRequest(interval);
-                results.push(result);
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error('Error in booking: ' + JSON.stringify(data));
             }
 
-            console.log('Booking results:', results);
+            console.log('Booking result:', data);
 
         } catch (error) {
             console.error('Booking error:', error);
@@ -273,7 +275,7 @@
                 checkbox.parentElement.style.display = 'block'; 
             } else {
                 checkbox.disabled = true;
-                checkbox.parentElement.style.display = 'none'; 
+                checkbox.parentElement.style.display = 'checked'; 
             }
         });
 
@@ -286,12 +288,12 @@
         const checkboxes = document.querySelectorAll('.popup-interval input[type="checkbox"]:checked');
 
         checkboxes.forEach(checkbox => {
-            selectedIntervals.push(checkbox.value); 
+            selectedIntervals.push(Number(checkbox.value)); 
         });
 
         console.log('Selected intervals:', selectedIntervals); 
 
-        localStorage.setItem('selectedTable', selectedTable);
+        localStorage.setItem('selectedTable', Number(selectedTable));
         localStorage.setItem('selectedIntervals', JSON.stringify(selectedIntervals));
 
         displayResult(); 
@@ -311,34 +313,34 @@
             ${selectedIntervals.map(interval => {
                 let intervalText = "";
                 switch(interval) {
-                    case "1":
+                    case 1:
                         intervalText = "8:00 - 9:00";
                         break;
-                    case "2":
+                    case 2:
                         intervalText = "9:00 - 10:00";
                         break;
-                    case "3":
+                    case 3:
                         intervalText = "10:00 - 11:00";
                         break;
-                    case "4":
+                    case 4:
                         intervalText = "11:00 - 12:00";
                         break;
-                    case "5":
+                    case 5:
                         intervalText = "12:00 - 13:00";
                         break;
-                    case "6":
+                    case 6:
                         intervalText = "13:00 - 14:00";
                         break;
-                    case "7":
+                    case 7:
                         intervalText = "14:00 - 15:00";
                         break;
-                    case "8":
+                    case 8:
                         intervalText = "15:00 - 16:00";
                         break;
-                    case "9":
+                    case 9:
                         intervalText = "16:00 - 17:00";
                         break;
-                    case "10":
+                    case 10:
                         intervalText = "17:00 - 18:00";
                         break;
                     default:
@@ -362,8 +364,6 @@
         });
     }
 
-    // переменная массив участников
-    var participants = [currentuser];
 
 
     // функция добавления участника
@@ -371,18 +371,30 @@
         var studentIdInput = document.getElementById("student-id");
         var studentId = studentIdInput.value.trim();
 
-        if(studentId) {
-            const validStudentId = await fetchUsers(studentId);
-            if(validStudentId) {
-                participants.push(parseInt(studentId));
-                studentIdInput.value = "";
-                displayParticipants(); 
+        if (studentId) {
+            if(addedStudents.has(Number(studentId))){
+                alert("Участник уже добавлен.");
+                return;
             }
-        }else{
-            alert("Введите студ билет студентика!");
+            try {
+                const validStudentIdResponse = await fetchUsers(studentId);
+                
+                // Проверьте, что ответ существует и имеет нужное свойство
+                if (validStudentIdResponse && validStudentIdResponse['available-student'] === "true") {
+                    participants.push(parseInt(studentId));
+                    addedStudents.add(Number(studentId));
+                    studentIdInput.value = "";
+                    displayParticipants();
+                } else {
+                    alert("Студент не найден.");
+                }
+            } catch (error) {
+                console.error('Error fetching student validation:', error);
+            }
+        } else {
+            alert("Введите студенческий билет!");
         }
     }
-
 
     // функция вывода участников
     function displayParticipants(){
@@ -534,10 +546,10 @@
         event.preventDefault();  // Предотвращаем стандартное поведение кнопки отправки формы
 
         const date = document.getElementById('data').value;
-        const tableId = selectedTable;
-        const interval = selectedIntervals.join(','); // Преобразуйте выбранные интервалы в строку
-        const studentId = participants[0]; // Пример, используйте первый элемент как основной
-        const room_id = localStorage.getItem('selectedRoomId');
+        const tableId = Number(localStorage.getItem('selectedTable'));
+        const interval = selectedIntervals; 
+        const studentId = participants; 
+        const room_id = Number(localStorage.getItem('selectedRoomId'));
 
         // Проверяем, что все необходимые данные присутствуют
         if (date && tableId && interval && studentId && room_id) {

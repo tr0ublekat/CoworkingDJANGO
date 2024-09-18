@@ -12,12 +12,15 @@
     {% if error %}
     <h2>Ошибка: {{ error }}</h2>
     {% endif %}
-
-    <div id="map" class="container" style="width: 1200px; height: 600px;"></div>
+    <div class="back">
+        <h1 style="text-align: left;">Карта</h1>
+        <div id="map" class="container" style="width: 100%; height: 600px;"></div>
+    </div>
     <br><br>
 
-    <div id="selected_address">
-        <p>Выбранный адрес: <strong><span id="address_value"></span></strong></p>
+    <div id="selected_address" class="back" style="background-color: rgb(235, 234, 234); border-radius: 5px;">
+        <p>Выбранный адрес</p>
+        <strong><span id="address_value"></span></strong>
     </div>
 
     <div id="rooms-container" class="container mt-4"></div><br><br>
@@ -26,8 +29,8 @@
         <input type="date" required name="data" id="data" placeholder="Input date"><br><br>
     </form>
 
-    <div class="popup-schema" id="table-select">
-        <div class="schema">
+    <div  id="table-select">
+        <!-- <div class="schema">
             <p>Выберите стол: </p>
             <button table_id="1" id = "table_1" class="square" style="background-color: red; position: absolute; top: 10%; right: 5%;"></button>
             <button table_id="2" id = "table_2" class="square" style="background-color: blue; position: absolute; top: 10%; left: 5%;" ></button>    
@@ -36,7 +39,7 @@
             <button table_id="5" id = "table_5" class="squarex3" style="background-color: black; position: absolute; top: 45%; left: 5%;"></button>
             <button table_id="6" id = "table_6" class="squarex3" style="background-color: rgba(238, 15, 212, 0.886); position: absolute; top: 45%; right: 5%;"></button>
             <button table_id="7" id = "table_7" class="squarex2" style="background-color: rgba(83, 180, 143, 0.886); position: absolute; bottom: 10%; left: 50%; transform: translateX(-50%);"></button>
-        </div>
+        </div> -->
     </div>
 
      <!-- Всплывающее окно с интервалами(элементы) -->
@@ -126,6 +129,91 @@
     addedStudents.add(currentuser);
     // переменная массив участников
     var participants = [currentuser];
+
+    const roomSchemes = {
+        '1_1' : `
+        <div class="container"style="font-size: 100%; background-color: rgb(255, 255, 255); height: 400px; width: 100%; border-radius: 10px; border: 5px solid rgb(235, 234, 234);">
+            <div class="scheme" style="position: relative !important; width: 100%; height: 100%;">
+                <!-- Столы -->
+                <button style="background: transparent; border: none; position: absolute; left: 0%; top: 0%;" table_id="1" id="table_1">
+                    <i class="bi bi-2-circle-fill" style="font-size: 365%; color: #ffcc33;"></i>
+                </button>
+                <button style="background: transparent; border: none; position: absolute; left: 15%; top: 0%;" table_id="2" id="table_2">
+                    <i class="bi bi-2-circle-fill" style="font-size: 365%; color: #ffcc33;"></i>
+                </button>
+                <button style="background: transparent; border: none; position: absolute; left: 30%; top: 0%;" table_id="3" id="table_3">
+                    <i class="bi bi-2-circle-fill" style="font-size: 365%; color: #ffcc33;"></i>
+                </button>
+
+                <button style="background: transparent; border: none; position: absolute; left: 0%; top: 25%;" table_id="4" id="table_4">
+                    <i class="bi bi-2-circle-fill" style="font-size: 365%; color: #ffcc33;"></i>
+                </button>
+                <button style="background: transparent; border: none; position: absolute; left: 15%; top: 25%;" table_id="5" id="table_5">
+                    <i class="bi bi-2-circle-fill" style="font-size: 365%; color: #ffcc33;"></i>
+                </button>
+                <button style="background: transparent; border: none; position: absolute; left: 30%; top: 25%;" table_id="6" id="table_6">
+                    <i class="bi bi-2-circle-fill" style="font-size: 365%; color: #ffcc33;"></i>
+                </button>
+
+                <!-- Линии -->
+                <div style="background-color: rgb(235, 234, 234); width: 46%; height: 2%; position: absolute; left: -1%; top: 60%;"></div>
+                <div style="background-color: rgb(235, 234, 234); width: 1%; height: 40%; position: absolute; left: 45%; top: -1%; border-radius: 5px;"></div>
+                <div style="background-color: rgb(235, 234, 234); width: 1%; height: 20%; position: absolute; left: 45%; top: 50%; border-radius: 5px;"></div>
+                <div style="background-color: rgb(235, 234, 234); width: 1%; height: 21%; position: absolute; left: 45%; top: 80%; border-radius: 5px;"></div>
+
+                <!-- Столы -->
+                <button style="background: transparent; border: none; position: absolute; left: 0%; top: 70%;" table_id="7" id="table_7">
+                    <i class="bi bi-4-square-fill" style="font-size: 400%; color: #ffcc33;"></i>
+                </button>
+                <button style="background: transparent; border: none; position: absolute; left: 15%; top: 70%;" table_id="8" id="table_8">
+                    <i class="bi bi-4-square-fill" style="font-size: 400%; color: #ffcc33;"></i>
+                </button>
+                <button style="background: transparent; border: none; position: absolute; left: 30%; top: 70%;" table_id="9" id="table_9">
+                    <i class="bi bi-4-square-fill" style="font-size: 400%; color: #ffcc33;"></i>
+                </button>
+
+                <button style="background: transparent; border: none; position: absolute; left: 75%; top: 0%;" table_id="10" id="table_10">
+                    <i class="bi bi-8-square-fill" style="font-size: 650%; color: #ffcc33;"></i>
+                </button>
+                <button style="background: transparent; border: none; position: absolute; left: 75%; top: 55%;" table_id="11" id="table_11">
+                    <i class="bi bi-8-square-fill" style="font-size: 650%; color: #ffcc33;"></i>
+                </button>
+
+                <!-- Дополнения -->
+                <i class="bi bi-tv" style="font-size: 400%; color: #6c6960; position: absolute; left: 93%; top: 10%; transform: rotate(90deg);"></i>
+                <i class="bi bi-tv" style="font-size: 400%; color: #6c6960; position: absolute; left: 93%; top: 66%; transform: rotate(90deg);"></i>
+
+                <i class="bi bi-square" style="font-size: 400%; color: rgb(235, 234, 234); position: absolute; left: 48%; top: 0%;"></i>
+                <i class="bi bi-droplet-half" style="font-size: 400%; color: #6c6960; position: absolute; left: 48%; top: 0%;"></i>
+
+                <i class="bi bi-square" style="font-size: 400%; color: rgb(235, 234, 234); position: absolute; left: 59%; top: 0%;"></i>
+                <i class="bi bi-cup-hot-fill" style="font-size: 400%; color: #6c6960; position: absolute; left: 59%; top: 0%;"></i>
+
+                <!-- <i class="bi bi-door-open"
+                    style="font-size: 60px; color: #6c6960; position: absolute; left: 48%; top: 78%;"></i> -->
+            </div>
+        </div>`,
+
+        '1_2': `<div class="container"style="background-color: rgb(255, 255, 255); height: 400px; width: 100%; border-radius: 10px; border: 5px solid rgb(235, 234, 234);">
+        <div style="position: relative !important; width: 100%; height: 100%;">
+                <!-- Столы -->
+                <i class="bi bi-2-circle-fill"
+                    style="font-size: 60px; color:#ffcc33; position: absolute; left: 0%; top: 0%;"></i>
+                <i class="bi bi-2-circle-fill"
+                    style="font-size: 60px; color:#ffcc33; position: absolute; left: 15%; top: 0%;"></i>
+                <i class="bi bi-2-circle-fill"
+                    style="font-size: 60px; color:#ffcc33; position: absolute; left: 30%; top: 0%;"></i>
+
+                <i class="bi bi-2-circle-fill"
+                    style="font-size: 60px; color:#ffcc33; position: absolute; left: 0%; top: 25%;"></i>
+                <i class="bi bi-2-circle-fill"
+                    style="font-size: 60px; color:#ffcc33; position: absolute; left: 15%; top: 25%;"></i>
+                <i class="bi bi-2-circle-fill"
+                    style="font-size: 60px; color:#ffcc33; position: absolute; left: 30%; top: 25%;"></i>
+            </div>
+        </div>`,
+
+    }
 
     async function fetchRooms(institutionId) {
         try {
@@ -243,9 +331,9 @@
             const card = document.createElement('div');
             card.className = 'card';
             card.style.width = '15rem';
-            card.innerHTML = `
-                <img src="..." class="card-img-top" alt="${'Image'}">
-                <div class="card-body">
+            card.innerHTML = 
+                // <img src="..." class="card-img-top" alt="${'Image'}">
+                `<div class="card-body">
                     <h5 class="card-title">${room.number || 'Card title'}</h5>
                     <p class="card-text">${institution.name || 'Institution name'} (${institution.address || 'Address'})</p>
                     <button onclick="selectRoom(${room.id})" class="btn btn-primary">Выбрать</button>
@@ -429,23 +517,65 @@
     }
 
     function selectRoom(roomId) {
+        console.log('Выбранный roomId:', roomId); 
         if (roomId) {
             localStorage.setItem('selectedRoomId', roomId);
+            console.log('selectedRoomId сохранен в localStorage:', roomId); 
+            loadRoomScheme();
         }
     }
 
-    function toggleTableSelect() {
-        const dateInput = document.getElementById('data');
-        const tableSelect = document.querySelector('.popup-schema');
+    // function toggleTableSelect() {
+    //     const dateInput = document.getElementById('data');
+    //     const tableSelect = document.querySelector('.popup-schema');
 
-        if (dateInput && tableSelect) {
-            if (dateInput.value) {
-                tableSelect.style.display = 'block';
-            } else {
-                tableSelect.style.display = 'none';
-            }
+    //     if (dateInput && tableSelect) {
+    //         if (dateInput.value) {
+    //             tableSelect.style.display = 'block';
+    //         } else {
+    //             tableSelect.style.display = 'none';
+    //         }
+    //     } else {
+    //         console.error('Date input or table select element is missing.');
+    //     }
+    // }
+
+    // function checkLoadScheme() {
+    //     console.log('Проверка загрузки схемы...');
+    //     const savedMarkId = localStorage.getItem('selectedMarkId');
+    //     const roomId = localStorage.getItem('selectedRoomId');
+    //     const selectedDate = localStorage.getItem('selectedDate');
+
+    //     console.log('Значения:', {
+    //         savedMarkId,
+    //         roomId,
+    //         selectedDate
+    //     });
+
+    //     if (savedMarkId && roomId && selectedDate) {
+    //         loadRoomScheme();
+    //     } else {
+    //         console.log('Недостаточно данных для загрузки схемы');
+    //     }
+    // }
+
+    function loadRoomScheme() {
+        console.log('Загрузка схемы комнаты...');
+        const savedMarkId = localStorage.getItem('selectedMarkId');
+        const roomId = localStorage.getItem('selectedRoomId');
+        const schemeContainer = document.getElementById('table-select');
+
+        if (!schemeContainer) {
+            console.error('Элемент с id="table-select" не найден в DOM. Проверьте, существует ли он в HTML.');
+            return;
+        }
+
+        if (roomSchemes[`${savedMarkId}_${roomId}`]) {
+            schemeContainer.innerHTML = roomSchemes[`${savedMarkId}_${roomId}`];
+            console.log(`Файл ${savedMarkId}_${roomId}.html успешно загружен`);
         } else {
-            console.error('Date input or table select element is missing.');
+            console.error(`Файл ${savedMarkId}_${roomId}.html не найден в roomSchemes`);
+            schemeContainer.innerHTML = '<p>Файл не найден в roomSchemes</p>';
         }
     }
 
@@ -456,39 +586,39 @@
         }
     }
 
-    function loadDataFromLocalStorage() {
-        const savedDate = localStorage.getItem('selectedDate');
-        if (savedDate) {
-            const dateInput = document.getElementById('data');
-            if (dateInput) {
-                dateInput.value = savedDate;
-            }
-        }
-        toggleTableSelect();
-    }
+    // function loadDataFromLocalStorage() {
+    //     const savedDate = localStorage.getItem('selectedDate');
+    //     if (savedDate) {
+    //         const dateInput = document.getElementById('data');
+    //         if (dateInput) {
+    //             dateInput.value = savedDate;
+    //         }
+    //     }
+    //     toggleTableSelect();
+    // }
 
-    window.addEventListener('load', function() {
-        loadSelectedMarkFromLocalStorage();
-        if (selectedMarkId) {
-            const placemarks = [placemark1, placemark2, placemark3];
-            const placemark = placemarks.find(p => p && p.properties.get('hintContent') === hintContent);
-            if (placemark) {
-                onPlacemarkClick(placemark, selectedMarkId)();
-            }
+    // window.addEventListener('load', function() {
+    //     loadSelectedMarkFromLocalStorage();
+    //     if (selectedMarkId) {
+    //         const placemarks = [placemark1, placemark2, placemark3];
+    //         const placemark = placemarks.find(p => p && p.properties.get('hintContent') === hintContent);
+    //         if (placemark) {
+    //             onPlacemarkClick(placemark, selectedMarkId)();
+    //         }
 
-            const addressElement = document.getElementById('address_value');
-            if (addressElement) {
-                addressElement.innerText = hintContent;
-            }
-        }
+    //         const addressElement = document.getElementById('address_value');
+    //         if (addressElement) {
+    //             addressElement.innerText = hintContent;
+    //         }
+    //     }
 
-        loadDataFromLocalStorage();
-        toggleTableSelect();
-    });
+    //     loadDataFromLocalStorage();
+    //     toggleTableSelect();
+    // });
 
     document.getElementById('data').addEventListener('change', function() {
         saveDataToLocalStorage();
-        toggleTableSelect();
+        // toggleTableSelect();
     });
 
     function positionPopup(popupElement, targetElement) {
@@ -520,25 +650,29 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        const buttons = document.querySelectorAll('.schema button');
-        buttons.forEach(button => {
-            button.addEventListener('click', async function() {
-                const tableId = this.getAttribute('table_id');
-                console.log('Table ID:', tableId); 
-                const roomId = localStorage.getItem('selectedRoomId');
-                const date = document.getElementById('data').value;
-                selectedTable = tableId;
-                if (roomId && date && tableId) {
-                    await fetchIntervals(roomId, date, tableId);
-                    
-                    
-                    showPopupForTable(tableId);
-                } else {
-                    console.error('Необходимые данные не найдены.');
-                }
-            });
-        });
+    // Навешиваем событие на динамически создаваемый контейнер
+    document.body.addEventListener('click', function(event) {
+        const target = event.target.closest('.scheme button'); // Ищем ближайшую кнопку внутри контейнера
+
+        if (target) {
+            const tableId = target.getAttribute('table_id');
+            console.log('Button clicked, Table ID:', tableId);
+
+            const roomId = localStorage.getItem('selectedRoomId');
+            const date = document.getElementById('data')?.value;
+            selectedTable = tableId;
+
+            if (roomId && date && tableId) {
+                fetchIntervals(roomId, date, tableId)
+                    .then(() => showPopupForTable(tableId))
+                    .catch((err) => console.error('Error fetching intervals:', err));
+            } else {
+                alert('Пожалуйста, выберите дату')
+                console.error('Необходимые данные не найдены.');
+            }
+        }
     });
+});
 
     document.getElementById("add-participant-button").addEventListener('click', addParticipant);
 

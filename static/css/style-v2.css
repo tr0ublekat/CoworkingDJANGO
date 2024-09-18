@@ -5,21 +5,6 @@
     gap: 1rem;
 }
 
-.popup-schema {
-    text-align: center;
-    font-size: 20px;
-    border: 1px solid black;
-    padding: 10px;
-    height: 400px;
-    width: 100%;
-    margin: 20px auto;
-    border-radius: 5%;
-    display: none;
-    position: relative !important;
-    box-sizing: border-box;
-}
-
-
 /* элемент схемы */
 .square {
     width: 10%;
@@ -29,6 +14,10 @@
     margin: 10px;
 }
 
+.back {
+    background-color: rgb(235, 234, 234);
+    border-radius: 5px;
+}
 
 /* троекратный элемент схемы */
 .squarex3 {

@@ -12,23 +12,30 @@
     {% if error %}
     <h2>Ошибка: {{ error }}</h2>
     {% endif %}
-    <div class="back">
-        <h1 style="text-align: left;">Карта</h1>
-        <div id="map" class="container" style="width: 100%; height: 600px;"></div>
+    <div >
+        <h3 class = "back_1">Карта</h3>
+        <div id="map" class="container back_2" style="width: 100%; height: 600px;"></div>
     </div>
-    <br><br>
+    <br>
 
-    <div id="selected_address" class="back" style="background-color: rgb(235, 234, 234); border-radius: 5px;">
-        <p>Выбранный адрес</p>
-        <strong><span id="address_value"></span></strong>
+    <div id="selected_address">
+        <h3 class = "back_1">Выбранный адрес</h3>
+        <strong><span id="address_value" class = "back_2"></span></strong>
+    </div><br>
+
+    <div id = "room-select">
+        <h3 class = "back_1">Выберите кабинет</h3>
+        <span id="rooms-container" class="container back_2"></span><br><br>
+    </div><br>
+    
+    <div>
+        <h3 class = "back_1">Дата</h3>
+        <form id="dateForm" class="back_2">
+            <input type="date" required name="data" id="data" placeholder="Input date">
+        </form>
     </div>
-
-    <div id="rooms-container" class="container mt-4"></div><br><br>
-
-    <form id="dateForm">
-        <input type="date" required name="data" id="data" placeholder="Input date"><br><br>
-    </form>
-
+    <br>
+    
     <div  id="table-select">
         <!-- <div class="schema">
             <p>Выберите стол: </p>
@@ -40,7 +47,7 @@
             <button table_id="6" id = "table_6" class="squarex3" style="background-color: rgba(238, 15, 212, 0.886); position: absolute; top: 45%; right: 5%;"></button>
             <button table_id="7" id = "table_7" class="squarex2" style="background-color: rgba(83, 180, 143, 0.886); position: absolute; bottom: 10%; left: 50%; transform: translateX(-50%);"></button>
         </div> -->
-    </div>
+    </div><br>
 
      <!-- Всплывающее окно с интервалами(элементы) -->
      <div class = "popup-interval" style="display: none;">
@@ -85,25 +92,37 @@
         <input type = "checkbox" id = "check10" name = "check" value="10" data-interval="17:00 - 18:00"/>
         <label for = "check10">17:00 - 18:00</label>
         </div>
-        <button onclick="selectIntervals()">Подтвердить</button>
-        <button onclick="closePopup1()">Закрыть</button>
+        <button onclick="selectIntervals()" class = "btn btn-primary">Подтвердить</button>
+        <button onclick="closePopup1()" class = "btn btn-danger">Закрыть</button>
     </div>
 
     <!-- Вывод рещультата выбора столика и интервалов -->
-    <div id = "result" style = "margin-top: 20px;"></div>
+    <div>
+        <h3 class = "back_1">Ваш выбор</h3>
+        <div id = "result" class = "back_2" style = "margin-top: 20px;"></div>
+    </div><br>
+
 
     <!-- Добавление участников -->
-    <div id = "add-participant" class = "hidden">
-        <label for = "student-id">Введите студ билет студентика:</label>
-        <input type = "text" id = "student-id" name = "student-id"/>
-        <button id = "add-participant-button">Добавить участника</button>
-        <div id = "participants-result" style = "margin-top: 20px;"></div>
-    </div>
+    <div>
+        <h3 class = "back_1">Добавить участника</h3>
+        <div id = "add-participant" class = "hidden back_2" style = "display: flex; align-items: stretch; gap: 10px;">
+            <!-- <label for = "student-id">Введите студ билет студентика:</label> -->
+            <input type = "text" id = "student-id" name = "student-id" placeholder="студ билет"/>
+            <button id = "add-participant-button" class="btn btn-primary">Добавить</button>
+        </div>
+    </div><br>
+    
+    <div>
+        <h3 class = "back_1">Список участников</h3>
+        <div id = "participants-result" class = " back_2" style = "margin-top: 20px;"></div>
+    </div><br>
+    
 
     <div id = "bookingForm" class = "hidden">
         <!-- {% csrf_token %} -->
-        <button id = "submitBooking">Подтвердить бронирование</button>
-    </div>
+        <button id = "submitBooking" class="btn btn-primary">Подтвердить бронирование</button>
+    </div><br>
     
 {% else %}
     <h2>Пожалуйста войдите в аккаунт</h2>
@@ -132,7 +151,8 @@
 
     const roomSchemes = {
         '1_1' : `
-        <div class="container"style="font-size: 100%; background-color: rgb(255, 255, 255); height: 400px; width: 100%; border-radius: 10px; border: 5px solid rgb(235, 234, 234);">
+        <h3 class = "back_1" >Выберите стол</h3>
+        <div class="container"style="font-size: 100%; background-color: rgb(255, 255, 255); height: 400px; width: 100%; border-radius: 0 10px 10px 10px; border: 5px solid rgb(235, 234, 234);">
             <div class="scheme" style="position: relative !important; width: 100%; height: 100%;">
                 <!-- Столы -->
                 <button style="background: transparent; border: none; position: absolute; left: 0%; top: 0%;" table_id="1" id="table_1">
@@ -487,7 +507,7 @@
     // функция вывода участников
     function displayParticipants(){
         var participantsElement = document.getElementById("participants-result");
-        participantsElement.innerHTML = `<p>Добавленные участники:</p>
+        participantsElement.innerHTML = `
         <ul>
             ${participants.map((participant,index) => {
                 if(participant == currentuser){
@@ -632,7 +652,7 @@
 
         // Устанавливаем позицию всплывающего окна в процентах
         popupElement.style.position = 'absolute';
-        popupElement.style.top = topPercent + 17 + '%';  // Устанавливаем значение top в процентах
+        popupElement.style.top = topPercent + 25 + '%';  // Устанавливаем значение top в процентах
         popupElement.style.left = leftPercent + '%'; // Устанавливаем значение left в процентах
         popupElement.style.display = 'block';
     }
@@ -650,29 +670,29 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-    // Навешиваем событие на динамически создаваемый контейнер
-    document.body.addEventListener('click', function(event) {
-        const target = event.target.closest('.scheme button'); // Ищем ближайшую кнопку внутри контейнера
+        // Навешиваем событие на динамически создаваемый контейнер
+        document.body.addEventListener('click', function(event) {
+            const target = event.target.closest('.scheme button'); // Ищем ближайшую кнопку внутри контейнера
 
-        if (target) {
-            const tableId = target.getAttribute('table_id');
-            console.log('Button clicked, Table ID:', tableId);
+            if (target) {
+                const tableId = target.getAttribute('table_id');
+                console.log('Button clicked, Table ID:', tableId);
 
-            const roomId = localStorage.getItem('selectedRoomId');
-            const date = document.getElementById('data')?.value;
-            selectedTable = tableId;
+                const roomId = localStorage.getItem('selectedRoomId');
+                const date = document.getElementById('data')?.value;
+                selectedTable = tableId;
 
-            if (roomId && date && tableId) {
-                fetchIntervals(roomId, date, tableId)
-                    .then(() => showPopupForTable(tableId))
-                    .catch((err) => console.error('Error fetching intervals:', err));
-            } else {
-                alert('Пожалуйста, выберите дату')
-                console.error('Необходимые данные не найдены.');
+                if (roomId && date && tableId) {
+                    fetchIntervals(roomId, date, tableId)
+                        .then(() => showPopupForTable(tableId))
+                        .catch((err) => console.error('Error fetching intervals:', err));
+                } else {
+                    alert('Пожалуйста, выберите дату')
+                    console.error('Необходимые данные не найдены.');
+                }
             }
-        }
+        });
     });
-});
 
     document.getElementById("add-participant-button").addEventListener('click', addParticipant);
 
@@ -689,6 +709,7 @@
         if (date && tableId && interval && studentId && room_id) {
             await fetchBooking(date, tableId, interval, studentId, room_id);
             alert('Booking confirmed!');
+            clearLocalStorage();
         } else {
             alert('Please complete all required fields.');
         }

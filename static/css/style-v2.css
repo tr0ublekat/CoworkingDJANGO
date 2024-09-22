@@ -5,70 +5,35 @@
     gap: 1rem;
 }
 
-/* элемент схемы */
-.square {
-    width: 10%;
-    height: 10%;
-    border: 1px solid black;
-    display: inline-block;
-    margin: 10px;
+.back_1 {
+    background-color: rgb(235, 234, 234); /* Серый фон */
+    border-radius:  5px 5px 0 0; /* Скругленные углы */
+    padding: 10px; /* Внутренние отступы */
+    display: inline-block; /* Ограничиваем ширину блока содержимым */
+    margin-bottom: -5px;
 }
 
-.back {
-    background-color: rgb(235, 234, 234);
-    border-radius: 5px;
-}
-
-/* троекратный элемент схемы */
-.squarex3 {
-    width: 10%;
-    height: 30%;
-    border: 1px solid black;
-    display: inline-block;
-    margin: 10px;
-}
-
-
-/* двоекратный элемент схемы */
-.squarex2 {
-    width: 30%;
-    height: 10%;
-    border: 1px solid black;
-    display: inline-block;
-    margin: 10px;
+.back_2 {
+    background-color: rgb(235, 234, 234); /* Серый фон */
+    border-radius: 5px; /* Скругленные углы */
+    padding: 10px; /* Внутренние отступы */
+    display: block; 
+    margin-top: 0;
 }
 
 /* всплывающий выбор интервалов */
 .popup-interval {
     position: absolute;
     top:30%;
-    left:50%;
+    left:45%;
     transform: translate(-50%,-50%);
     width: 12%;
-    height: 35%;
+    height: 48%;
     background: #fff;
     border-radius: 10px;
-    border: 1px solid black;
+    border: 10px solid rgb(235, 234, 234);
     opacity: 1;
     z-index: 9999;
     display: none;
 }
 
-
-.square.selected {
-    border: 4px solid rgb(1, 191, 255); 
-}
-
-
-.squarex2.selected {
-    border: 4px solid rgb(1, 191, 255);
-}
-
-
-.squarex3.selected {
-    border: 4px solid rgb(1, 191, 255);
-}
-
-.hidden{
-    display: none;
-}

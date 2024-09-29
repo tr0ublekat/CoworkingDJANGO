@@ -23,7 +23,7 @@
         <strong><span id="address_value" class = "back_2"></span></strong>
     </div><br>
 
-    <div id = "room-select">
+    <div id = "room-select" style = "display: none;">
         <h3 class = "back_1">Выберите кабинет</h3>
         <span id="rooms-container" class="container back_2"></span><br><br>
     </div><br>
@@ -97,25 +97,24 @@
     </div>
 
     <!-- Вывод рещультата выбора столика и интервалов -->
-    <div>
+    <div id = "result-container" style="display: none;">
         <h3 class = "back_1">Ваш выбор</h3>
-        <div id = "result" class = "back_2" style = "margin-top: 20px;"></div>
+        <span id = "result" class = "back_2"></span>
     </div><br>
 
 
     <!-- Добавление участников -->
-    <div>
-        <h3 class = "back_1">Добавить участника</h3>
-        <div id = "add-participant" class = "hidden back_2" style = "display: flex; align-items: stretch; gap: 10px;">
-            <!-- <label for = "student-id">Введите студ билет студентика:</label> -->
-            <input type = "text" id = "student-id" name = "student-id" placeholder="студ билет"/>
-            <button id = "add-participant-button" class="btn btn-primary">Добавить</button>
+    <div id="participant-block" style="display: none;">
+        <h3 class="back_1">Добавить участника</h3>
+        <div id="add-participant" class="back_2" style="display: flex; align-items: stretch; gap: 10px;">
+            <input type="text" id="student-id" name="student-id" placeholder="студ билет"/>
+            <button id="add-participant-button" class="btn btn-primary">Добавить</button>
         </div>
     </div><br>
     
-    <div>
+    <div id = "participants-result-container" style="display: none;">
         <h3 class = "back_1">Список участников</h3>
-        <div id = "participants-result" class = " back_2" style = "margin-top: 20px;"></div>
+        <div id = "participants-result" class = " back_2"></div>
     </div><br>
     
 
@@ -335,10 +334,13 @@
     }
 
     function displayRooms(rooms, institutionId) {
+        const kab = document.getElementById('room-select');
         const container = document.getElementById('rooms-container');
         container.innerHTML = '';
 
         const filteredRooms = rooms.filter(room => room.institution === institutionId);
+
+        kab.style.display = 'block';
 
         filteredRooms.forEach(room => {
             const institution = institutions.find(inst => inst.id === room.institution);
@@ -406,8 +408,14 @@
 
         displayResult(); 
         closePopup1(); 
-        add_participant.classList.remove('hidden');
-        participants_result.classList.remove('hidden');
+
+        // Показать блок добавления участника
+        const participantBlock = document.getElementById('participant-block');
+        participantBlock.style.display = 'block'; 
+
+        const participantsResultCon = document.getElementById('participants-result-container');
+        participantsResultCon.style.display = 'block';
+        
         if (confirm_booking) {
             confirm_booking.classList.remove('hidden');
         }
@@ -415,6 +423,8 @@
 
     function displayResult() {
         var resultElement = document.getElementById("result");
+        var resCon = document.getElementById("result-container");
+        resCon.style.display = 'block';
         resultElement.innerHTML = `<p>Выбранный стол: ${selectedTable}</p>
         <p>Выбранные интервалы:</p>
         <ul>

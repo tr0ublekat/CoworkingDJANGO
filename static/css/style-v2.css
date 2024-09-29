@@ -15,10 +15,14 @@
 
 .back_2 {
     background-color: rgb(235, 234, 234); /* Серый фон */
-    border-radius: 5px; /* Скругленные углы */
+    border-radius: 0 5px 5px 5px; /* Скругленные углы */
     padding: 10px; /* Внутренние отступы */
     display: block; 
     margin-top: 0;
+}
+
+hidden {
+    display: none;
 }
 
 /* всплывающий выбор интервалов */

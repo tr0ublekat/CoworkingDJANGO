@@ -144,6 +144,7 @@
     const participants_result = document.getElementById('participants-result');
     const confirm_booking = document.getElementById('bookingForm');
     const addedStudents = new Set();
+    let lastSelectedRoomId = null;
     addedStudents.add(currentuser);
     // переменная массив участников
     var participants = [currentuser];
@@ -155,7 +156,7 @@
             <div class="scheme" style="position: relative !important; width: 100%; height: 100%;">
                 <!-- Столы -->
                 <button style="background: transparent; border: none; position: absolute; left: 0%; top: 0%;" table_id="1" id="table_1">
-                    <i class="bi bi-2-circle-fill" style="font-size: 365%; color: #ffcc33;"></i>
+                    <i class="bi bi-2-circle-fill" style="font-size: 365%; color: #ffcc33; "></i>
                 </button>
                 <button style="background: transparent; border: none; position: absolute; left: 15%; top: 0%;" table_id="2" id="table_2">
                     <i class="bi bi-2-circle-fill" style="font-size: 365%; color: #ffcc33;"></i>
@@ -549,9 +550,27 @@
     function selectRoom(roomId) {
         console.log('Выбранный roomId:', roomId); 
         if (roomId) {
+            if (lastSelectedRoomId !== null) {
+                const previousButton = document.querySelector(`button[onclick="selectRoom(${lastSelectedRoomId})"]`);
+                if (previousButton) {
+                    previousButton.textContent = 'Выбрать'; // Восстанавливаем текст кнопки
+                    previousButton.disabled = false; // Делаем кнопку кликабельной
+                }
+            }
             localStorage.setItem('selectedRoomId', roomId);
             console.log('selectedRoomId сохранен в localStorage:', roomId); 
-            loadRoomScheme();
+            
+            // Находим кнопку, которая соответствует выбранному кабинету
+            const button = document.querySelector(`button[onclick="selectRoom(${roomId})"]`);
+
+            if (button) {
+                button.textContent = 'Выбрано'; // Меняем текст кнопки
+                button.disabled = true; // Делаем кнопку некликабельной
+            }
+
+            lastSelectedRoomId = roomId;
+
+            loadRoomScheme(); // Загружаем схему кабинета
         }
     }
 
@@ -685,9 +704,13 @@
             const target = event.target.closest('.scheme button'); // Ищем ближайшую кнопку внутри контейнера
 
             if (target) {
+                document.querySelectorAll('.scheme button').forEach(button => {
+                    button.style.textShadow = ""; // Сбрасываем тень для всех кнопок
+                });
+
                 const tableId = target.getAttribute('table_id');
                 console.log('Button clicked, Table ID:', tableId);
-
+                target.style.textShadow = "0 0 10px blue";
                 const roomId = localStorage.getItem('selectedRoomId');
                 const date = document.getElementById('data')?.value;
                 selectedTable = tableId;

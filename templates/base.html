@@ -39,10 +39,9 @@
             {% endif %}
           </ul>
         </header> -->
-        <header
-        class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-0 mb-4 border-bottom">
+        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-0 mb-4 border-bottom">
         <a href="" class="d-flex align-items-center col-md-3 mb-md-0">
-            <img src="bluecat.svg" style="width: 35%; height: 35%; margin-left: 50px;">
+            <img src="{% static 'img/bluecat.svg' %}" style="width: 35%; height: 35%; margin-left: 50px;">
         </a>
         {% if request.user.is_authenticated %}
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
@@ -50,14 +49,17 @@
             <li><a href="#" class="nav-link px-2 link-dark">Бронирование</a></li>
             <li><a href="#" class="nav-link px-2 link-secondary">О нас</a></li>
         </ul>
-
-        <div class="col-md-3 text-end" style="margin-right: 50px;">
+        <a href="#" class="nav-link" style="margin-right: 0;">{{ request.user.student_id }} ( {{ request.user.last_name }} {{ request.user.first_name|slice:":1" }})</a>
+        <a href="#" class="user-icon" style="text-decoration: none; width: 40px; height: 40px; border-radius: 50%; background-color: #3199e6; color: white; display: flex; align-items: center; justify-content: center; margin-right: 10px;">
+            {{ request.user.last_name|slice:":1" }}{{ request.user.first_name|slice:":1" }}
+        </a>
+        <div class="text-end" style="margin-right: 50px;">
             <a class="btn btn-danger" href="{% url 'logout' %}" id="logout"> Выйти</a>
         </div>
         {% else %}
         <div class="col-md-3 text-end" style="margin-right: 50px;">
-            <a href="{% url 'login' %}" class="btn btn-outline-primary me-2" style="color:#3199e6;">Войти</a>
-            <a href="{% url 'register' %}" class="btn btn-primary" style="background-color:#3199e6;">Регистрация</a>
+            <a href="{% url 'login' %}" class="btn btn-primary me-2" style="background-color:#3199e6;">Войти</a>
+            <a href="{% url 'register' %}" class="btn btn-outline-primary" style="color:#3199e6;">Регистрация</a>
         </div>
         {% endif %}
     </header>

@@ -741,8 +741,8 @@
         // Проверяем, что все необходимые данные присутствуют
         if (date && tableId && interval && studentId && room_id) {
             await fetchBooking(date, tableId, interval, studentId, room_id);
-            alert('Booking confirmed!');
             clearLocalStorage();
+            location.reload();
         } else {
             alert('Please complete all required fields.');
         }

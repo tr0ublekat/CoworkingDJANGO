@@ -1,17 +1,20 @@
 {%extends "base.html" %}
-
+{% load static %}
 {%block title%}Вход{%endblock%}
 
 {%block main%}
-<h1>Вход</h1>
-<form action="{% url 'login' %}" method="post">
+
+<!-- <h1 style="position: absolute; left: 45%; top: 35%; transform: translate(-50%, -50%); ">Вход</h1> -->
+<form action="{% url 'login' %}" method="post" class = "form_1">
     {% csrf_token %}
-    <input type="text" name="email" placeholder="Введите почту"><br><br>
-    <input type="password" name="password" placeholder="Введите пароль"><br><br>
-    <input type="submit" value="Подтвердить">
+    <img src="{% static 'img/bluecat.svg' %}" style="width: 70%; height: 70%; margin-left: 15%; margin-bottom: 5%;">
+    <input type="text" name="email" placeholder="Введите почту" style="width: 100%;"><br><br>
+    <input type="password" name="password" placeholder="Введите пароль" style="width: 100%;"><br><br>
+    <input type="submit" value="Войти" class="btn btn-primary me-2" style="background-color:#3199e6; width: 100%;"><br><br>
+    <a href="{% url 'register' %}" style="color:#3199e6; text-decoration: none;">Регистрация</a>
 </form>
 
-<br><br>
+<!-- <br><br>
 <h2>
     Тестовые входные данные
 </h2>
@@ -31,7 +34,7 @@
     Студент: <br>
     Почта: nikita@mail.ru <br>
     Пароль: student <br>
-</h3>
+</h3> -->
 
 
 {%endblock%}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Бронирование 2{% endblock %}
+
+{% block main %}
+    <h1 style="text-align: center;">Просмотр забронированных столов</h1>
+
+{% if request.user.is_authenticated %}
+
+    {% if error %}
+    <h2>Ошибка: {{ error }}</h2>
+    {% endif %}
+
+    <div>
+        <p>TEST EDIT BOOKS</p>
+    </div>
+
+{% else %}
+    <h2>Пожалуйста войдите в аккаунт</h2>
+{% endif %}
+
+{% endblock %}

@@ -42,7 +42,14 @@ def user_register(request):
         )
         user.save()
 
-        # Automatically log the user in and redirect to the booking page
         login(request, user)
         return redirect('booking-v2')
     return render(request, 'user/register.html')
+
+
+def profile(request):
+    return render(request, 'user/profile.html')
+
+def edit_books(request):
+    return render(request, 'user/edit_books.html')
+

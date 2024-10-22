@@ -1,6 +1,11 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from .models import CustomUser
+from api.models import Book, Room, Institution
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 def user_login(request):
     if request.method == "POST":
@@ -51,5 +56,22 @@ def profile(request):
     return render(request, 'user/profile.html')
 
 def edit_books(request):
-    return render(request, 'user/edit_books.html')
+    if request.user.is_authenticated:
+        user = request.user
+        bookings = Book.objects.filter(student_id=user)
+        return render(request, 'user/edit_books.html', {'student_id': user, 'bookings': bookings})
+    
+    return redirect('login')
+
+def remove_book(request):
+    if request.method == 'POST':
+        pk = request.POST.get("pk")
+        try:
+            book = Book.objects.get(pk=pk)
+            book.delete()
+            return redirect("edit_books")
+        except Exception as e:
+            return HttpResponse("Запись отсутствует!")
+    else:
+        return HttpResponse("Что вы тут делаете?")
 

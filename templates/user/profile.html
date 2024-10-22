@@ -9,13 +9,29 @@
 
 {% if request.user.is_authenticated %}
 
-    {% if error %}
-    <h2>Ошибка: {{ error }}</h2>
-    {% endif %}
-
     <div>
         <p>TEST PROFILE</p>
     </div>
+
+    {{ request.user.first_name }}
+    <br>
+    {{ request.user.last_name }}
+    <br>
+    {{ request.user.middle_name }}
+    <br>
+    {{ request.user.email }}
+    <br>
+    {{ request.user.student_id }}
+    <br>
+    {% if request.user.role == 0 %}
+    Администратор
+    {% elif request.user.role == 1 %}
+    Студент
+    {% elif request.user.role == 2 %}
+    Преподаватель
+    {% elif request.user.role == 3 %}
+    Сотрудник
+    {% endif %}
 
 {% else %}
     <h2>Пожалуйста войдите в аккаунт</h2>

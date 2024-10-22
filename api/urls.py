@@ -6,14 +6,14 @@ from .views import (
     InstitutionView,
     RoomView,
     BookView,
-    UserView
+    #UserView
 )
 
 router = routers.DefaultRouter()
 router.register(r'institutions', InstitutionView)
 router.register(r'rooms', RoomView)
 router.register(r'bookings', BookView)
-router.register(r'users', UserView)
+#router.register(r'users', UserView)
 
 urlpatterns = [
     path('', include(router.urls)),

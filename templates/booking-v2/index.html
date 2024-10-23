@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %}Бронирование 2{% endblock %}
+{% block title %}Бронирование{% endblock %}
 
 {% block main %}
     <h1 style="text-align: center;">Бронирование мест</h1>
@@ -624,7 +624,7 @@
             console.log(`Файл ${savedMarkId}_${roomId}.html успешно загружен`);
         } else {
             console.error(`Файл ${savedMarkId}_${roomId}.html не найден в roomSchemes`);
-            schemeContainer.innerHTML = '<p>Файл не найден в roomSchemes</p>';
+            schemeContainer.innerHTML = '<p>Для данного кабинета не найдена схема</p>';
         }
     }
 

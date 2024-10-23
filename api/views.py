@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from rest_framework import viewsets
+from django.shortcuts import redirect
 
 from users.models import CustomUser
 from .models import (
@@ -15,8 +16,14 @@ from .serializers import (
     UserSerializer
 )
 
+def main(request):
+    return render(request, 'booking-v2/main.html')
+
 def index(request):
-    return render(request, 'booking-v2/index.html')
+    if request.user.is_authenticated:
+        return render(request, 'booking-v2/index.html')
+    else:
+        return redirect('login')
 
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt

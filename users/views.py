@@ -14,7 +14,7 @@ def user_login(request):
         user = authenticate(request, email=email, password=password)
         if user is not None:
             login(request, user=user)
-            return redirect('booking-v2')
+            return redirect('main')
         else:
             return HttpResponse("Incorrect login or password")
     return render(request, 'user/login.html')
@@ -53,7 +53,10 @@ def user_register(request):
 
 
 def profile(request):
-    return render(request, 'user/profile.html')
+    if request.user.is_authenticated:
+        return render(request, 'user/profile.html')
+    else:
+        return redirect('login')
 
 def edit_books(request):
     if request.user.is_authenticated:

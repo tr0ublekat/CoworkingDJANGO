@@ -18,8 +18,11 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import RedirectView
 
+from api.views import main as MainPage
+
 urlpatterns = [
-    path('', RedirectView.as_view(url='booking/v2/', permanent=True)),
+    # path('', RedirectView.as_view(url='booking/v2/', permanent=True)),
+    path('', MainPage, name="main"),
     path('admin/', admin.site.urls),
     path('booking/', include('booking.urls')),
     path('api/', include('api.urls')),

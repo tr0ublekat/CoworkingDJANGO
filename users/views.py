@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from .models import CustomUser
 from api.models import Book, Room, Institution
+import datetime
 
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -54,9 +55,11 @@ def user_register(request):
 
 def profile(request):
     if request.user.is_authenticated:
+        now_date = datetime.datetime.now().date()
+        now_hour = datetime.datetime.now().hour
         user = request.user
-        bookings = Book.objects.filter(student_id=user)
-        return render(request, 'user/profile.html', {'bookings': bookings})
+        bookings = Book.objects.filter(student_id=user).order_by('-date', '-time')
+        return render(request, 'user/profile.html', {'bookings': bookings, 'now_date': now_date, 'now_hour': now_hour})
     else:
         return redirect('login')
 

@@ -104,7 +104,13 @@
 
                                     <input id="pk" type="hidden" name="pk" value="{{ item.id }}">
                                     <td style="border: 3px solid; border-color: #ccc; padding: 10px;border-left: none; border-radius: 0 40px 40px 0;">
-                                        <input class="btn btn-outline-danger" type="submit" value="Отменить" >
+                                        {% if item.date > now_date %}
+                                            <input class="btn btn-outline-danger" type="submit" value="Отменить" >
+                                        {% elif item.date == now_date and item.time > now_hour|add:"-7" %}
+                                            <input class="btn btn-outline-danger" type="submit" value="Отменить" >
+                                        {% else %}
+                                            <input class="btn btn-outline-secondary" disabled type="submit" value="Отменить" >
+                                        {% endif %}
                                     </td>
                                 </form>
                             </tr>

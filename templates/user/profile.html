@@ -33,6 +33,70 @@
     Сотрудник
     {% endif %}
 
+    <br>
+    <div>
+        <p>TEST EDIT BOOKS</p>
+
+        <table style="border: 3px solid">
+            <thead>
+                <tr style="border: 3px solid">
+                    <td style="border: 3px solid">Айди</td>
+                    <td style="border: 3px solid">Дата</td>
+                    <td style="border: 3px solid">Столик</td>
+                    <td style="border: 3px solid">Время</td>
+                    <td style="border: 3px solid">Кабинет</td>
+                    <td style="border: 3px solid">Действие</td>
+                </tr>
+            </thead>
+            <tbody>
+            {% if bookings %}
+                {% for item in bookings %}
+                        <tr style="border: 3px solid">
+                            <form action="remove-book/" method="post">
+                                {% csrf_token %}
+                               <td style="border: 3px solid">{{item.id}}</td>
+                               <td style="border: 3px solid">{{ item.date }}</td>
+                               <td style="border: 3px solid">{{ item.place }}</td>
+
+                               <td style="border: 3px solid">
+                                {% if item.time == 1 %}
+                                8:00-9:00
+                                {% elif item.time == 2 %}
+                                9:00-10:00
+                                {% elif item.time == 3 %}
+                                10:00-11:00
+                                {% elif item.time == 4 %}
+                                11:00-12:00
+                                {% elif item.time == 5 %}
+                                12:00-13:00
+                                {% elif item.time == 6 %}
+                                13:00-14:00
+                                {% elif item.time == 7 %}
+                                14:00-15:00
+                                {% elif item.time == 8 %}
+                                15:00-16:00
+                                {% elif item.time == 9 %}
+                                16:00-17:00
+                                {% elif item.time == 10 %}
+                                17:00-18:00
+                                {% endif %}</td>
+
+                                <td style="border: 3px solid">{{item.room}}</td>
+
+                                <input id="pk" type="hidden" name="pk" value="{{ item.id }}">
+                                <td style="border: 3px solid">
+                                    <input type="submit" value="Отменить">
+                                </td>
+                            </form>
+                        </tr>
+                {% endfor %}
+                </tbody>
+            {% else %}
+                ПУСТО
+            {% endif %}
+        </table>
+    </div>
+
 {% else %}
     <h2>Пожалуйста войдите в аккаунт</h2>
 {% endif %}

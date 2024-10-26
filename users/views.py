@@ -54,17 +54,19 @@ def user_register(request):
 
 def profile(request):
     if request.user.is_authenticated:
-        return render(request, 'user/profile.html')
+        user = request.user
+        bookings = Book.objects.filter(student_id=user)
+        return render(request, 'user/profile.html', {'bookings': bookings})
     else:
         return redirect('login')
 
-def edit_books(request):
-    if request.user.is_authenticated:
-        user = request.user
-        bookings = Book.objects.filter(student_id=user)
-        return render(request, 'user/edit_books.html', {'student_id': user, 'bookings': bookings})
+# def edit_books(request):
+#     if request.user.is_authenticated:
+#         user = request.user
+#         bookings = Book.objects.filter(student_id=user)
+#         return render(request, 'user/edit_books.html', {'student_id': user, 'bookings': bookings})
     
-    return redirect('login')
+#     return redirect('login')
 
 def remove_book(request):
     if request.method == 'POST':
@@ -72,7 +74,7 @@ def remove_book(request):
         try:
             book = Book.objects.get(pk=pk)
             book.delete()
-            return redirect("edit_books")
+            return redirect("profile")
         except Exception as e:
             return HttpResponse("Запись отсутствует!")
     else:

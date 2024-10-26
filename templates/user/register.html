@@ -8,30 +8,35 @@
     <form method="post" class = "form_1" style = "margin-top: 8%;">
         {% csrf_token %}
         <img src="{% static 'img/bluecat.svg' %}" style="width: 70%; height: 70%; margin-left: 15%; margin-bottom: 5%;"><br>
-        <label for="email">Email</label>
-        <input type="email" name="email" class="input-field" required><br>
-        <label for="first_name">Имя</label>
-        <input type="text" name="first_name" class="input-field" required><br>
         <label for="last_name">Фамилия</label>
         <input type="text" name="last_name" class="input-field" required><br>
+        <label for="first_name">Имя</label>
+        <input type="text" name="first_name" class="input-field" required><br>
         <label for="middle_name">Отчество</label>
         <input type="text" name="middle_name" class="input-field" required><br>
-        <label for="role">Роль</label>
-        <select name="role" id="role" class="input-field">
-            <option value="1">Студент</option>
-            <option value="2">Преподаватель</option>
-            <option value="3">Сотрудник</option>
-        </select>
-        <div id="student_id_div">
-            <label for="student_id">Студ. билет</label>
-            <input type="number" name="student_id" class="input-field" required><br>
+        <div style="display: flex; align-items: flex-start; gap: 20px;">
+            <div style="display: flex; flex-direction: column; width: 50%;">
+                <label for="role">Роль</label>
+                <select name="role" id="role" class="input-field" required>
+                    <option value="1">Студент</option>
+                    <option value="2">Преподаватель</option>
+                    <option value="3">Сотрудник</option>
+                </select>
+            </div>
+            <div id="student_id_div" style="display: flex; flex-direction: column; width: 50%;">
+                <label for="student_id">Студ. билет</label>
+                <input type="number" name="student_id" class="input-field" required>
+            </div>
         </div>
+        <label for="email">Email</label>
+        <input type="email" name="email" class="input-field" required><br>
         <label for="password">Пароль</label>
         <input type="password" name="password" class="input-field" required><br><br>
         <button type="submit" class="btn btn-primary" style="background-color:#3199e6; width: 100%;">Зарегистрироваться</button><br><br>
         <a href="{% url 'login' %}" style="color:#3199e6; text-decoration: none;">Войти</a>
     </form>
 </body>
+<br>
 {%endblock%}
 
 {% block scripts %}

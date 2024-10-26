@@ -44,12 +44,13 @@
             <img src="{% static 'img/bluecat.svg' %}" style="width: 35%; height: 35%; margin-left: 50px;">
         </a>
         {% if request.user.is_authenticated %}
-        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <ul class="nav justify-content-center mb-md-0" style="flex: 1;">
             <li><a href="{% url 'main' %}" class="nav-link px-2 link-secondary">Главная</a></li>
             <li><a href="{% url 'booking-v2' %}" class="nav-link px-2 link-dark">Бронирование</a></li>
         </ul>
-        <a href="#" class="nav-link" style="margin-right: 0;">{{ request.user.student_id }} ( {{ request.user.last_name }} {{ request.user.first_name|slice:":1" }})</a>
-        <a href="#" class="user-icon" style="text-decoration: none; width: 40px; height: 40px; border-radius: 50%; background-color: #3199e6; color: white; display: flex; align-items: center; justify-content: center; margin-right: 10px;">
+        <a href="{% url 'profile' %}" class="nav-link" style="margin-right: 0;">{{ request.user.student_id }} ( {{ request.user.last_name }} {{ request.user.first_name|slice:":1" }})</a>
+        <a href="{% url 'profile' %}" class="user-icon" style="text-decoration: none; width: 40px; height: 40px; border-radius: 50%; background-color: #3199e6;
+         color: white; display: flex; align-items: center; justify-content: center; margin-right: 10px;">
             {{ request.user.last_name|slice:":1" }}{{ request.user.first_name|slice:":1" }}
         </a>
         <div class="text-end" style="margin-right: 50px;">

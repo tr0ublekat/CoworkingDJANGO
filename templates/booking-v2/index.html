@@ -122,6 +122,14 @@
         <!-- {% csrf_token %} -->
         <button id = "submitBooking" class="btn btn-primary">Подтвердить бронирование</button>
     </div><br>
+
+    <!-- Модальное окно -->
+    <div id="modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-button" style="align-items: end;">&times;</span>
+            <p class="modal-text" id="modal-text"></p>
+        </div>
+    </div>
     
 {% else %}
     <h2>Пожалуйста войдите в аккаунт</h2>
@@ -492,7 +500,7 @@
 
         if (studentId) {
             if(addedStudents.has(Number(studentId))){
-                alert("Участник уже добавлен.");
+                showModal('Такой студент уже добавлен.');
                 return;
             }
             try {
@@ -505,13 +513,13 @@
                     studentIdInput.value = "";
                     displayParticipants();
                 } else {
-                    alert("Студент не найден.");
+                    showModal('Такого студента не существует.');
                 }
             } catch (error) {
                 console.error('Error fetching student validation:', error);
             }
         } else {
-            alert("Введите студенческий билет!");
+            showModal('Введите номер студента.');
         }
     }
 
@@ -720,11 +728,32 @@
                         .then(() => showPopupForTable(tableId))
                         .catch((err) => console.error('Error fetching intervals:', err));
                 } else {
-                    alert('Пожалуйста, выберите дату')
+                    showModal('Пожалуйста, выберите дату.');
                     console.error('Необходимые данные не найдены.');
                 }
             }
         });
+    });
+
+    function showModal(message) {
+        const modal = document.getElementById('modal');
+        const modalText = document.getElementById('modal-text');
+        modalText.textContent = message;
+        modal.style.display = 'block';
+    }
+
+    // Закрытие модального окна при нажатии на кнопку закрытия
+    document.querySelector('.close-button').addEventListener('click', () => {
+        const modal = document.getElementById('modal');
+        modal.style.display = 'none';
+    });
+
+    // Закрытие модального окна при клике вне его
+    window.addEventListener('click', (event) => {
+        const modal = document.getElementById('modal');
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
     });
 
     document.getElementById("add-participant-button").addEventListener('click', addParticipant);
@@ -744,7 +773,7 @@
             clearLocalStorage();
             location.reload();
         } else {
-            alert('Please complete all required fields.');
+            showModal('Пожалуйста, заполните все поля.');
         }
     });
 

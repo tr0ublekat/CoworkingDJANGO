@@ -62,3 +62,44 @@ hidden {
     border-radius: 5px; 
     box-sizing: border-box; 
 }
+
+.modal {
+    display: none; /* Скрыто по умолчанию */
+    position: fixed; /* Окно фиксировано */
+    z-index: 1; /* На переднем плане */
+    left: 0;
+    top: 0;
+    width: 100%; /* Полная ширина */
+    height: 100%; /* Полная высота */
+    background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
+    overflow: auto; /* Прокрутка, если нужно */
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: auto; /* Центрирование */
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #888;
+    width: 80%; /* Ширина */
+    max-width: 400px; /* Максимальная ширина */
+    position: relative; /* Позиционирование для абсолютного позиционирования кнопки закрытия */
+    top: 50%; /* Сдвиг вниз на 50% */
+    transform: translateY(-50%); /* Сдвиг вверх на 50% для центрирования по вертикали */
+}
+
+.close-button {
+    color: #aaa;
+    position: absolute; /* Абсолютное позиционирование */
+    top: 10px; /* Отступ сверху */
+    right: 15px; /* Отступ справа */
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}

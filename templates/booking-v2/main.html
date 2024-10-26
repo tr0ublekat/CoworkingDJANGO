@@ -5,10 +5,25 @@
 {% block title %}Главная{% endblock %}
 
 {% block main %}
+ <div style="width: 75%; margin: 0 auto;">
     <h1 style="text-align: center;">Catworking</h1>
 
-    <div>
+    <div style="border: 4px solid #ccc; padding: 10px; border-radius: 10px">
         <p>TEST MAIN PAGE</p>
     </div>
-
+    <div style="display: flex; justify-content: space-between; margin-top: 10px; align-items: stretch;">
+        <div style="flex: 1; margin-right: 20px;">
+            <div style="border: 4px solid #ccc; padding: 10px; border-radius: 10px; height: 100%;">
+                <p>Забронировать место в коворкинг можно здесь</p>
+                <a href="{% url 'booking-v2' %}" class="btn btn-primary" style="margin-left: 50%; transform: translateX(-50%);">Забронировать</a>
+            </div>
+        </div>
+        <div style="flex: 1;">
+            <div style="border: 4px solid #ccc; padding: 10px; border-radius: 10px; height: 100%;">
+                <p>Также есть телеграмм бот для удобной работы с сайтом на мобильных устройствах</p>
+                <a href="#" class="btn btn-primary" style="margin-left: 50%; transform: translateX(-50%);">Telegram</a>
+            </div>
+        </div>
+    </div>
+ </div>
 {% endblock %}

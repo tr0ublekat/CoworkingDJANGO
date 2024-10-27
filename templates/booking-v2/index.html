@@ -50,50 +50,52 @@
     </div><br>
 
      <!-- Всплывающее окно с интервалами(элементы) -->
-     <div class = "popup-interval" style="display: none;">
-        <p>Выберите интервал</p>
-        <div>
-        <input type = "checkbox" id = "check1" name = "check" value = "1" data-interval = "8:00 - 9:00"/>
-        <label for = "check1">8:00 - 9:00</label>
+     <div class="popup-interval" style="padding: 10px; display: none; width: auto; max-width: 600px; font-size: 100%; height: auto;">
+        <p style="font-size: 150%; text-align: center;">Выберите <br> интервал</p>
+        <div style="text-align: center;">
+            <input type="checkbox" id="check1" name="check" value="1" data-interval="8:00 - 9:00"/>
+            <label for="check1">8:00 - 9:00</label>
         </div>
-        <div>
-        <input type = "checkbox" id = "check2" name = "check" value="2" data-interval="9:00 - 10:00"/>
-        <label for = "check2">9:00 - 10:00</label>
+        <div style=" text-align: center;">
+            <input type="checkbox" id="check2" name="check" value="2" data-interval="9:00 - 10:00"/>
+            <label for="check2">9:00 - 10:00</label>
         </div>
-        <div>
-        <input type = "checkbox" id = "check3" name = "check" value="3" data-interval="10:00 - 11:00"/>
-        <label for = "check3">10:00 - 11:00</label>
+        <div style="text-align: center;">
+            <input type="checkbox" id="check3" name="check" value="3" data-interval="10:00 - 11:00"/>
+            <label for="check3">10:00 - 11:00</label>
         </div>
-        <div>
-        <input type = "checkbox" id = "check4" name = "check" value="4" data-interval="11:00 - 12:00"/>
-        <label for = "check4">11:00 - 12:00</label>
+        <div style="text-align: center;">
+            <input type="checkbox" id="check4" name="check" value="4" data-interval="11:00 - 12:00"/>
+            <label for="check4">11:00 - 12:00</label>
         </div>
-        <div>
-        <input type = "checkbox" id = "check5" name = "check" value="5" data-interval="12:00 - 13:00"/>
-        <label for = "check5">12:00 - 13:00</label>
+        <div style="text-align: center;">
+            <input type="checkbox" id="check5" name="check" value="5" data-interval="12:00 - 13:00"/>
+            <label for="check5">12:00 - 13:00</label>
         </div>
-        <div>
-        <input type = "checkbox" id = "check6" name = "check" value="6" data-interval="13:00 - 14:00"/>
-        <label for = "check6">13:00 - 14:00</label>
+        <div style="text-align: center;">
+            <input type="checkbox" id="check6" name="check" value="6" data-interval="13:00 - 14:00"/>
+            <label for="check6">13:00 - 14:00</label>
         </div>
-        <div>
-        <input type = "checkbox" id = "check7" name = "check" value="7" data-interval="14:00 - 15:00"/>
-        <label for = "check7">14:00 - 15:00</label>
+        <div style="text-align: center;">
+            <input type="checkbox" id="check7" name="check" value="7" data-interval="14:00 - 15:00"/>
+            <label for="check7">14:00 - 15:00</label>
         </div>
-        <div>
-        <input type = "checkbox" id = "check8" name = "check" value="8" data-interval="15:00 - 16:00"/>
-        <label for = "check8">15:00 - 16:00</label>
+        <div style="text-align: center;">
+            <input type="checkbox" id="check8" name="check" value="8" data-interval="15:00 - 16:00"/>
+            <label for="check8">15:00 - 16:00</label>
         </div>
-        <div>
-        <input type = "checkbox" id = "check9" name = "check" value="9" data-interval="16:00 - 17:00"/>
-        <label for = "check9">16:00 - 17:00</label>
+        <div style="text-align: center;">
+            <input type="checkbox" id="check9" name="check" value="9" data-interval="16:00 - 17:00"/>
+            <label for="check9">16:00 - 17:00</label>
         </div>
-        <div>
-        <input type = "checkbox" id = "check10" name = "check" value="10" data-interval="17:00 - 18:00"/>
-        <label for = "check10">17:00 - 18:00</label>
+        <div style="text-align: center;">
+            <input type="checkbox" id="check10" name="check" value="10" data-interval="17:00 - 18:00"/>
+            <label for="check10">17:00 - 18:00</label>
         </div>
-        <button onclick="selectIntervals()" class = "btn btn-primary">Подтвердить</button>
-        <button onclick="closePopup1()" class = "btn btn-danger">Закрыть</button>
+        <div style="display: flex; flex-direction: column; align-items: center; margin-top: 20px;">
+            <button onclick="selectIntervals()" class="btn btn-primary" style="font-size: 100%; margin-bottom: 10px;">Подтвердить</button>
+            <button onclick="closePopup1()" class="btn btn-danger" style="font-size: 100%;">Закрыть</button> <br>
+        </div>
     </div>
 
     <!-- Вывод рещультата выбора столика и интервалов -->
@@ -120,7 +122,7 @@
 
     <div id = "bookingForm" class = "hidden">
         <!-- {% csrf_token %} -->
-        <button id = "submitBooking" class="btn btn-primary">Подтвердить бронирование</button>
+        <button id = "submitBooking" class="btn btn-primary">Забронировать</button>
     </div><br>
 
     <!-- Модальное окно -->
@@ -128,6 +130,15 @@
         <div class="modal-content">
             <span class="close-button" style="align-items: end;">&times;</span>
             <p class="modal-text" id="modal-text"></p>
+        </div>
+    </div>
+
+    <div id="bookingModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-button" id="closeModal">&times;</span>
+            <h2>Подтверждение бронирования</h2>
+            <p id="modalDetails"></p>
+            <button id="confirmBooking" class="btn btn-primary">Подтвердить бронирование</button>
         </div>
     </div>
     
@@ -156,6 +167,19 @@
     addedStudents.add(currentuser);
     // переменная массив участников
     var participants = [currentuser];
+
+    // Получаем текущую дату
+    const today = new Date();
+    
+    // Форматируем дату в формате YYYY-MM-DD
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); // Январь - 0
+    const yyyy = today.getFullYear();
+    
+    const formattedDate = `${yyyy}-${mm}-${dd}`;
+    
+    // Устанавливаем минимальную дату в input
+    document.getElementById('data').setAttribute('min', formattedDate);
 
     const roomSchemes = {
         '1_1' : `
@@ -582,40 +606,6 @@
         }
     }
 
-    // function toggleTableSelect() {
-    //     const dateInput = document.getElementById('data');
-    //     const tableSelect = document.querySelector('.popup-schema');
-
-    //     if (dateInput && tableSelect) {
-    //         if (dateInput.value) {
-    //             tableSelect.style.display = 'block';
-    //         } else {
-    //             tableSelect.style.display = 'none';
-    //         }
-    //     } else {
-    //         console.error('Date input or table select element is missing.');
-    //     }
-    // }
-
-    // function checkLoadScheme() {
-    //     console.log('Проверка загрузки схемы...');
-    //     const savedMarkId = localStorage.getItem('selectedMarkId');
-    //     const roomId = localStorage.getItem('selectedRoomId');
-    //     const selectedDate = localStorage.getItem('selectedDate');
-
-    //     console.log('Значения:', {
-    //         savedMarkId,
-    //         roomId,
-    //         selectedDate
-    //     });
-
-    //     if (savedMarkId && roomId && selectedDate) {
-    //         loadRoomScheme();
-    //     } else {
-    //         console.log('Недостаточно данных для загрузки схемы');
-    //     }
-    // }
-
     function loadRoomScheme() {
         console.log('Загрузка схемы комнаты...');
         const savedMarkId = localStorage.getItem('selectedMarkId');
@@ -643,36 +633,6 @@
         }
     }
 
-    // function loadDataFromLocalStorage() {
-    //     const savedDate = localStorage.getItem('selectedDate');
-    //     if (savedDate) {
-    //         const dateInput = document.getElementById('data');
-    //         if (dateInput) {
-    //             dateInput.value = savedDate;
-    //         }
-    //     }
-    //     toggleTableSelect();
-    // }
-
-    // window.addEventListener('load', function() {
-    //     loadSelectedMarkFromLocalStorage();
-    //     if (selectedMarkId) {
-    //         const placemarks = [placemark1, placemark2, placemark3];
-    //         const placemark = placemarks.find(p => p && p.properties.get('hintContent') === hintContent);
-    //         if (placemark) {
-    //             onPlacemarkClick(placemark, selectedMarkId)();
-    //         }
-
-    //         const addressElement = document.getElementById('address_value');
-    //         if (addressElement) {
-    //             addressElement.innerText = hintContent;
-    //         }
-    //     }
-
-    //     loadDataFromLocalStorage();
-    //     toggleTableSelect();
-    // });
-
     document.getElementById('data').addEventListener('change', function() {
         saveDataToLocalStorage();
         // toggleTableSelect();
@@ -685,12 +645,18 @@
 
         // Рассчитываем позицию всплывающего окна в процентных значениях
         var topPercent = ((targetRect.top + window.scrollY - popupRect.height) / window.innerHeight) * 100;
-        var leftPercent = ((targetRect.left + window.scrollX + (targetElement.offsetWidth / 2) - (popupRect.width / 2) - 10) / window.innerWidth) * 100;
-
+        var leftPercent;
+        if (targetRect.left <= 200) {
+            // Если элемент на левом краю, показываем окно справа от него
+            leftPercent = ((targetRect.right + window.scrollX + 10) / window.innerWidth) * 100; // Добавляем небольшой отступ
+        } else {
+            // Иначе показываем окно слева от него
+            leftPercent = ((targetRect.left + window.scrollX + (targetElement.offsetWidth / 2) - (popupRect.width / 2) - 10) / window.innerWidth) * 100;
+        }
         // Устанавливаем позицию всплывающего окна в процентах
         popupElement.style.position = 'absolute';
-        popupElement.style.top = topPercent + 25 + '%';  // Устанавливаем значение top в процентах
-        popupElement.style.left = leftPercent + '%'; // Устанавливаем значение left в процентах
+        popupElement.style.top = topPercent + 27 + '%';  // Устанавливаем значение top в процентах
+        popupElement.style.left = leftPercent - 2 + '%'; // Устанавливаем значение left в процентах
         popupElement.style.display = 'block';
     }
 
@@ -758,20 +724,86 @@
 
     document.getElementById("add-participant-button").addEventListener('click', addParticipant);
 
+    function getIntervalText(interval) {
+        switch (interval) {
+            case 1: return "8:00 - 9:00";
+            case 2: return "9:00 - 10:00";
+            case 3: return "10:00 - 11:00";
+            case 4: return "11:00 - 12:00";
+            case 5: return "12:00 - 13:00";
+            case 6: return "13:00 - 14:00";
+            case 7: return "14:00 - 15:00";
+            case 8: return "15:00 - 16:00";
+            case 9: return "16:00 - 17:00";
+            case 10: return "17:00 - 18:00";
+            default: return "Неизвестный интервал";
+        }
+    }
+
+    
+
     document.getElementById('submitBooking').addEventListener('click', async function(event) {
         event.preventDefault();  // Предотвращаем стандартное поведение кнопки отправки формы
-
+        const roomNumbers = [
+            {"1": "101"},
+            {"2": "103"},
+            {"3": "105"},
+            {"4": "201"},
+            {"5": "213"},
+            {"6": "305"},
+            {"7": "309"},
+            {"8": "203"},
+        ]
         const date = document.getElementById('data').value;
         const tableId = Number(localStorage.getItem('selectedTable'));
         const interval = selectedIntervals; 
         const studentId = participants; 
         const room_id = Number(localStorage.getItem('selectedRoomId'));
+        const roomNumber = getRoomNumberById(room_id.toString());
+
+        function getRoomNumberById(id) {
+            const room = roomNumbers.find(room => Object.keys(room)[0] === id);
+            return room ? room[id] : "Неизвестный кабинет";
+        }
 
         // Проверяем, что все необходимые данные присутствуют
         if (date && tableId && interval && studentId && room_id) {
-            await fetchBooking(date, tableId, interval, studentId, room_id);
-            clearLocalStorage();
-            location.reload();
+            // Преобразуем интервалы в текст
+            const intervalTexts = interval.map(getIntervalText).join(', ');
+
+            const modalDetails = `
+                Дата: ${date}<br>
+                Номер стола: ${tableId}<br>
+                Интервал: ${intervalTexts}<br>
+                Участники: ${studentId}<br>
+                Номер комнаты: ${roomNumber}<br>
+            `;
+            document.getElementById('modalDetails').innerHTML = modalDetails;
+
+            // Отображаем модальное окно
+            document.getElementById('bookingModal').style.display = 'block';
+
+            // Обработчик нажатия на кнопку подтверждения бронирования
+            document.getElementById('confirmBooking').onclick = async function() {
+                // Здесь вы можете вызвать функцию для отправки данных на сервер
+                await fetchBooking(date, tableId, interval, studentId, room_id);
+                clearLocalStorage();
+                location.reload();
+            };
+            // await fetchBooking(date, tableId, interval, studentId, room_id);
+            // clearLocalStorage();
+            // location.reload();
+            // Обработчик закрытия модального окна
+            document.getElementById('closeModal').onclick = function() {
+                document.getElementById('bookingModal').style.display = 'none';
+            };
+
+            // Закрытие модального окна при клике вне его
+            window.onclick = function(event) {
+                if (event.target == document.getElementById('bookingModal')) {
+                    document.getElementById('bookingModal').style.display = 'none';
+                }
+            };
         } else {
             showModal('Пожалуйста, заполните все поля.');
         }

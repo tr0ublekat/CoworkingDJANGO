@@ -31,8 +31,8 @@ hidden {
     top:30%;
     left:45%;
     transform: translate(-50%,-50%);
-    width: 12%;
-    height: 48%;
+    /* width: 12%;
+    height: 48%; */
     background: #fff;
     border-radius: 10px;
     border: 10px solid rgb(235, 234, 234);
@@ -64,35 +64,35 @@ hidden {
 }
 
 .modal {
-    display: none; /* Скрыто по умолчанию */
-    position: fixed; /* Окно фиксировано */
-    z-index: 1; /* На переднем плане */
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
     left: 0;
     top: 0;
-    width: 100%; /* Полная ширина */
-    height: 100%; /* Полная высота */
-    background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
-    overflow: auto; /* Прокрутка, если нужно */
+    width: 100%; 
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    overflow: auto;
 }
 
 .modal-content {
     background-color: #fff;
-    margin: auto; /* Центрирование */
+    margin: auto;
     padding: 20px;
     text-align: center;
     border: 1px solid #888;
-    width: 80%; /* Ширина */
-    max-width: 400px; /* Максимальная ширина */
-    position: relative; /* Позиционирование для абсолютного позиционирования кнопки закрытия */
-    top: 50%; /* Сдвиг вниз на 50% */
-    transform: translateY(-50%); /* Сдвиг вверх на 50% для центрирования по вертикали */
+    width: 80%; 
+    max-width: 400px; 
+    position: relative; 
+    top: 50%; 
+    transform: translateY(-50%); 
 }
 
 .close-button {
     color: #aaa;
-    position: absolute; /* Абсолютное позиционирование */
-    top: 10px; /* Отступ сверху */
-    right: 15px; /* Отступ справа */
+    position: absolute; 
+    top: 10px;
+    right: 15px;
     font-size: 28px;
     font-weight: bold;
 }

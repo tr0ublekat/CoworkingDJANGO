@@ -740,8 +740,6 @@
         }
     }
 
-    
-
     document.getElementById('submitBooking').addEventListener('click', async function(event) {
         event.preventDefault();  // Предотвращаем стандартное поведение кнопки отправки формы
         const roomNumbers = [
@@ -760,6 +758,7 @@
         const studentId = participants; 
         const room_id = Number(localStorage.getItem('selectedRoomId'));
         const roomNumber = getRoomNumberById(room_id.toString());
+        const address = localStorage.getItem('hintContent');
 
         function getRoomNumberById(id) {
             const room = roomNumbers.find(room => Object.keys(room)[0] === id);
@@ -777,6 +776,7 @@
                 Интервал: ${intervalTexts}<br>
                 Участники: ${studentId}<br>
                 Номер комнаты: ${roomNumber}<br>
+                Адрес: ${address}<br>
             `;
             document.getElementById('modalDetails').innerHTML = modalDetails;
 

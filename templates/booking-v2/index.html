@@ -776,7 +776,7 @@
         }
 
         // Проверяем, что все необходимые данные присутствуют
-        if (date && tableId && interval && studentId && room_id) {
+        if (date && tableId && interval.length>0 && studentId && room_id) {
             // Преобразуем интервалы в текст
             const intervalTexts = interval.map(getIntervalText).join(', ');
 

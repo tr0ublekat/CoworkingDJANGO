@@ -5,7 +5,7 @@
 {%block main%}
 <!-- <h1>Регистрация</h1> -->
 <body>
-    <form method="post" class = "form_1" style = "margin-top: 8%;">
+    <form method="post" class = "form_1" style = "margin-top: 8%;" >
         {% csrf_token %}
         <img src="{% static 'img/bluecat.svg' %}" style="width: 70%; height: 70%; margin-left: 15%; margin-bottom: 5%;"><br>
         <label for="last_name">Фамилия</label>
@@ -31,7 +31,12 @@
         <label for="email">Email</label>
         <input type="email" name="email" class="input-field" required><br>
         <label for="password">Пароль</label>
-        <input type="password" name="password" class="input-field" required><br><br>
+        <div style="position: relative;">
+            <input type="password" name="password" id="password-input" class="input-field" required style="padding-right: 40px;"> <!-- Отступ справа для иконки -->
+            <a href="#" class="password-control" onclick="return show_hide_password(this);" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); text-decoration: none;">
+                <i class="bi bi-eye-fill" style="color: #6c6960;"></i>
+            </a>
+        </div><br><br>
         <button type="submit" class="btn btn-primary" style="background-color:#3199e6; width: 100%;">Зарегистрироваться</button><br><br>
         <a href="{% url 'login' %}" style="color:#3199e6; text-decoration: none;">Войти</a>
     </form>
@@ -42,12 +47,28 @@
 {% block scripts %}
     <script>
         document.getElementById('role').addEventListener('change', function() {
-        var Student_section = document.getElementById('student_id_div');
-        if (this.value == '2' || this.value == '3') {
-        Student_section.classList.add('hidden');
-        } else {
-        Student_section.classList.remove('hidden');
-        }
+            var Student_section = document.getElementById('student_id_div');
+            if (this.value == '2' || this.value == '3') {
+            Student_section.classList.add('hidden');
+            } else {
+            Student_section.classList.remove('hidden');
+            }
         })
+        function show_hide_password(target){
+        var input = document.getElementById('password-input');
+        var icon = target.querySelector('i');
+        if (input.getAttribute('type') == 'password') {
+            target.classList.add('view');
+            input.setAttribute('type', 'text');
+            icon.classList.remove('bi-eye-fill');
+            icon.classList.add('bi-eye-slash-fill');
+        } else {
+            target.classList.remove('view');
+            input.setAttribute('type', 'password');
+            icon.classList.remove('bi-eye-slash-fill');
+            icon.classList.add('bi-eye-fill');
+        }
+        return false;
+    }
     </script>
 {% endblock %}

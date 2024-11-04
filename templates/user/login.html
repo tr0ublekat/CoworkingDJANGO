@@ -9,7 +9,13 @@
     {% csrf_token %}
     <img src="{% static 'img/bluecat.svg' %}" style="width: 70%; height: 70%; margin-left: 15%; margin-bottom: 5%;">
     <input type="text" name="email" placeholder="Введите почту" style="width: 100%;"><br><br>
-    <input type="password" name="password" placeholder="Введите пароль" style="width: 100%;"><br><br>
+    <div style="position: relative;">
+        <input type="password" id="password-input" name="password" placeholder="Введите пароль" style="width: 100%;">
+        <a href="#" class="password-control" onclick="return show_hide_password(this);" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); text-decoration: none;">
+            <i class="bi bi-eye-fill" style="color: #6c6960;"></i>
+        </a>
+    </div>
+    <br><br>
     <input type="submit" value="Войти" class="btn btn-primary me-2" style="background-color:#3199e6; width: 100%;"><br><br>
     <a href="{% url 'register' %}" style="color:#3199e6; text-decoration: none;">Регистрация</a>
 </form>
@@ -37,4 +43,25 @@
 </h3> -->
 
 
+{%endblock%}
+
+{%block scripts%}
+<script>
+    function show_hide_password(target){
+        var input = document.getElementById('password-input');
+        var icon = target.querySelector('i');
+        if (input.getAttribute('type') == 'password') {
+            target.classList.add('view');
+            input.setAttribute('type', 'text');
+            icon.classList.remove('bi-eye-fill');
+            icon.classList.add('bi-eye-slash-fill');
+        } else {
+            target.classList.remove('view');
+            input.setAttribute('type', 'password');
+            icon.classList.remove('bi-eye-slash-fill');
+            icon.classList.add('bi-eye-fill');
+        }
+        return false;
+    }
+</script>
 {%endblock%}

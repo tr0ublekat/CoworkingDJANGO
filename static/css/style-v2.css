@@ -39,6 +39,18 @@ hidden {
     opacity: 1;
     z-index: 9999;
     display: none;
+    
+}
+
+.overlay {
+    display: none; /* Скрыто по умолчанию */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный фон */
+    z-index: 9998; /* Чуть ниже, чем у всплывающего окна */
 }
 
 .form_1 {

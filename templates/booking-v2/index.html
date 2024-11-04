@@ -48,7 +48,7 @@
             <button table_id="7" id = "table_7" class="squarex2" style="background-color: rgba(83, 180, 143, 0.886); position: absolute; bottom: 10%; left: 50%; transform: translateX(-50%);"></button>
         </div> -->
     </div><br>
-
+    <div class="overlay" onclick="closePopup()"></div>
      <!-- Всплывающее окно с интервалами(элементы) -->
      <div class="popup-interval" style="padding: 10px; display: none; width: auto; max-width: 600px; font-size: 100%; height: auto;">
         <p style="font-size: 150%; text-align: center;">Выберите <br> интервал</p>
@@ -405,6 +405,7 @@
 
         const intervalContainer = document.querySelector('.popup-interval');
         const checkboxes = intervalContainer.querySelectorAll('input[type="checkbox"]');
+        document.querySelector('.overlay').style.display = 'block';
 
         // Проверяем, что количество чекбоксов совпадает с длиной массива данных
         if (intervals.length !== checkboxes.length) {
@@ -503,9 +504,17 @@
     }
 
     function closePopup1() {
+        document.querySelector('.overlay').style.display = 'none';
         document.querySelector('.popup-interval').style.display = 'none';
         resetCheckboxes();
     }
+
+    function closePopup(){
+        document.querySelector('.overlay').style.display = 'none';
+        document.querySelector('.popup-interval').style.display = 'none';
+        resetCheckboxes();
+    }
+    
 
     function resetCheckboxes() {
         var checkboxes = document.querySelectorAll(".popup-interval input[type='checkbox']");
@@ -717,6 +726,7 @@
     // Закрытие модального окна при клике вне его
     window.addEventListener('click', (event) => {
         const modal = document.getElementById('modal');
+
         if (event.target === modal) {
             modal.style.display = 'none';
         }

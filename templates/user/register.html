@@ -8,6 +8,12 @@
     <form method="post" class = "form_1" style = "margin-top: 8%;" >
         {% csrf_token %}
         <img src="{% static 'img/bluecat.svg' %}" style="width: 70%; height: 70%; margin-left: 15%; margin-bottom: 5%;"><br>
+
+        {% if error %}
+    	    <p>{{ error }}</p>
+        {% endif %}
+
+
         <label for="last_name">Фамилия</label>
         <input type="text" name="last_name" class="input-field" required><br>
         <label for="first_name">Имя</label>

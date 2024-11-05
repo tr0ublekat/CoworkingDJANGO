@@ -9,6 +9,10 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 
 def user_login(request):
+
+    if request.user.is_authenticated:
+        return redirect('profile')
+
     if request.method == "POST":
         email = request.POST['email']
         password = request.POST['password']
@@ -17,7 +21,7 @@ def user_login(request):
             login(request, user=user)
             return redirect('main')
         else:
-            return HttpResponse("Incorrect login or password")
+            return render(request, 'user/login.html', {'error': 'Неверный логин или пароль'})
     return render(request, 'user/login.html')
 
 def user_logout(request):
@@ -25,6 +29,10 @@ def user_logout(request):
     return redirect("login")
 
 def user_register(request):
+
+    if request.user.is_authenticated:
+        return redirect('profile')
+
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
@@ -35,7 +43,7 @@ def user_register(request):
         role = request.POST['role']
 
         if CustomUser.objects.filter(email=email).exists():
-            return HttpResponse("Email already exists")
+            return render(request, 'user/register.html', {'error': 'Данный email уже используется'})
 
         user = CustomUser.objects.create_user(
             email=email,

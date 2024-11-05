@@ -8,6 +8,11 @@
 <form action="{% url 'login' %}" method="post" class = "form_1">
     {% csrf_token %}
     <img src="{% static 'img/bluecat.svg' %}" style="width: 70%; height: 70%; margin-left: 15%; margin-bottom: 5%;">
+
+    {% if error %}
+    	<p>{{ error }}</p>
+    {% endif %}
+
     <input type="text" name="email" placeholder="Введите почту" style="width: 100%;"><br><br>
     <div style="position: relative;">
         <input type="password" id="password-input" name="password" placeholder="Введите пароль" style="width: 100%;">

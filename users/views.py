@@ -71,14 +71,6 @@ def profile(request):
     else:
         return redirect('login')
 
-# def edit_books(request):
-#     if request.user.is_authenticated:
-#         user = request.user
-#         bookings = Book.objects.filter(student_id=user)
-#         return render(request, 'user/edit_books.html', {'student_id': user, 'bookings': bookings})
-    
-#     return redirect('login')
-
 def remove_book(request):
     if request.method == 'POST':
         pk = request.POST.get("pk")

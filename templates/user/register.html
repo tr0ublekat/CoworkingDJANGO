@@ -10,7 +10,9 @@
         <img src="{% static 'img/bluecat.svg' %}" style="width: 70%; height: 70%; margin-left: 15%; margin-bottom: 5%;"><br>
 
         {% if error %}
-    	    <p>{{ error }}</p>
+    	    <p style="color: black; text-align: center;
+            border-radius: 5px; padding: 5px; border: #fccbcf 1px solid; 
+            background-color: #fccbcf">{{ error }}</p>
         {% endif %}
 
 

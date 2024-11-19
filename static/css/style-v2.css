@@ -184,3 +184,72 @@ input:checked+.slider:before {
 .slider.round:before {
     border-radius: 38px;
 }
+
+.scheme {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.table-button {
+    background: transparent;
+    border: none;
+    position: absolute;
+}
+
+/* Стили для иконок */
+.table-button i {
+    color: #ffcc33;
+}
+
+.table-button {
+    position: absolute; /* Убедитесь, что кнопки позиционируются правильно */
+}
+
+.icon {
+    font-size: 400%; /* Размер по умолчанию для иконок */
+}
+
+.my-8-style {
+    font-size: 650%; /* Размер по умолчанию для этой иконки */
+}
+
+.room-container {
+    font-size: 100%;
+    background-color: rgb(255, 255, 255);
+    height: 400px; /* Высота по умолчанию */
+    width: 100%;
+    border-radius: 0 10px 10px 10px;
+    border: 5px solid rgb(235, 234, 234);
+}
+
+@media (max-width: 768px) {
+    #map {
+        height: 400px !important;
+    }
+
+    .room-container {
+        height: 250px !important;
+    }
+
+    .table-button {
+        font-size: 150% !important; /* Уменьшите размер кнопок */
+    }
+
+    .table-button .icon {
+        font-size: 180% !important; /* Уменьшите размер иконок для кнопок */
+    }
+
+    .my-8-style {
+        font-size: 250% !important; /* Увеличьте размер для мобильных */
+    }
+
+    .dop {
+        font-size: 180% !important;
+    }
+
+    .form_1 {
+        width: 60% !important;
+    }
+
+}

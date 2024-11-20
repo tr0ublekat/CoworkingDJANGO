@@ -231,10 +231,12 @@ input:checked+.slider:before {
     justify-content: space-between;
 }
 
-* {
-    box-sizing: border-box;
+td, th {
+    padding: 10px; /* Добавьте отступы для удобства */
+    text-align: center; /* Центрируйте текст */
+    word-wrap: break-word; /* Перенос длинных слов */
+    overflow-wrap: break-word; /* Поддержка разных браузеров */
 }
-
 
 @media (max-width: 768px) {
     #map {
@@ -274,5 +276,64 @@ input:checked+.slider:before {
         margin-right: 0 !important; 
         width: 100% !important;
         margin-bottom: 20px !important; 
+    }
+
+    td, th {
+        font-size: 12px; /* Уменьшите размер шрифта */
+        padding: 5px; /* Уменьшите отступы */
+    }
+
+    .profile_container .btn {
+        font-size: 12px !important; /* Используйте !important, если необходимо */
+    }
+}
+
+@media (max-width: 320px) {
+    #map {
+        height: 300px !important;
+    }
+
+    .room-container {
+        height: 220px !important;
+    }
+
+    .table-button {
+        font-size: 120% !important; /* Уменьшите размер кнопок */
+    }
+
+    .table-button .icon {
+        font-size: 150% !important; /* Уменьшите размер иконок для кнопок */
+    }
+
+    .my-8-style {
+        font-size: 230% !important; /* Увеличьте размер для мобильных */
+    }
+
+    .dop {
+        font-size: 150% !important;
+    }
+
+    .form_1 {
+        width: 60% !important;
+    }
+
+    .profile_container {
+        flex-direction: column !important; 
+        align-items: center !important; 
+    }
+
+    .profile_container > div {
+        margin-right: 0 !important; 
+        width: 100% !important;
+        margin-bottom: 20px !important; 
+    }
+
+    td, th {
+        font-size: 10px; /* Уменьшите размер шрифта */
+        padding: 2px; /* Уменьшите отступы */
+    }
+
+    .profile_container .btn {
+        font-size: 8px !important; /* Используйте !important, если необходимо */
     }
 }

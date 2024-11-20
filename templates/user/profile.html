@@ -74,9 +74,9 @@
                                 <form action="remove-book/" method="post">
                                     {% csrf_token %}
                                 <!-- <td style="border: 3px solid; border-color: #ccc; padding: 10px; border-right: none; border-radius: 40px 0 0 40px;">{{item.id}}</td> -->
-                                <td style="border: 3px solid; border-color: #ccc; padding: 5px; border-right: none;  border-radius: 40px 0 0 40px;">{{ item.date }}</td>
-                                <td style="border: 3px solid; border-color: #ccc; padding: 5px; border-right: none; border-left: none;">{{ item.place }}</td>
-                                <td style="border: 3px solid; border-color: #ccc; padding: 5px; border-right: none; border-left: none;">
+                                <td style="border: 3px solid; border-color: #ccc;  border-right: none;  border-radius: 40px 0 0 40px;">{{ item.date }}</td>
+                                <td style="border: 3px solid; border-color: #ccc; border-right: none; border-left: none;">{{ item.place }}</td>
+                                <td style="border: 3px solid; border-color: #ccc;  border-right: none; border-left: none;">
                                     {% if item.time == 1 %}
                                     8:00-9:00
                                     {% elif item.time == 2 %}
@@ -99,10 +99,10 @@
                                     17:00-18:00
                                     {% endif %}</td>
 
-                                    <td style="border: 3px solid; border-color: #ccc; padding: 5px; border-right: none; border-left: none;">{{item.room}}</td>
+                                    <td style="border: 3px solid; border-color: #ccc;  border-right: none; border-left: none;">{{item.room}}</td>
 
                                     <input id="pk" type="hidden" name="pk" value="{{ item.id }}">
-                                    <td style="border: 3px solid; border-color: #ccc; padding: 5px;border-left: none; border-radius: 0 40px 40px 0;">
+                                    <td style="border: 3px solid; border-color: #ccc; border-left: none; border-radius: 0 40px 40px 0;">
                                         {% if item.date > now_date %}
                                             <input class="btn btn-outline-danger" type="submit" value="Отменить" >
                                         {% elif item.date == now_date and item.time > now_hour|add:"-7" %}

@@ -8,7 +8,7 @@
     <!-- <h1 style="text-align: center;">Профиль</h1> -->
 
 {% if request.user.is_authenticated %}
-    <div style="width: 90%; margin: 0 auto; display: flex; justify-content: space-between;">
+    <div class= "profile_container">
         <div style="flex: 1; margin-right: 20px;">
             <!-- <p>TEST PROFILE</p> -->
 
@@ -19,7 +19,7 @@
         </span>
         <div style="margin-top: 10px; text-align: center;">
             <input id="userId" value="{{ request.user.student_id }}" readonly style="border: none; background: transparent;
-             text-align: center; font-size: 16px; width: auto; outline: none; width: 40%;"/>
+             text-align: center; font-size: 16px; outline: none; width: 40%;"/>
             <button onclick="copyId()" style=" background-color: transparent; border: none;"><i class="bi bi-copy" style="font-size: 13px;"></i></button>
         </div>
         <label for="last_name">Фамилия</label>
@@ -53,9 +53,8 @@
         </div>
 
         <br>
-        <div style="flex: 5; width: 100%; margin: 0;">
+        <div  style="flex: 5; width: 100%; margin: 0;">
             <!-- <p>TEST EDIT BOOKS</p> -->
-
             <p style="text-align: center; font-size: 25px;">Мои бронирования</p>
             <table style="  width: 100%; border-collapse: separate; border-spacing: 0 5px; ">
                 <thead style="position: sticky;top: 0; background-color: white; z-index: 10;">
@@ -75,9 +74,9 @@
                                 <form action="remove-book/" method="post">
                                     {% csrf_token %}
                                 <!-- <td style="border: 3px solid; border-color: #ccc; padding: 10px; border-right: none; border-radius: 40px 0 0 40px;">{{item.id}}</td> -->
-                                <td style="border: 3px solid; border-color: #ccc; padding: 10px; border-right: none;  border-radius: 40px 0 0 40px;">{{ item.date }}</td>
-                                <td style="border: 3px solid; border-color: #ccc; padding: 10px; border-right: none; border-left: none;">{{ item.place }}</td>
-                                <td style="border: 3px solid; border-color: #ccc; padding: 10px; border-right: none; border-left: none;">
+                                <td style="border: 3px solid; border-color: #ccc; padding: 5px; border-right: none;  border-radius: 40px 0 0 40px;">{{ item.date }}</td>
+                                <td style="border: 3px solid; border-color: #ccc; padding: 5px; border-right: none; border-left: none;">{{ item.place }}</td>
+                                <td style="border: 3px solid; border-color: #ccc; padding: 5px; border-right: none; border-left: none;">
                                     {% if item.time == 1 %}
                                     8:00-9:00
                                     {% elif item.time == 2 %}
@@ -100,10 +99,10 @@
                                     17:00-18:00
                                     {% endif %}</td>
 
-                                    <td style="border: 3px solid; border-color: #ccc; padding: 10px; border-right: none; border-left: none;">{{item.room}}</td>
+                                    <td style="border: 3px solid; border-color: #ccc; padding: 5px; border-right: none; border-left: none;">{{item.room}}</td>
 
                                     <input id="pk" type="hidden" name="pk" value="{{ item.id }}">
-                                    <td style="border: 3px solid; border-color: #ccc; padding: 10px;border-left: none; border-radius: 0 40px 40px 0;">
+                                    <td style="border: 3px solid; border-color: #ccc; padding: 5px;border-left: none; border-radius: 0 40px 40px 0;">
                                         {% if item.date > now_date %}
                                             <input class="btn btn-outline-danger" type="submit" value="Отменить" >
                                         {% elif item.date == now_date and item.time > now_hour|add:"-7" %}

@@ -221,7 +221,20 @@ input:checked+.slider:before {
     width: 100%;
     border-radius: 0 10px 10px 10px;
     border: 5px solid rgb(235, 234, 234);
+    font-size: 100%;
 }
+
+.profile_container {
+    width: 100%; 
+    margin: 0 auto; 
+    display: flex; 
+    justify-content: space-between;
+}
+
+* {
+    box-sizing: border-box;
+}
+
 
 @media (max-width: 768px) {
     #map {
@@ -252,4 +265,14 @@ input:checked+.slider:before {
         width: 60% !important;
     }
 
+    .profile_container {
+        flex-direction: column !important; 
+        align-items: center !important; 
+    }
+
+    .profile_container > div {
+        margin-right: 0 !important; 
+        width: 100% !important;
+        margin-bottom: 20px !important; 
+    }
 }

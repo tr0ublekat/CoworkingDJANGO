@@ -16,7 +16,7 @@
 <nav class="navbar navbar-expand-md navbar-light bg-light">
     <div class="container-fluid"> 
         <a href="{% url 'main' %}" class="navbar-brand d-flex align-items-center">
-            <img src="{% static 'img/bluecat.svg' %}" style="width: 75px; height: 75px;">
+            <img src="{% static 'img/bluecat.svg' %}" class="logo" style="width: 75px; height: 75px;">
         </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,7 +24,7 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mx-auto marg-l">
+            <ul class="navbar-nav mx-auto"> <!-- Убираем marg-left -->
                 {% if request.user.is_authenticated %}
                 <li class="nav-item">
                     <a href="{% url 'main' %}" class="nav-link">Главная</a>
@@ -35,7 +35,7 @@
                 {% endif %}
             </ul>
 
-            <div class="d-flex">
+            <div class="d-flex align-items-center"> <!-- Центрируем элементы -->
                 {% if request.user.is_authenticated %}
                 <ul class="navbar-nav mb-2 mb-md-0 d-flex" style="gap: 10px;">
                     <li class="nav-item">
@@ -59,6 +59,7 @@
         </div>
     </div>
 </nav>
+
 
 
 

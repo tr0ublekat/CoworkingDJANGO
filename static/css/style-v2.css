@@ -197,7 +197,7 @@ input:checked+.slider:before {
     position: absolute;
 }
 
-/* Стили для иконок */
+
 .table-button i {
     color: #ffcc33;
 }
@@ -232,10 +232,10 @@ input:checked+.slider:before {
 }
 
 td, th {
-    padding: 10px; /* Добавьте отступы для удобства */
-    text-align: center; /* Центрируйте текст */
+    padding: 10px; 
+    text-align: center; 
     word-wrap: break-word; /* Перенос длинных слов */
-    overflow-wrap: break-word; /* Поддержка разных браузеров */
+    overflow-wrap: break-word; 
 }
 
 .main_container {
@@ -244,22 +244,39 @@ td, th {
 }
 
 @media (min-width: 769px) {
-    .navbar-nav {
-        flex-direction: row !important; /* Убедитесь, что элементы располагаются в строку */
-        align-items: center; /* Центрирование элементов */
-        font-size: 20px !important;
+    .navbar {
+        padding: 0;
+        height: 80px;
     }
 
-    .justify-content-center {
-        justify-content: center; /* Центрирование главной навигации */
+    .navbar-brand {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .logo {
+        width: 100% !important; 
+        max-height: 80px; 
+        height: auto; 
     }
 
     .navbar-collapse {
-        justify-content: space-between; /* Распределите пространство между элементами */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-left: 10%;
     }
 
-    .marg-left {
-        margin-left: 30px !important;
+    .navbar-nav {
+        flex-grow: 1;
+        justify-content: center;
+        margin: 0;
+    }
+
+    .navbar-nav li {
+        margin: 0 15px;
     }
 }
     
@@ -274,15 +291,15 @@ td, th {
     }
 
     .table-button {
-        font-size: 140% !important; /* Уменьшите размер кнопок */
+        font-size: 140% !important; 
     }
 
     .table-button .icon {
-        font-size: 170% !important; /* Уменьшите размер иконок для кнопок */
+        font-size: 170% !important; 
     }
 
     .my-8-style {
-        font-size: 240% !important; /* Увеличьте размер для мобильных */
+        font-size: 240% !important; 
     }
 
     .dop {
@@ -305,22 +322,22 @@ td, th {
     }
 
     td, th {
-        font-size: 12px; /* Уменьшите размер шрифта */
-        padding: 5px; /* Уменьшите отступы */
+        font-size: 12px; 
+        padding: 5px; 
     }
 
     .profile_container .btn {
-        font-size: 12px !important; /* Используйте !important, если необходимо */
+        font-size: 12px !important;
     }
 
     .navbar-nav {
-        flex-direction: column !important; /* Вертикальное расположение на мобильных */
-        align-items: center; /* Центрирование элементов */
+        flex-direction: column !important; 
+        align-items: center; 
         width: 100%;
     }
 
     .ms-auto {
-        margin-top: 10px; /* Добавьте отступ сверху для мобильного отображения */
+        margin-top: 10px; 
     }
 
     .main_container{
@@ -332,12 +349,22 @@ td, th {
         width: 100% !important;
         height: auto !important;
         margin-right: 0 !important;
+        font-size: 12px !important;
     }
 
     .main_container > div > div {
         width: 100% !important;
         height: auto !important;
 
+    }
+
+    .main_container > div > div > div > a {
+        font-size: 12px !important;
+    }
+    
+    .logo {
+        width: 100px !important; 
+        height: 100px !important; 
     }
 }
 
@@ -351,15 +378,15 @@ td, th {
     }
 
     .table-button {
-        font-size: 120% !important; /* Уменьшите размер кнопок */
+        font-size: 120% !important;
     }
 
     .table-button .icon {
-        font-size: 150% !important; /* Уменьшите размер иконок для кнопок */
+        font-size: 150% !important; 
     }
 
     .my-8-style {
-        font-size: 230% !important; /* Увеличьте размер для мобильных */
+        font-size: 230% !important; 
     }
 
     .dop {
@@ -382,12 +409,12 @@ td, th {
     }
 
     td, th {
-        font-size: 10px; /* Уменьшите размер шрифта */
-        padding: 2px; /* Уменьшите отступы */
+        font-size: 10px; 
+        padding: 2px; 
     }
 
     .profile_container .btn {
-        font-size: 8px !important; /* Используйте !important, если необходимо */
+        font-size: 8px !important; 
     }
 }
 

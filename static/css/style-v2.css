@@ -238,6 +238,16 @@ td, th {
     overflow-wrap: break-word; /* Поддержка разных браузеров */
 }
 
+.main_container {
+    width: 75%; 
+    margin: 0 auto;
+}
+
+@media (min-width: 769px) {
+
+}
+    
+
 @media (max-width: 768px) {
     #map {
         height: 400px !important;
@@ -285,6 +295,33 @@ td, th {
 
     .profile_container .btn {
         font-size: 12px !important; /* Используйте !important, если необходимо */
+    }
+
+    .navbar-nav {
+        flex-direction: column !important; /* Вертикальное расположение на мобильных */
+        align-items: center; /* Центрирование элементов */
+        width: 100%;
+    }
+
+    .ms-auto {
+        margin-top: 10px; /* Добавьте отступ сверху для мобильного отображения */
+    }
+
+    .main_container{
+        width: 100% !important;
+    }
+
+    .main_container > div {
+        flex-direction: column !important;
+        width: 100% !important;
+        height: auto !important;
+        margin-right: 0 !important;
+    }
+
+    .main_container > div > div {
+        width: 100% !important;
+        height: auto !important;
+
     }
 }
 
@@ -337,3 +374,4 @@ td, th {
         font-size: 8px !important; /* Используйте !important, если необходимо */
     }
 }
+

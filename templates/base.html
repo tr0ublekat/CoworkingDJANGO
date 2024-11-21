@@ -25,32 +25,33 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
-            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mx-auto"> <!-- Центрируем элементы и выравниваем по краям -->
-                <ul class="navbar-nav mb-2 mb-md-0 d-flex flex-column flex-md-row"> <!-- Используем Flexbox для выравнивания -->
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mx-auto">
+                <ul class="navbar-nav mb-1 mb-md-0 d-flex flex-column flex-md-row" style="width: 100%; justify-content: center;">
                     {% if request.user.is_authenticated %}
-                    <li class="nav-item mb-2 mb-md-0 me-md-3"> <!-- Увеличиваем отступ между элементами -->
+                    <li class="nav-item flex-fill text-center">
                         <a href="{% url 'main' %}" class="nav-link">Главная</a>
                     </li>
-                    <li class="nav-item mb-2 mb-md-0 me-md-3"> <!-- Увеличиваем отступ между элементами -->
+                    <li class="nav-item flex-fill text-center">
                         <a href="{% url 'booking-v2' %}" class="nav-link">Бронирование</a>
                     </li>
                     {% endif %}
                 </ul>
             
-                <div class="d-flex flex-column mx-auto mt-3 mt-md-0" style="max-width: 600px;"> <!-- Максимальная ширина для центровки -->
+                <div class="d-flex flex-column mx-auto" style="max-width: 400px; width: 100%;"> <!-- Установка максимальной ширины для блока с аккаунтом -->
                     {% if request.user.is_authenticated %}
-                    <div class="mb-2"> <!-- Добавляем отступ между элементами -->
+                    <div class="mb-1">
                         <ul class="navbar-nav mb-2 mb-md-0 d-flex justify-content-center" style="gap: 10px; width: 100%;">
-                            <li class="nav-item flex-fill d-flex align-items-center justify-content-center"> <!-- Используем Flexbox для выравнивания -->
-                                <a href="{% url 'profile' %}" class="nav-link me-1">
+                            <li class="nav-item flex-fill d-flex align-items-center justify-content-center">
+                                <a href="{% url 'profile' %}" class="nav-link me-1">Личный кабинет</a>
+                                <!-- <a href="{% url 'profile' %}" class="nav-link me-1">
                                     {{ request.user.student_id }} ({{ request.user.last_name }} {{ request.user.first_name|slice:":1" }})
                                 </a>
                                 <a href="{% url 'profile' %}" class="user-icon" style="text-decoration: none; width: 40px; height: 40px; border-radius: 50%; background-color: #3199e6; color: white; display: flex; align-items: center; justify-content: center; margin-left: 10px;">
                                     {{ request.user.last_name|slice:":1" }}{{ request.user.first_name|slice:":1" }}
-                                </a>
+                                </a> -->
                             </li>
                             <li class="nav-item flex-fill d-flex justify-content-center">
-                                <a class="btn btn-danger" href="{% url 'logout' %}" id="logout">Выйти</a>
+                                <a class="btn btn-danger" style="height: 40px; " href="{% url 'logout' %}" id="logout">Выйти</a>
                             </li>
                         </ul>
                     </div>
@@ -71,6 +72,7 @@
         </div>
     </div>
 </nav>
+
 
 
 

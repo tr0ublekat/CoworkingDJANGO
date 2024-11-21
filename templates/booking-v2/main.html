@@ -5,19 +5,17 @@
 {% block title %}Главная{% endblock %}
 
 {% block main %}
- <div style="width: 75%; margin: 0 auto;">
+ <div class = "main_container">
     <h1 style="text-align: center;">Catworking</h1>
-
     <div style="border: 4px solid #ccc; padding: 10px; border-radius: 10px">
         <p>Добро пожаловать на проект Catworking. Тут вы можете забронировать место в коворкинге. 
             Проект создан в рамках выступления на конференции. Сам проект строится на основе Django, HTML, CSS и JavaScript.
-            Над проектом работали Кожевников Кирилл, Иванов Владимир, Ярдыков Эдуард.
             <br>
             Приятного пользования!
         </p>
     </div>
     <div style="display: flex; justify-content: space-between; margin-top: 10px; align-items: stretch;">
-        <div style="flex: 1; margin-right: 20px;">
+        <div style="flex: 1; margin-right: 20px; margin-bottom: 10px;">
             <div style="border: 4px solid #ccc; padding: 10px; border-radius: 10px; height: 100%;">
                 <p>Забронировать место в коворкинг можно здесь</p>
                 <a href="{% url 'booking-v2' %}" class="btn btn-primary" style="margin-left: 50%; transform: translateX(-50%);">Забронировать</a>

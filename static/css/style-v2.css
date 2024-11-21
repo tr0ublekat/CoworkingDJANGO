@@ -244,7 +244,23 @@ td, th {
 }
 
 @media (min-width: 769px) {
+    .navbar-nav {
+        flex-direction: row !important; /* Убедитесь, что элементы располагаются в строку */
+        align-items: center; /* Центрирование элементов */
+        font-size: 20px !important;
+    }
 
+    .justify-content-center {
+        justify-content: center; /* Центрирование главной навигации */
+    }
+
+    .navbar-collapse {
+        justify-content: space-between; /* Распределите пространство между элементами */
+    }
+
+    .marg-left {
+        margin-left: 30px !important;
+    }
 }
     
 
@@ -258,19 +274,19 @@ td, th {
     }
 
     .table-button {
-        font-size: 150% !important; /* Уменьшите размер кнопок */
+        font-size: 140% !important; /* Уменьшите размер кнопок */
     }
 
     .table-button .icon {
-        font-size: 180% !important; /* Уменьшите размер иконок для кнопок */
+        font-size: 170% !important; /* Уменьшите размер иконок для кнопок */
     }
 
     .my-8-style {
-        font-size: 250% !important; /* Увеличьте размер для мобильных */
+        font-size: 240% !important; /* Увеличьте размер для мобильных */
     }
 
     .dop {
-        font-size: 180% !important;
+        font-size: 170% !important;
     }
 
     .form_1 {

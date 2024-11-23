@@ -18,6 +18,9 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import RedirectView
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 from api.views import main as MainPage
 
 urlpatterns = [
@@ -27,4 +30,4 @@ urlpatterns = [
     path('booking/', include('booking.urls')),
     path('api/', include('api.urls')),
     path('user/', include('users.urls')),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

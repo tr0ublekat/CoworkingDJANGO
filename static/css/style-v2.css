@@ -71,6 +71,19 @@ hidden {
     transform:translate(-50%,-50%);
 }
 
+.form_reg {
+    background-color: white;
+    position: absolute;
+    width: 20%;
+    padding: 20px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%,-50%);
+}
+
 .input-field {
     width: 100%; 
     padding: 10px; 
@@ -304,6 +317,11 @@ td, th {
 
     .dop {
         font-size: 170% !important;
+    }
+
+    .form_reg {
+        margin-top: 60% !important;
+        width: 60% !important;
     }
 
     .form_1 {

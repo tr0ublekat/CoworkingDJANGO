@@ -330,6 +330,12 @@ td, th {
         font-size: 12px !important;
     }
 
+    .navbar {
+        padding: 0 !important;
+
+        height: 7% !important;
+    }
+
     .navbar-nav {
         flex-direction: column !important; 
         align-items: center; 
@@ -363,8 +369,8 @@ td, th {
     }
     
     .logo {
-        width: 100px !important; 
-        height: 100px !important; 
+        width: 95px !important; 
+        height: 50px !important; 
     }
 }
 

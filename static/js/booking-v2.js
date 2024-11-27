@@ -528,9 +528,11 @@ const roomSchemes = {
     </div>`,
 }
 
+url_ip = 'http://127.0.0.1:8000'
+
 async function fetchRooms(institutionId) {
     try {
-        const response = await fetch('http://127.0.0.1:8000/api/rooms/');
+        const response = await fetch(url_ip + '/api/rooms/');
         rooms = await response.json();
         displayRooms(rooms, institutionId);
     } catch (error) {
@@ -540,7 +542,7 @@ async function fetchRooms(institutionId) {
 
 async function fetchInstitutions() {
     try {
-        const response = await fetch('http://127.0.0.1:8000/api/institutions/');
+        const response = await fetch(url_ip + '/api/institutions/');
         institutions = await response.json();
     } catch (error) {
         console.error(error);
@@ -549,7 +551,7 @@ async function fetchInstitutions() {
 
 async function fetchIntervals(roomId, date, tableId) {
     try {
-        const response = await fetch('http://127.0.0.1:8000/api/available-times/',{
+        const response = await fetch(url_ip+'/api/available-times/',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -571,7 +573,7 @@ async function fetchIntervals(roomId, date, tableId) {
 
 async function fetchUsers(studentId) {
     try {
-        const response = await fetch('http://127.0.0.1:8000/api/available-student/', {
+        const response = await fetch(url_ip + '/api/available-student/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -600,7 +602,7 @@ async function fetchUsers(studentId) {
 
 async function fetchBooking(date, tableId, intervals, studentId, room_id) {
     try {
-        const response = await fetch('http://127.0.0.1:8000/api/book/', {
+        const response = await fetch(url_ip + '/api/book/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

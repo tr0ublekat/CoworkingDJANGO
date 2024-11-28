@@ -528,7 +528,7 @@ const roomSchemes = {
     </div>`,
 }
 
-url_ip = 'http://127.0.0.1:8000'
+url_ip = 'http://195.133.73.117'
 
 async function fetchRooms(institutionId) {
     try {

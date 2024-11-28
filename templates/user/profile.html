@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %}Бронирование 2{% endblock %}
+{% block title %}Личный кабинет{% endblock %}
 
 {% block main %}
     <!-- <h1 style="text-align: center;">Профиль</h1> -->
@@ -56,6 +56,7 @@
         <div  style="flex: 5; width: 100%; margin: 0;">
             <!-- <p>TEST EDIT BOOKS</p> -->
             <p style="text-align: center; font-size: 25px;">Мои бронирования</p>
+            {% if bookings %}
             <table style="  width: 100%; border-collapse: separate; border-spacing: 0 5px; ">
                 <thead style="position: sticky;top: 0; background-color: white; z-index: 10;">
                     <tr style="text-align: center;">
@@ -68,7 +69,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                {% if bookings %}
                     {% for item in bookings %}
                             <tr style="border: 3px solid; border-bottom: none;">
                                 <form action="remove-book/" method="post">
@@ -116,7 +116,7 @@
                     {% endfor %}
                     </tbody>
                 {% else %}
-                    ПУСТО
+                    <p style = "text-align: center; font-size: large;">Бронирования отсутствуют</p>
                 {% endif %}
             </table>
         </div>

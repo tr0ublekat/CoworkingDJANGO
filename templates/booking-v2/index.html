@@ -180,15 +180,12 @@
 {% endblock %}
 
 {% block scripts %}
-<script async src="{% static 'js/booking-v2.js' %}"></script>    
+<script async src="{% static 'js/booking-v2.js' %}"></script>  
+<script async src="{% static 'js/rooms.js' %}"></script>
 <script>
     var currentuser = Number("{{ request.user.student_id|escapejs }}");
     // переменная массив участников
     var participants = [currentuser];
-
-    
-
-
 </script>
 
 <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>

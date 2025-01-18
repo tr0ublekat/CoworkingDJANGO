@@ -54,13 +54,11 @@
 
         <br>
         <div  style="flex: 5; width: 100%; margin: 0;">
-            <!-- <p>TEST EDIT BOOKS</p> -->
             <p style="text-align: center; font-size: 25px;">Мои бронирования</p>
             {% if bookings %}
             <table style="  width: 100%; border-collapse: separate; border-spacing: 0 5px; ">
                 <thead style="position: sticky;top: 0; background-color: white; z-index: 10;">
                     <tr style="text-align: center;">
-                        <!-- <td style="border: none">Айди</td> -->
                         <td style="border: none">Дата</td>
                         <td style="border: none">Столик</td>
                         <td style="border: none">Время</td>
@@ -73,7 +71,6 @@
                             <tr style="border: 3px solid; border-bottom: none;">
                                 <form action="remove-book/" method="post">
                                     {% csrf_token %}
-                                <!-- <td style="border: 3px solid; border-color: #ccc; padding: 10px; border-right: none; border-radius: 40px 0 0 40px;">{{item.id}}</td> -->
                                 <td style="border: 3px solid; border-color: #ccc;  border-right: none;  border-radius: 40px 0 0 40px;">{{ item.date }}</td>
                                 <td style="border: 3px solid; border-color: #ccc; border-right: none; border-left: none;">{{ item.place }}</td>
                                 <td style="border: 3px solid; border-color: #ccc;  border-right: none; border-left: none;">

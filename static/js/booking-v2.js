@@ -25,509 +25,6 @@
     // Устанавливаем минимальную дату в input
     document.getElementById('data').setAttribute('min', formattedDate);
 
-
-
-const roomSchemes = {
-    '1_1' : `
-    <h3 class = "back_1" >Выберите стол</h3>
-    <div class="room-container">
-        <div class="scheme">
-            <!-- Столы -->
-             <button class="table-button" style="left: 0%; top: 0%;" table_id="1" id="table_1">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 15%; top: 0%;" table_id="2" id="table_2">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 30%; top: 0%;" table_id="3" id="table_3">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 0%; top: 25%;" table_id="4" id="table_4">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 15%; top: 25%;" table_id="5" id="table_5">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 30%; top: 25%;" table_id="6" id="table_6">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-
-            <!-- Линии -->
-            <div style="background-color: rgb(235, 234, 234); width: 46%; height: 2%; position: absolute; left: 0%; top: 60%;"></div>
-            <div style="background-color: rgb(235, 234, 234); width: 1%; height: 40%; position: absolute; left: 45%; top: -1%; border-radius: 5px;"></div>
-            <div style="background-color: rgb(235, 234, 234); width: 1%; height: 20%; position: absolute; left: 45%; top: 50%; border-radius: 5px;"></div>
-            <div style="background-color: rgb(235, 234, 234); width: 1%; height: 21%; position: absolute; left: 45%; top: 80%; border-radius: 5px;"></div>
-
-            <!-- Столы -->
-             <button class="table-button" style="left: 0%; top: 70%;" table_id="7" id="table_7">
-                <i class="bi bi-4-square-fill icon" style="font-size: 400%;"></i>
-            </button>
-            <button class="table-button" style="left: 15%; top: 70%;" table_id="8" id="table_8">
-                <i class="bi bi-4-square-fill icon" style="font-size: 400%;"></i>
-            </button>
-            <button class="table-button" style="left: 30%; top: 70%;" table_id="9" id="table_9">
-                <i class="bi bi-4-square-fill icon" style="font-size: 400%;"></i>
-            </button>
-            <button class="table-button" style="left: 73%; top: 0%;" table_id="10" id="table_10">
-                <i class="bi bi-8-square-fill my-8-style" style="font-size: 650%;"></i>
-            </button>
-            <button class="table-button" style="left: 73%; top: 55%;" table_id="11" id="table_11">
-                <i class="bi bi-8-square-fill my-8-style" style="font-size: 650%;"></i>
-            </button>
-
-            <!-- Дополнения -->
-            <i class="bi bi-tv dop" style="font-size: 400%; color: #6c6960; position: absolute; left: 91%; top: 10.3%; transform: rotate(90deg);"></i>
-            <i class="bi bi-tv dop" style="font-size: 400%; color: #6c6960; position: absolute; left: 91%; top: 66%; transform: rotate(90deg);"></i>
-
-            <i class="bi bi-square dop" style="font-size: 400%; color: rgb(235, 234, 234); position: absolute; left: 48%; top: 0%;"></i>
-            <i class="bi bi-droplet-half dop" style="font-size: 370%; color: #6c6960; position: absolute; left: 48.5%; top: 0%;"></i>
-            
-
-            <i class="bi bi-square dop" style="font-size: 400%; color: rgb(235, 234, 234); position: absolute; left: 59%; top: 0%;"></i>
-            <i class="bi bi-cup-hot-fill dop" style="font-size: 370%; color: #6c6960; position: absolute; left: 59.5%; top: 0%;"></i>
-
-            <!-- <i class="bi bi-door-open"
-                style="font-size: 60px; color: #6c6960; position: absolute; left: 48%; top: 78%;"></i> -->
-        </div>
-    </div>`,
-    '1_2' : `
-    <h3 class = "back_1" >Выберите стол</h3>
-    <div class="room-container">
-        <div class="scheme">
-            <!-- Столы -->
-             <button class="table-button" style="left: 0%; top: 0%;" table_id="1" id="table_1">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 15%; top: 0%;" table_id="2" id="table_2">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 30%; top: 0%;" table_id="3" id="table_3">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 0%; top: 25%;" table_id="4" id="table_4">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 15%; top: 25%;" table_id="5" id="table_5">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 30%; top: 25%;" table_id="6" id="table_6">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-
-            <!-- Линии -->
-            <div style="background-color: rgb(235, 234, 234); width: 46%; height: 2%; position: absolute; left: 0%; top: 60%;"></div>
-            <div style="background-color: rgb(235, 234, 234); width: 1%; height: 40%; position: absolute; left: 45%; top: -1%; border-radius: 5px;"></div>
-            <div style="background-color: rgb(235, 234, 234); width: 1%; height: 20%; position: absolute; left: 45%; top: 50%; border-radius: 5px;"></div>
-            <div style="background-color: rgb(235, 234, 234); width: 1%; height: 21%; position: absolute; left: 45%; top: 80%; border-radius: 5px;"></div>
-
-            <!-- Столы -->
-             <button class="table-button" style="left: 0%; top: 70%;" table_id="7" id="table_7">
-                <i class="bi bi-4-square-fill icon" style="font-size: 400%;"></i>
-            </button>
-            <button class="table-button" style="left: 15%; top: 70%;" table_id="8" id="table_8">
-                <i class="bi bi-4-square-fill icon" style="font-size: 400%;"></i>
-            </button>
-            <button class="table-button" style="left: 30%; top: 70%;" table_id="9" id="table_9">
-                <i class="bi bi-4-square-fill icon" style="font-size: 400%;"></i>
-            </button>
-            <button class="table-button" style="left: 73%; top: 0%;" table_id="10" id="table_10">
-                <i class="bi bi-8-square-fill my-8-style" style="font-size: 650%;"></i>
-            </button>
-            <button class="table-button" style="left: 73%; top: 55%;" table_id="11" id="table_11">
-                <i class="bi bi-8-square-fill my-8-style" style="font-size: 650%;"></i>
-            </button>
-
-            <!-- Дополнения -->
-            <i class="bi bi-tv dop" style="font-size: 400%; color: #6c6960; position: absolute; left: 91%; top: 10.3%; transform: rotate(90deg);"></i>
-            <i class="bi bi-tv dop" style="font-size: 400%; color: #6c6960; position: absolute; left: 91%; top: 66%; transform: rotate(90deg);"></i>
-            
-
-            <i class="bi bi-square dop" style="font-size: 400%; color: rgb(235, 234, 234); position: absolute; left: 48%; top: 0%;"></i>
-            <i class="bi bi-droplet-half dop" style="font-size: 370%; color: #6c6960; position: absolute; left: 48.5%; top: 0%;"></i>
-
-            <i class="bi bi-square dop" style="font-size: 400%; color: rgb(235, 234, 234); position: absolute; left: 59%; top: 0%;"></i>
-            <i class="bi bi-cup-hot-fill dop" style="font-size: 370%; color: #6c6960; position: absolute; left: 59.5%; top: 0%;"></i>
-
-            <!-- <i class="bi bi-door-open"
-                style="font-size: 60px; color: #6c6960; position: absolute; left: 48%; top: 78%;"></i> -->
-        </div>
-    </div>`,
-    '1_3': `
-    <h3 class = "back_1" >Выберите стол</h3>
-    <div class="room-container">
-        <div class="scheme">
-            <!-- Столы -->
-             <button class="table-button" style="left: 0%; top: 0%;" table_id="1" id="table_1">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 15%; top: 0%;" table_id="2" id="table_2">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 30%; top: 0%;" table_id="3" id="table_3">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 0%; top: 25%;" table_id="4" id="table_4">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 15%; top: 25%;" table_id="5" id="table_5">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 30%; top: 25%;" table_id="6" id="table_6">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-
-            <!-- Линии -->
-            <div style="background-color: rgb(235, 234, 234); width: 46%; height: 2%; position: absolute; left: 0%; top: 60%;"></div>
-            <div style="background-color: rgb(235, 234, 234); width: 1%; height: 40%; position: absolute; left: 45%; top: -1%; border-radius: 5px;"></div>
-            <div style="background-color: rgb(235, 234, 234); width: 1%; height: 20%; position: absolute; left: 45%; top: 50%; border-radius: 5px;"></div>
-            <div style="background-color: rgb(235, 234, 234); width: 1%; height: 21%; position: absolute; left: 45%; top: 80%; border-radius: 5px;"></div>
-
-            <!-- Столы -->
-             <button class="table-button" style="left: 0%; top: 70%;" table_id="7" id="table_7">
-                <i class="bi bi-4-square-fill icon" style="font-size: 400%;"></i>
-            </button>
-            <button class="table-button" style="left: 15%; top: 70%;" table_id="8" id="table_8">
-                <i class="bi bi-4-square-fill icon" style="font-size: 400%;"></i>
-            </button>
-            <button class="table-button" style="left: 30%; top: 70%;" table_id="9" id="table_9">
-                <i class="bi bi-4-square-fill icon" style="font-size: 400%;"></i>
-            </button>
-            <button class="table-button" style="left: 73%; top: 0%;" table_id="10" id="table_10">
-                <i class="bi bi-8-square-fill my-8-style" style="font-size: 650%;"></i>
-            </button>
-            <button class="table-button" style="left: 73%; top: 55%;" table_id="11" id="table_11">
-                <i class="bi bi-8-square-fill my-8-style" style="font-size: 650%;"></i>
-            </button>
-            
-
-            <!-- Дополнения -->
-            <i class="bi bi-tv dop" style="font-size: 400%; color: #6c6960; position: absolute; left: 91%; top: 10.3%; transform: rotate(90deg);"></i>
-            <i class="bi bi-tv dop" style="font-size: 400%; color: #6c6960; position: absolute; left: 91%; top: 66%; transform: rotate(90deg);"></i>
-
-            <i class="bi bi-square dop" style="font-size: 400%; color: rgb(235, 234, 234); position: absolute; left: 48%; top: 0%;"></i>
-            <i class="bi bi-droplet-half dop" style="font-size: 370%; color: #6c6960; position: absolute; left: 48.5%; top: 0%;"></i>
-
-            <i class="bi bi-square dop" style="font-size: 400%; color: rgb(235, 234, 234); position: absolute; left: 59%; top: 0%;"></i>
-            <i class="bi bi-cup-hot-fill dop" style="font-size: 370%; color: #6c6960; position: absolute; left: 59.5%; top: 0%;"></i>
-
-            <!-- <i class="bi bi-door-open"
-                style="font-size: 60px; color: #6c6960; position: absolute; left: 48%; top: 78%;"></i> -->
-        </div>
-    </div>`,
-    '2_4': `
-    <h3 class = "back_1" >Выберите стол</h3>
-    <div class="room-container">
-        <div class="scheme">
-            <!-- Столы -->
-             <button class="table-button" style="left: 0%; top: 0%;" table_id="1" id="table_1">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 15%; top: 0%;" table_id="2" id="table_2">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 30%; top: 0%;" table_id="3" id="table_3">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 0%; top: 25%;" table_id="4" id="table_4">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 15%; top: 25%;" table_id="5" id="table_5">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 30%; top: 25%;" table_id="6" id="table_6">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-
-            <!-- Линии -->
-            <div style="background-color: rgb(235, 234, 234); width: 46%; height: 2%; position: absolute; left: 0%; top: 60%;"></div>
-            <div style="background-color: rgb(235, 234, 234); width: 1%; height: 40%; position: absolute; left: 45%; top: -1%; border-radius: 5px;"></div>
-            <div style="background-color: rgb(235, 234, 234); width: 1%; height: 20%; position: absolute; left: 45%; top: 50%; border-radius: 5px;"></div>
-            <div style="background-color: rgb(235, 234, 234); width: 1%; height: 21%; position: absolute; left: 45%; top: 80%; border-radius: 5px;"></div>
-            
-
-            <!-- Столы -->
-             <button class="table-button" style="left: 0%; top: 70%;" table_id="7" id="table_7">
-                <i class="bi bi-4-square-fill icon" style="font-size: 400%;"></i>
-            </button>
-            <button class="table-button" style="left: 15%; top: 70%;" table_id="8" id="table_8">
-                <i class="bi bi-4-square-fill icon" style="font-size: 400%;"></i>
-            </button>
-            <button class="table-button" style="left: 30%; top: 70%;" table_id="9" id="table_9">
-                <i class="bi bi-4-square-fill icon" style="font-size: 400%;"></i>
-            </button>
-            <button class="table-button" style="left: 73%; top: 0%;" table_id="10" id="table_10">
-                <i class="bi bi-8-square-fill my-8-style" style="font-size: 650%;"></i>
-            </button>
-            <button class="table-button" style="left: 73%; top: 55%;" table_id="11" id="table_11">
-                <i class="bi bi-8-square-fill my-8-style" style="font-size: 650%;"></i>
-            </button>
-
-            <!-- Дополнения -->
-            <i class="bi bi-tv dop" style="font-size: 400%; color: #6c6960; position: absolute; left: 91%; top: 10.3%; transform: rotate(90deg);"></i>
-            <i class="bi bi-tv dop" style="font-size: 400%; color: #6c6960; position: absolute; left: 91%; top: 66%; transform: rotate(90deg);"></i>
-
-            <i class="bi bi-square dop" style="font-size: 400%; color: rgb(235, 234, 234); position: absolute; left: 48%; top: 0%;"></i>
-            <i class="bi bi-droplet-half dop" style="font-size: 370%; color: #6c6960; position: absolute; left: 48.5%; top: 0%;"></i>
-
-            <i class="bi bi-square dop" style="font-size: 400%; color: rgb(235, 234, 234); position: absolute; left: 59%; top: 0%;"></i>
-            <i class="bi bi-cup-hot-fill dop" style="font-size: 370%; color: #6c6960; position: absolute; left: 59.5%; top: 0%;"></i>
-
-            <!-- <i class="bi bi-door-open"
-                style="font-size: 60px; color: #6c6960; position: absolute; left: 48%; top: 78%;"></i> -->
-        </div>
-    </div>`,
-    '2_5': `
-    <h3 class = "back_1" >Выберите стол</h3>
-    <div class="room-container">
-        <div class="scheme">
-            <!-- Столы -->
-             <button class="table-button" style="left: 0%; top: 0%;" table_id="1" id="table_1">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 15%; top: 0%;" table_id="2" id="table_2">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 30%; top: 0%;" table_id="3" id="table_3">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 0%; top: 25%;" table_id="4" id="table_4">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 15%; top: 25%;" table_id="5" id="table_5">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 30%; top: 25%;" table_id="6" id="table_6">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            
-
-            <!-- Линии -->
-            <div style="background-color: rgb(235, 234, 234); width: 46%; height: 2%; position: absolute; left: 0%; top: 60%;"></div>
-            <div style="background-color: rgb(235, 234, 234); width: 1%; height: 40%; position: absolute; left: 45%; top: -1%; border-radius: 5px;"></div>
-            <div style="background-color: rgb(235, 234, 234); width: 1%; height: 20%; position: absolute; left: 45%; top: 50%; border-radius: 5px;"></div>
-            <div style="background-color: rgb(235, 234, 234); width: 1%; height: 21%; position: absolute; left: 45%; top: 80%; border-radius: 5px;"></div>
-
-            <!-- Столы -->
-             <button class="table-button" style="left: 0%; top: 70%;" table_id="7" id="table_7">
-                <i class="bi bi-4-square-fill icon" style="font-size: 400%;"></i>
-            </button>
-            <button class="table-button" style="left: 15%; top: 70%;" table_id="8" id="table_8">
-                <i class="bi bi-4-square-fill icon" style="font-size: 400%;"></i>
-            </button>
-            <button class="table-button" style="left: 30%; top: 70%;" table_id="9" id="table_9">
-                <i class="bi bi-4-square-fill icon" style="font-size: 400%;"></i>
-            </button>
-            <button class="table-button" style="left: 73%; top: 0%;" table_id="10" id="table_10">
-                <i class="bi bi-8-square-fill my-8-style" style="font-size: 650%;"></i>
-            </button>
-            <button class="table-button" style="left: 73%; top: 55%;" table_id="11" id="table_11">
-                <i class="bi bi-8-square-fill my-8-style" style="font-size: 650%;"></i>
-            </button>
-
-            <!-- Дополнения -->
-            <i class="bi bi-tv dop" style="font-size: 400%; color: #6c6960; position: absolute; left: 91%; top: 10.3%; transform: rotate(90deg);"></i>
-            <i class="bi bi-tv dop" style="font-size: 400%; color: #6c6960; position: absolute; left: 91%; top: 66%; transform: rotate(90deg);"></i>
-
-            <i class="bi bi-square dop" style="font-size: 400%; color: rgb(235, 234, 234); position: absolute; left: 48%; top: 0%;"></i>
-            <i class="bi bi-droplet-half dop" style="font-size: 370%; color: #6c6960; position: absolute; left: 48.5%; top: 0%;"></i>
-
-            <i class="bi bi-square dop" style="font-size: 400%; color: rgb(235, 234, 234); position: absolute; left: 59%; top: 0%;"></i>
-            <i class="bi bi-cup-hot-fill dop" style="font-size: 370%; color: #6c6960; position: absolute; left: 59.5%; top: 0%;"></i>
-            
-
-            <!-- <i class="bi bi-door-open"
-                style="font-size: 60px; color: #6c6960; position: absolute; left: 48%; top: 78%;"></i> -->
-        </div>
-    </div>`,
-    '2_8': `
-    <h3 class = "back_1" >Выберите стол</h3>
-    <div class="room-container">
-        <div class="scheme">
-            <!-- Столы -->
-             <button class="table-button" style="left: 0%; top: 0%;" table_id="1" id="table_1">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 15%; top: 0%;" table_id="2" id="table_2">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 30%; top: 0%;" table_id="3" id="table_3">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 0%; top: 25%;" table_id="4" id="table_4">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 15%; top: 25%;" table_id="5" id="table_5">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 30%; top: 25%;" table_id="6" id="table_6">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            
-
-            <!-- Линии -->
-            <div style="background-color: rgb(235, 234, 234); width: 46%; height: 2%; position: absolute; left: 0%; top: 60%;"></div>
-            <div style="background-color: rgb(235, 234, 234); width: 1%; height: 40%; position: absolute; left: 45%; top: -1%; border-radius: 5px;"></div>
-            <div style="background-color: rgb(235, 234, 234); width: 1%; height: 20%; position: absolute; left: 45%; top: 50%; border-radius: 5px;"></div>
-            <div style="background-color: rgb(235, 234, 234); width: 1%; height: 21%; position: absolute; left: 45%; top: 80%; border-radius: 5px;"></div>
-
-            <!-- Столы -->
-             <button class="table-button" style="left: 0%; top: 70%;" table_id="7" id="table_7">
-                <i class="bi bi-4-square-fill icon" style="font-size: 400%;"></i>
-            </button>
-            <button class="table-button" style="left: 15%; top: 70%;" table_id="8" id="table_8">
-                <i class="bi bi-4-square-fill icon" style="font-size: 400%;"></i>
-            </button>
-            <button class="table-button" style="left: 30%; top: 70%;" table_id="9" id="table_9">
-                <i class="bi bi-4-square-fill icon" style="font-size: 400%;"></i>
-            </button>
-            <button class="table-button" style="left: 73%; top: 0%;" table_id="10" id="table_10">
-                <i class="bi bi-8-square-fill my-8-style" style="font-size: 650%;"></i>
-            </button>
-            <button class="table-button" style="left: 73%; top: 55%;" table_id="11" id="table_11">
-                <i class="bi bi-8-square-fill my-8-style" style="font-size: 650%;"></i>
-            </button>
-
-            <!-- Дополнения -->
-            <i class="bi bi-tv dop" style="font-size: 400%; color: #6c6960; position: absolute; left: 91%; top: 10.3%; transform: rotate(90deg);"></i>
-            <i class="bi bi-tv dop" style="font-size: 400%; color: #6c6960; position: absolute; left: 91%; top: 66%; transform: rotate(90deg);"></i>
-
-            <i class="bi bi-square dop" style="font-size: 400%; color: rgb(235, 234, 234); position: absolute; left: 48%; top: 0%;"></i>
-            <i class="bi bi-droplet-half dop" style="font-size: 370%; color: #6c6960; position: absolute; left: 48.5%; top: 0%;"></i>
-
-            <i class="bi bi-square dop" style="font-size: 400%; color: rgb(235, 234, 234); position: absolute; left: 59%; top: 0%;"></i>
-            <i class="bi bi-cup-hot-fill dop" style="font-size: 370%; color: #6c6960; position: absolute; left: 59.5%; top: 0%;"></i>
-            
-
-            <!-- <i class="bi bi-door-open"
-                style="font-size: 60px; color: #6c6960; position: absolute; left: 48%; top: 78%;"></i> -->
-        </div>
-    </div>`,
-    "3_6": `
-    <h3 class = "back_1" >Выберите стол</h3>
-    <div class="room-container">
-        <div class="scheme">
-            <!-- Столы -->
-             <button class="table-button" style="left: 0%; top: 0%;" table_id="1" id="table_1">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 15%; top: 0%;" table_id="2" id="table_2">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 30%; top: 0%;" table_id="3" id="table_3">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 0%; top: 25%;" table_id="4" id="table_4">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 15%; top: 25%;" table_id="5" id="table_5">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 30%; top: 25%;" table_id="6" id="table_6">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-
-            <!-- Линии -->
-            <div style="background-color: rgb(235, 234, 234); width: 46%; height: 2%; position: absolute; left: 0%; top: 60%;"></div>
-            <div style="background-color: rgb(235, 234, 234); width: 1%; height: 40%; position: absolute; left: 45%; top: -1%; border-radius: 5px;"></div>
-            <div style="background-color: rgb(235, 234, 234); width: 1%; height: 20%; position: absolute; left: 45%; top: 50%; border-radius: 5px;"></div>
-            <div style="background-color: rgb(235, 234, 234); width: 1%; height: 21%; position: absolute; left: 45%; top: 80%; border-radius: 5px;"></div>
-
-            <!-- Столы -->
-             <button class="table-button" style="left: 0%; top: 70%;" table_id="7" id="table_7">
-                <i class="bi bi-4-square-fill icon" style="font-size: 400%;"></i>
-            </button>
-            <button class="table-button" style="left: 15%; top: 70%;" table_id="8" id="table_8">
-                <i class="bi bi-4-square-fill icon" style="font-size: 400%;"></i>
-            </button>
-            <button class="table-button" style="left: 30%; top: 70%;" table_id="9" id="table_9">
-                <i class="bi bi-4-square-fill icon" style="font-size: 400%;"></i>
-            </button>
-            <button class="table-button" style="left: 73%; top: 0%;" table_id="10" id="table_10">
-                <i class="bi bi-8-square-fill my-8-style" style="font-size: 650%;"></i>
-            </button>
-            <button class="table-button" style="left: 73%; top: 55%;" table_id="11" id="table_11">
-                <i class="bi bi-8-square-fill my-8-style" style="font-size: 650%;"></i>
-            </button>
-
-            <!-- Дополнения -->
-            <i class="bi bi-tv dop" style="font-size: 400%; color: #6c6960; position: absolute; left: 91%; top: 10.3%; transform: rotate(90deg);"></i>
-            <i class="bi bi-tv dop" style="font-size: 400%; color: #6c6960; position: absolute; left: 91%; top: 66%; transform: rotate(90deg);"></i>
-
-            <i class="bi bi-square dop" style="font-size: 400%; color: rgb(235, 234, 234); position: absolute; left: 48%; top: 0%;"></i>
-            <i class="bi bi-droplet-half dop" style="font-size: 370%; color: #6c6960; position: absolute; left: 48.5%; top: 0%;"></i>
-            
-
-            <i class="bi bi-square dop" style="font-size: 400%; color: rgb(235, 234, 234); position: absolute; left: 59%; top: 0%;"></i>
-            <i class="bi bi-cup-hot-fill dop" style="font-size: 370%; color: #6c6960; position: absolute; left: 59.5%; top: 0%;"></i>
-
-            <!-- <i class="bi bi-door-open"
-                style="font-size: 60px; color: #6c6960; position: absolute; left: 48%; top: 78%;"></i> -->
-        </div>
-    </div>`,
-    '3_7': `
-    <h3 class = "back_1" >Выберите стол</h3>
-    <div class="room-container">
-        <div class="scheme">
-            <!-- Столы -->
-             <button class="table-button" style="left: 0%; top: 0%;" table_id="1" id="table_1">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 15%; top: 0%;" table_id="2" id="table_2">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 30%; top: 0%;" table_id="3" id="table_3">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 0%; top: 25%;" table_id="4" id="table_4">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 15%; top: 25%;" table_id="5" id="table_5">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-            <button class="table-button" style="left: 30%; top: 25%;" table_id="6" id="table_6">
-                <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
-            </button>
-
-            <!-- Линии -->
-            <div style="background-color: rgb(235, 234, 234); width: 46%; height: 2%; position: absolute; left: 0%; top: 60%;"></div>
-            <div style="background-color: rgb(235, 234, 234); width: 1%; height: 40%; position: absolute; left: 45%; top: -1%; border-radius: 5px;"></div>
-            <div style="background-color: rgb(235, 234, 234); width: 1%; height: 20%; position: absolute; left: 45%; top: 50%; border-radius: 5px;"></div>
-            <div style="background-color: rgb(235, 234, 234); width: 1%; height: 21%; position: absolute; left: 45%; top: 80%; border-radius: 5px;"></div>
-
-            <!-- Столы -->
-             <button class="table-button" style="left: 0%; top: 70%;" table_id="7" id="table_7">
-                <i class="bi bi-4-square-fill icon" style="font-size: 400%;"></i>
-            </button>
-            <button class="table-button" style="left: 15%; top: 70%;" table_id="8" id="table_8">
-                <i class="bi bi-4-square-fill icon" style="font-size: 400%;"></i>
-            </button>
-            <button class="table-button" style="left: 30%; top: 70%;" table_id="9" id="table_9">
-                <i class="bi bi-4-square-fill icon" style="font-size: 400%;"></i>
-            </button>
-            <button class="table-button" style="left: 73%; top: 0%;" table_id="10" id="table_10">
-                <i class="bi bi-8-square-fill my-8-style" style="font-size: 650%;"></i>
-            </button>
-            <button class="table-button" style="left: 73%; top: 55%;" table_id="11" id="table_11">
-                <i class="bi bi-8-square-fill my-8-style" style="font-size: 650%;"></i>
-            </button>
-
-            <!-- Дополнения -->
-            <i class="bi bi-tv dop" style="font-size: 400%; color: #6c6960; position: absolute; left: 91%; top: 10.3%; transform: rotate(90deg);"></i>
-            <i class="bi bi-tv dop" style="font-size: 400%; color: #6c6960; position: absolute; left: 91%; top: 66%; transform: rotate(90deg);"></i>
-            
-
-            <i class="bi bi-square dop" style="font-size: 400%; color: rgb(235, 234, 234); position: absolute; left: 48%; top: 0%;"></i>
-            <i class="bi bi-droplet-half dop" style="font-size: 370%; color: #6c6960; position: absolute; left: 48.5%; top: 0%;"></i>
-
-            <i class="bi bi-square dop" style="font-size: 400%; color: rgb(235, 234, 234); position: absolute; left: 59%; top: 0%;"></i>
-            <i class="bi bi-cup-hot-fill dop" style="font-size: 370%; color: #6c6960; position: absolute; left: 59.5%; top: 0%;"></i>
-
-            <!-- <i class="bi bi-door-open"
-                style="font-size: 60px; color: #6c6960; position: absolute; left: 48%; top: 78%;"></i> -->
-        </div>
-    </div>`,
-}
-
 url_ip = 'http://127.0.0.1:8000'
 
 async function fetchRooms(institutionId) {
@@ -539,6 +36,21 @@ async function fetchRooms(institutionId) {
         console.error(error);
     }
 }
+
+async function fetchRoomsPopup(institutionId) {
+    try {
+        const response = await fetch(url_ip + '/api/rooms/');
+        rooms = await response.json();
+        
+        // Извлекаем только номера кабинетов для указанного учреждения
+        const roomNumbers = rooms
+            .filter(room => room.institution === institutionId) // Фильтруем по учреждению
+            .map(room => room.number); // Извлекаем только номера кабинетов
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 
 async function fetchInstitutions() {
     try {
@@ -990,28 +502,27 @@ function getIntervalText(interval) {
 
 document.getElementById('submitBooking').addEventListener('click', async function(event) {
     event.preventDefault();  // Предотвращаем стандартное поведение кнопки отправки формы
-    const roomNumbers = [
-        {"1": "101"},
-        {"2": "103"},
-        {"3": "105"},
-        {"4": "201"},
-        {"5": "213"},
-        {"6": "305"},
-        {"7": "309"},
-        {"8": "203"},
-    ]
+    // const roomNumbers = [
+    //     {"1": "101"},
+    //     {"2": "103"},
+    //     {"3": "105"},
+    //     {"4": "201"},
+    //     {"5": "213"},
+    //     {"6": "305"},
+    //     {"7": "309"},
+    //     {"8": "203"},
+    // ]
     const date = document.getElementById('data').value;
     const tableId = Number(localStorage.getItem('selectedTable'));
     const interval = selectedIntervals; 
     const studentId = participants; 
     const room_id = Number(localStorage.getItem('selectedRoomId'));
-    const roomNumber = getRoomNumberById(room_id.toString());
+    // const roomNumber = getRoomNumberById(room_id.toString());
     const address = localStorage.getItem('hintContent');
+    
 
-    function getRoomNumberById(id) {
-        const room = roomNumbers.find(room => Object.keys(room)[0] === id);
-        return room ? room[id] : "Неизвестный кабинет";
-    }
+    const rooms = await fetchRoomsPopup()
+    const roomNumber = getRoomNumberById(room_id.toString(), rooms);
 
     // Проверяем, что все необходимые данные присутствуют
     if (date && tableId && interval.length>0 && studentId && room_id) {
@@ -1056,6 +567,11 @@ document.getElementById('submitBooking').addEventListener('click', async functio
         showModal('Пожалуйста, заполните все поля.');
     }
 });
+
+function getRoomNumberById(id) {
+    const room = rooms.find(room => room.id === Number(id));
+    return room ? room.number : "Неизвестный кабинет";
+}
 
 function clearLocalStorage() {
     localStorage.clear();

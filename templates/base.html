@@ -60,52 +60,6 @@
     </div>
 </nav>
 
-
-
-
-
-
-<!-- <nav class="navbar navbar-expand-md navbar-light bg-light">
-    <div class="container-fluid d-flex justify-content-between align-items-center">
-        <a href="{% url 'main' %}" class="navbar-brand d-flex align-items-center">
-            <img src="{% static 'img/bluecat.svg' %}" style="width: 75px; height: 75px;"> 
-        </a>
-
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarNav">
-            {% if request.user.is_authenticated %}
-            <ul class="navbar-nav mx-auto mb-2 mb-md-0 justify-content-center">
-                <li class="nav-item">
-                    <a href="{% url 'main' %}" class="nav-link">Главная</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{% url 'booking-v2' %}" class="nav-link">Бронирование</a>
-                </li>
-            </ul>
-            <div class="d-flex align-items-center">
-                <a href="{% url 'profile' %}" class="nav-link">{{ request.user.student_id }} ({{ request.user.last_name }} {{ request.user.first_name|slice:":1" }})</a>
-                <a href="{% url 'profile' %}" class="user-icon" style="text-decoration: none; width: 40px; height: 40px; border-radius: 50%; background-color: #3199e6; color: white; display: flex; align-items: center; justify-content: center; margin-right: 10px;">
-                    {{ request.user.last_name|slice:":1" }}{{ request.user.first_name|slice:":1" }}
-                </a>
-                <a class="btn btn-danger" href="{% url 'logout' %}" id="logout">Выйти</a>
-            </div>
-            {% else %}
-            <div class="d-flex">
-                <a href="{% url 'login' %}" class="btn btn-primary me-2" style="background-color:#3199e6;">Войти</a>
-                <a href="{% url 'register' %}" class="btn btn-outline-primary" style="color:#3199e6;">Регистрация</a>
-            </div>
-            {% endif %}
-        </div>
-    </div>
-</nav> -->
-
-
-
-
-
     <div class="container mt-4">
         {% block main %}{% endblock %}
     </div>

@@ -1,29 +1,30 @@
-
-    var rooms = [];
-    var institutions = [];
-    var selectedMarkId;
-    var hintContent;
-    var selectedTable;
-    var selectedIntervals = [];
-    const add_participant = document.getElementById('add-participant');
-    const participants_result = document.getElementById('participants-result');
-    const confirm_booking = document.getElementById('bookingForm');
-    const addedStudents = new Set();
-    let lastSelectedRoomId = null;
-    addedStudents.add(currentuser);
-
-    // Получаем текущую дату
-    const today = new Date();
-    
-    // Форматируем дату в формате YYYY-MM-DD
-    const dd = String(today.getDate()).padStart(2, '0');
-    const mm = String(today.getMonth() + 1).padStart(2, '0'); // Январь - 0
-    const yyyy = today.getFullYear();
-    
-    const formattedDate = `${yyyy}-${mm}-${dd}`;
-    
-    // Устанавливаем минимальную дату в input
-    document.getElementById('data').setAttribute('min', formattedDate);
+var rooms = [];
+var institutions = [];
+var selectedMarkId;
+var hintContent;
+var selectedTable;
+var selectedIntervals = [];
+const add_participant = document.getElementById('add-participant');
+const participants_result = document.getElementById('participants-result');
+const confirmBooking = document.getElementById('bookingForm');
+const tab = document.getElementById('tabs');
+const addedStudents = new Set();
+let lastSelectedRoomId = null;
+addedStudents.add(currentuser);
+// Получаем текущую дату
+const today = new Date();
+// Форматируем дату в формате YYYY-MM-DD
+const dd = String(today.getDate()).padStart(2, '0');
+const mm = String(today.getMonth() + 1).padStart(2, '0'); // Январь - 0
+const yyyy = today.getFullYear();
+const formattedDate = `${yyyy}-${mm}-${dd}`;
+// Устанавливаем минимальную дату в input
+document.getElementById('data').setAttribute('min', formattedDate);
+//Переключение вкладок
+var tabIndex = 0;
+const tabs = document.querySelectorAll('#myTab .nav-link');
+const prevTab = document.getElementById('prevTab');
+const nextTab = document.getElementById('nextTab');
 
 url_ip = 'http://127.0.0.1:8000'
 
@@ -50,7 +51,6 @@ async function fetchRoomsPopup(institutionId) {
         console.error(error);
     }
 }
-
 
 async function fetchInstitutions() {
     try {
@@ -110,8 +110,6 @@ async function fetchUsers(studentId) {
     }
 }
 
-// csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-
 async function fetchBooking(date, tableId, intervals, studentId, room_id) {
     try {
         const response = await fetch(url_ip + '/api/book/', {
@@ -141,6 +139,59 @@ async function fetchBooking(date, tableId, intervals, studentId, room_id) {
     }
 }
 
+
+
+function switchTabs(direction) {
+    tabIndex += direction;
+
+    if (tabIndex < 0) {
+        tabIndex = 0;
+    } else if (tabIndex >= tabs.length) {
+        tabIndex = tabs.length - 1;
+    }
+
+    Array.from(tabs).forEach((tab, index) => {
+        if (index === tabIndex) {
+            tab.classList.add('active')
+            tab.setAttribute('aria-selected', 'true')
+            const target = tab.getAttribute('data-bs-target')
+            document.querySelector(target).classList.add('show', 'active')
+        } else {
+            tab.classList.remove('active')
+            tab.setAttribute('aria-selected', 'false')
+            const target = tab.getAttribute('data-bs-target')
+            document.querySelector(target).classList.remove('show', 'active')
+        }
+    })
+
+    if (tabIndex === 0) {
+        prevTab.style.display = 'none';
+        nextTab.style.display = 'block';
+        confirmBooking.style.display = 'none';
+    } else if (tabIndex === tabs.length - 1) {
+        prevTab.style.display = 'block';
+        nextTab.style.display = 'none';
+        confirmBooking.style.display = 'block';
+    } else {
+        prevTab.style.display = 'block';
+        nextTab.style.display = 'block';
+        confirmBooking.style.display = 'none';
+    }
+}
+
+tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => {
+        tabIndex = index
+        switchTabs(0)
+    })
+})
+
+document.addEventListener('DOMContentLoaded', () => {
+    if (tabIndex === 0) {
+        prevTab.style.display = 'none';
+    }
+    confirmBooking.style.display = 'none';
+})
 
 function displayRooms(rooms, institutionId) {
     const kab = document.getElementById('room-select');
@@ -173,8 +224,6 @@ function displayRooms(rooms, institutionId) {
         container.appendChild(card);
     });
 }
-
-
 
 function displayAvailableIntervals(data) {
     const intervals = data["available-times"]; 
@@ -226,9 +275,9 @@ function selectIntervals() {
     const participantsResultCon = document.getElementById('participants-result-container');
     participantsResultCon.style.display = 'block';
     
-    if (confirm_booking) {
-        confirm_booking.classList.remove('hidden');
-    }
+    // if (confirmBooking) {
+    //     confirmBooking.classList.remove('hidden');
+    // }
 }
 
 function displayResult() {
@@ -291,7 +340,6 @@ function closePopup(){
     resetCheckboxes();
 }
 
-
 function resetCheckboxes() {
     var checkboxes = document.querySelectorAll(".popup-interval input[type='checkbox']");
     checkboxes.forEach(checkbox => {
@@ -299,8 +347,6 @@ function resetCheckboxes() {
         checkbox.disabled = false;
     });
 }
-
-
 
 // функция добавления участника
 async function addParticipant() {
@@ -346,7 +392,6 @@ function displayParticipants(){
         }).join('')}
     </ul>`;
 }
-
 
 window.onload = function() {
     displayParticipants();
@@ -481,9 +526,6 @@ window.addEventListener('click', (event) => {
     }
 });
 
-   
-    
-
 function getIntervalText(interval) {
     switch (interval) {
         case 1: return "8:00 - 9:00";
@@ -502,16 +544,6 @@ function getIntervalText(interval) {
 
 document.getElementById('submitBooking').addEventListener('click', async function(event) {
     event.preventDefault();  // Предотвращаем стандартное поведение кнопки отправки формы
-    // const roomNumbers = [
-    //     {"1": "101"},
-    //     {"2": "103"},
-    //     {"3": "105"},
-    //     {"4": "201"},
-    //     {"5": "213"},
-    //     {"6": "305"},
-    //     {"7": "309"},
-    //     {"8": "203"},
-    // ]
     const date = document.getElementById('data').value;
     const tableId = Number(localStorage.getItem('selectedTable'));
     const interval = selectedIntervals; 
@@ -549,9 +581,6 @@ document.getElementById('submitBooking').addEventListener('click', async functio
             clearLocalStorage();
             location.reload();
         };
-        // await fetchBooking(date, tableId, interval, studentId, room_id);
-        // clearLocalStorage();
-        // location.reload();
         // Обработчик закрытия модального окна
         document.getElementById('closeModal').onclick = function() {
             document.getElementById('bookingModal').style.display = 'none';

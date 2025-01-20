@@ -15,16 +15,34 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
-from django.views.generic.base import RedirectView
+from django.urls import path, include, re_path
+from api.views import main as main_page
 
-from api.views import main as MainPage
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+
+schema_view = get_schema_view(
+   openapi.Info(
+      title="Coworking API",
+      default_version='v1',
+      description="Открытое АПИ для взаимодействия с коворкингом",
+   ),
+   public=True,
+   permission_classes=([permissions.AllowAny,])
+)
 
 urlpatterns = [
     # path('', RedirectView.as_view(url='booking/v2/', permanent=True)),
-    path('', MainPage, name="main"),
+    path('', main_page, name="main"),
     path('admin/', admin.site.urls),
     path('booking/', include('booking.urls')),
     path('api/', include('api.urls')),
     path('user/', include('users.urls')),
+
+    path(
+        'swagger/',
+        schema_view.with_ui('swagger', cache_timeout=0),
+        name='schema-swagger-ui'
+    ),
 ]

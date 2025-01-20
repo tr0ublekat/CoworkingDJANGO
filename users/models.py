@@ -43,3 +43,4 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return str(self.student_id) + ' - ' + str(self.last_name) + ' ' + str(self.first_name) + ' ' + str(self.middle_name)
+

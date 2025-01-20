@@ -18,6 +18,9 @@ def user_login(request):
         password = request.POST['password']
         user = authenticate(request, email=email, password=password)
         if user is not None:
+            if not user.is_active:
+                return HttpResponse("Your account is disabled.")
+
             login(request, user=user)
             return redirect('main')
         else:

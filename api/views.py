@@ -2,6 +2,13 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from django.shortcuts import redirect
 
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
+
 from users.models import CustomUser
 from .models import (
     Institution,
@@ -25,10 +32,6 @@ def index(request):
     else:
         return redirect('login')
 
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_POST
-import json
 
 @csrf_exempt
 def available_times(request):

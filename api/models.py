@@ -11,6 +11,9 @@ class Institution(models.Model):
 class Room(models.Model):
     number = models.IntegerField()
     institution = models.ForeignKey(Institution, on_delete=models.CASCADE)
+    capacity = models.IntegerField(default=0)
+    code = models.TextField(default='')
+    description = models.TextField(default='')
 
     def __str__(self):
         return str(self.number) + ' - ' + str(self.institution.name) + ' (' + str(self.institution.address) + ')'

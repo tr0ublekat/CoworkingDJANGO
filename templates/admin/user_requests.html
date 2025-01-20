@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Главная{% endblock %}
+
+{% block main %}
+ <div class = "main_container">
+    <h1 style="text-align: center;">Catworking</h1>
+    <div style="border: 4px solid #ccc; padding: 10px; border-radius: 10px">
+        {% if users %}
+            {% for user in users %}
+                <form action="request-enable/" method="post">
+                    {% csrf_token %}
+                    {{ user }}
+                    <input id="pk" type="hidden" name="pk" value="{{ user.id }}">
+                    <input class="btn btn-outline-secondary" type="submit" value="Принять" >
+                </form>
+            {% endfor %}
+        {% else %}
+        {% endif %}
+    </div>
+    
+ </div>
+{% endblock %}

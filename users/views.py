@@ -8,8 +8,9 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 
-def user_login(request):
 
+
+def user_login(request):
     if request.user.is_authenticated:
         return redirect('profile')
 
@@ -18,18 +19,17 @@ def user_login(request):
         password = request.POST['password']
         user = authenticate(request, email=email, password=password)
         if user is not None:
-            if not user.is_active:
-                return HttpResponse("Your account is disabled.")
-
             login(request, user=user)
             return redirect('main')
         else:
             return render(request, 'user/login.html', {'error': 'Неверный логин или пароль'})
     return render(request, 'user/login.html')
 
+
 def user_logout(request):
     logout(request)
     return redirect("login")
+
 
 def user_register(request):
 
@@ -60,7 +60,7 @@ def user_register(request):
         user.save()
 
         login(request, user)
-        return redirect('booking-v2')
+        return HttpResponse("Заявка успешно подана! Дождитесь активации аккаунта...")
     return render(request, 'user/register.html')
 
 
@@ -74,6 +74,7 @@ def profile(request):
     else:
         return redirect('login')
 
+
 def remove_book(request):
     if request.method == 'POST':
         pk = request.POST.get("pk")
@@ -84,5 +85,27 @@ def remove_book(request):
         except Exception as e:
             return HttpResponse("Запись отсутствует!")
     else:
-        return HttpResponse("Что вы тут делаете?")
+        return HttpResponse("Что вы тут делаете? -_-")
 
+
+def user_requests(request):
+    if request.user.is_authenticated and request.user.role == 0:
+        users = CustomUser.objects.filter(is_active=False)
+        return render(request, 'admin/user_requests.html', {"users": users})
+
+    return redirect('profile')
+
+
+def request_enable(request):
+    if request.user.is_authenticated and request.user.role == 0:
+        if request.method == 'POST':
+            pk = request.POST.get("pk")
+            user = CustomUser.objects.get(pk=pk)
+            user.is_active = True
+            user.save()
+
+            return redirect("user_requests")
+
+        return HttpResponse("Что вы тут делаете? -_-")
+    else:
+        return redirect('profile')

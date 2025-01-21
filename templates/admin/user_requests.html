@@ -12,7 +12,8 @@
             {% for user in users %}
                 <form action="request-enable/" method="post">
                     {% csrf_token %}
-                    {{ user }}
+                    Юзер: {{ user }}
+                    Роль: {{ user.role }}
                     <input id="pk" type="hidden" name="pk" value="{{ user.id }}">
                     <input class="btn btn-outline-secondary" type="submit" value="Принять" >
                 </form>

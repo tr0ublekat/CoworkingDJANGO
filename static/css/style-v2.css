@@ -331,6 +331,100 @@ td, th {
     margin: 0 auto;
 }
 
+.gradient-text {
+    background: linear-gradient(45deg,#6366f1,#4f46e5);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 3.5rem;
+    letter-spacing: -1px;
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 1rem;
+}
+
+.gradient-card {
+    background: linear-gradient(135deg,#6366f1,#4f46e5);
+    border: none;
+    border-radius: 1rem;
+}
+
+.gradient-card-alt {
+    background: linear-gradient(135deg, #4f46e5, #6366f1);
+    border: none;
+    border-radius: 1rem;
+}
+
+.text-gradient {
+    background: linear-gradient(45deg,#6366f1,#4f46e5);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.text-accent {
+    color:#4f46e5;
+    font-weight: 600;
+}
+
+.icon-gradient {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.btn-glow {
+    position: relative;
+    overflow: hidden;
+    background: white;
+    color: #6366f1;
+    font-weight: 600;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 1rem;
+    transition: all 0.3s ease;
+}
+
+.btn-glow:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+    color:#4f46e5;
+}
+
+.hover-card {
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.hover-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.animate-header {
+    animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.mainBody {
+    font-family: "Inter", sans-serif;
+    background: linear-gradient(135deg, #fafaff, #f0f0ff);
+    color: #11181c;
+    min-height: 100vh;
+}
+
 @media (min-width: 769px) {
     .navbar {
         padding: 0;
@@ -464,6 +558,13 @@ td, th {
     .logo {
         width: 95px !important; 
         height: 50px !important; 
+    }
+    .main-container {
+        width: 95%;
+    }
+    
+    .gradient-text {
+        font-size: 2.5rem;
     }
 }
 

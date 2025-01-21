@@ -5,30 +5,49 @@
 {% block title %}Главная{% endblock %}
 
 {% block main %}
- <div class = "main_container">
-    <h1 style="text-align: center;">Catworking</h1>
-    <div style="border: 4px solid #ccc; padding: 10px; border-radius: 10px">
-        <p>Добро пожаловать в Catworking! На нашем сайте вы можете легко и быстро забронировать место в коворкинге. 
-            Мы предлагаем интуитивно понятный интерфейс, который позволяет выбрать удобное время и тип рабочего места. 
-            Начните свою продуктивную работу с Catworking!
-            <br>
-            Приятного пользования!
-        </p>
-    </div>
-    <div style="display: flex; justify-content: space-between; margin-top: 10px; gap: 10px;">
-        <div style="flex: 1; margin-right: 20px; display: flex; flex-direction: column;">
-            <div style="border: 4px solid #ccc; padding: 10px; border-radius: 10px; flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
-                <p>Забронировать место в коворкинг можно здесь</p>
-                <a href="{% url 'booking-v2' %}" class="btn btn-primary" style="align-self: center;">Забронировать</a>
+<body class = "mainBody">
+    <div class="main-container py-5">
+        <div class="container">
+            <div class="text-center mb-5 animate-header">
+                <h1 class="display-3 fw-bold gradient-text mb-4">Catworking</h1>
+                <div class="sparkle-decoration"></div>
+            </div>
+
+            <div class="card glass-card shadow-lg mb-5 welcome-card">
+                <div class="card-body p-5">
+                    <p class="lead mb-0 text-gradient">Добро пожаловать в Catworking! На нашем сайте вы можете легко и быстро забронировать место в коворкинге. Мы предлагаем интуитивно понятный интерфейс, который позволяет выбрать удобное время и тип рабочего места. Начните свою продуктивную работу с Catworking!</p>
+                    <p class="lead mb-0 mt-3 text-accent">Приятного пользования!</p>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="card h-100 gradient-card hover-card">
+                        <div class="card-body d-flex flex-column p-5">
+                            <div class="mb-4">
+                                <i class="bi bi-calendar-check display-4 icon-gradient mb-3"></i>
+                                <h3 class="card-title h4 text-white">Бронирование места</h3>
+                                <p class="card-text text-light">Забронировать место в коворкинг можно здесь</p>
+                            </div>
+                            <a href="{% url 'booking-v2' %}" class="btn btn-light btn-glow mt-auto">Забронировать</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card h-100 gradient-card-alt hover-card">
+                        <div class="card-body d-flex flex-column p-5">
+                            <div class="mb-4">
+                                <i class="bi bi-telegram display-4 icon-gradient mb-3"></i>
+                                <h3 class="card-title h4 text-white">Telegram Бот</h3>
+                                <p class="card-text text-light">Также есть телеграмм бот для удобной работы на мобильных устройствах</p>
+                            </div>
+                            <a href="https://t.me/Auto_Translate_Baka_bot" class="btn btn-light btn-glow mt-auto">Telegram</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div style="flex: 1; display: flex; flex-direction: column;">
-            <div style="border: 4px solid #ccc; padding: 10px; border-radius: 10px; flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
-                <p>Также есть телеграмм бот для удобной работы на мобильных устройствах</p>
-                <a href="https://t.me/Auto_Translate_Baka_bot" class="btn btn-primary" style="align-self: center;">Telegram</a>
-            </div>
-        </div>
     </div>
-    
- </div>
+</body>
 {% endblock %}

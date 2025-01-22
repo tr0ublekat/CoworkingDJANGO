@@ -1,76 +1,115 @@
 :root {
-    --primary: #007bff;
+    --primary: #6366f1;
     --primary-foreground: #ffffff;
-    --secondary: #6c757d;
-    --secondary-foreground: #ffffff;
-    --accent: #3b82f6;
+    --secondary: #f5f5f5;
+    --secondary-foreground: #11181c;
+    --accent: #4f46e5;
     --accent-foreground: #ffffff;
-    --background: #ffffff;
-    --foreground: #000000;
+    --background: #fafaff;
+    --foreground: #11181c;
     --card: #ffffff;
-    --card-foreground: #000000;
+    --card-foreground: #11181c;
     --border: #e5e7eb;
-    --input: #d1d5db;
-    --ring: #e5e7eb;
-    --radius: 0.5rem;
-    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+    --input: #e5e7eb;
+    --ring: #6366f1;
+    --radius: 1rem;
+    --font-family: "Inter", sans-serif;
 }
 
-.custom-tabs .nav-tabs {
-    border-bottom: 2px solid var(--border);
-    gap: 0.5rem;
-}
-
-.custom-tabs .nav-link {
-    color: var(--secondary);
-    border: none;
-    padding: 1rem 1.5rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
+.card {
     position: relative;
-    background: transparent;
-}
-
-.custom-tabs .nav-link:hover {
-    color: var(--primary);
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: transparent;
+    background-clip: border-box;
     border: none;
+    border-radius: .25rem;
 }
 
-.custom-tabs .nav-link.active {
+.nav-pills .nav-link {
     color: var(--primary);
-    border: none;
-    font-weight: 600;
-    background: transparent;
-}
-
-.custom-tabs .nav-link.active::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: var(--primary);
+    border-radius: var(--radius);
+    padding: 0.75rem 1.5rem;
+    margin: 0 0.5rem;
     transition: all 0.3s ease;
 }
 
-.custom-tabs .tab-content {
-    background: var(--card);
+.nav-pills .nav-link.active {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-glow {
+    position: relative;
+    overflow: hidden;
+    background: white;
+    color: var(--primary);
+    font-weight: 600;
+    border: none;
+    padding: 0.75rem 1.5rem;
     border-radius: var(--radius);
-    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
 }
 
-.custom-tabs .tab-pane {
-    padding: 0.5rem;
-    transition: opacity 0.3s ease;
+.btn-glow:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+    color: var(--accent);
 }
 
-.custom-tabs .tab-pane.fade {
-    opacity: 0;
+.hover-card {
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.custom-tabs .tab-pane.show {
-    opacity: 1;
+.hover-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.form-control {
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    padding: 0.75rem 1rem;
+}
+
+.seat-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    padding: 2rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.seat-btn {
+    padding: 1rem;
+    border: 2px solid var(--primary);
+    background: white;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.seat-btn:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.seat-btn.selected {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+}
+
+.selected-seat-info {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--primary);
 }
 
 #rooms-container {
@@ -139,8 +178,8 @@ hidden {
     width: 20%;
     padding: 20px; 
     border: 1px solid #ccc; 
-    border-radius: 5px; 
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+    border-radius: var(--radius); 
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); 
     top: 50%;
     left: 50%;
     transform:translate(-50%,-50%);
@@ -152,9 +191,9 @@ hidden {
     width: 20%;
     padding: 20px; 
     border: 1px solid #ccc; 
-    border-radius: 5px; 
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
-    top: 50%;
+    border-radius: var(--radius); 
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); 
+    top: 30%;
     left: 50%;
     transform:translate(-50%,-50%);
 }
@@ -420,12 +459,87 @@ td, th {
 
 .mainBody {
     font-family: "Inter", sans-serif;
-    background: linear-gradient(135deg, #fafaff, #f0f0ff);
+    background: linear-gradient(135deg, #fafaff, #dcdcfe);
     color: #11181c;
     min-height: 100vh;
 }
 
+.profileTable {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 5px;
+    
+} 
+
+.profileTableHead {
+    position: sticky;
+    top: 0;
+    background-color: #fafaff;
+    z-index: 10;
+}
+
+.profileTableHead td {
+    border: none;
+}
+
+tbody td {
+    border: 3px solid; 
+    border-color: #ccc;
+}
+
+input {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.profileTable tbody tr:nth-of-type(odd) {
+    background: linear-gradient(135deg,#6366f1,#4f46e5); /* Цвет фона для четных строк */
+    color:#e7e9ec;
+    .btn-outline-secondary {
+        background-color: #e7e9ec;
+        color: #000000;
+        opacity: 0.3;
+    }
+    .btn-outline-danger {
+        background-color: #e94d4d;
+        color: #fffefe;
+        opacity: 0.9;
+    }
+}
+
+.profileTable tbody tr:nth-of-type(even) {
+    background-color: rgba(255, 255, 255, 0.9); /* Цвет фона для нечетных строк */
+    
+}
+
+#participants-result {
+    padding: 0; /* Удалите отступы у контейнера */
+    margin: 0;  /* Удалите поля у контейнера */
+}
+
+#participants-result ul {
+    list-style-position: inside;
+}
+
 @media (min-width: 769px) {
+    .gradient-text {
+        font-size: 2.5rem;
+    }
+    
+    .nav-pills .nav-link {
+        margin: 0.25rem;
+        padding: 0.5rem 1rem;
+    }
+    
+    .seat-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+        padding: 1rem;
+    }
+    
+    .seat-btn {
+        padding: 0.75rem;
+    }
+
     .navbar {
         padding: 0;
         height: 80px;

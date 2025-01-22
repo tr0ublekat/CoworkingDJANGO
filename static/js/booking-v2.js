@@ -22,7 +22,7 @@ const formattedDate = `${yyyy}-${mm}-${dd}`;
 document.getElementById('data').setAttribute('min', formattedDate);
 //Переключение вкладок
 var tabIndex = 0;
-const tabs = document.querySelectorAll('#myTab .nav-link');
+const tabs = document.querySelectorAll('#pills-tab .nav-link');
 const prevTab = document.getElementById('prevTab');
 const nextTab = document.getElementById('nextTab');
 
@@ -151,19 +151,26 @@ function switchTabs(direction) {
     }
 
     Array.from(tabs).forEach((tab, index) => {
-        if (index === tabIndex) {
-            tab.classList.add('active')
-            tab.setAttribute('aria-selected', 'true')
-            const target = tab.getAttribute('data-bs-target')
-            document.querySelector(target).classList.add('show', 'active')
-        } else {
-            tab.classList.remove('active')
-            tab.setAttribute('aria-selected', 'false')
-            const target = tab.getAttribute('data-bs-target')
-            document.querySelector(target).classList.remove('show', 'active')
-        }
-    })
+        const target = tab.getAttribute('data-bs-target');
+        const targetElement = document.querySelector(target); // Получаем целевой элемент
 
+        if (index === tabIndex) {
+            tab.classList.add('active');
+            tab.setAttribute('aria-selected', 'true');
+            if (targetElement) {
+                targetElement.classList.add('show', 'active');
+            } else {
+            }
+        } else {
+            tab.classList.remove('active');
+            tab.setAttribute('aria-selected', 'false');
+            if (targetElement) {
+                targetElement.classList.remove('show', 'active');
+            }
+        }
+    });
+
+    // Управление видимостью кнопок
     if (tabIndex === 0) {
         prevTab.style.display = 'none';
         nextTab.style.display = 'block';
@@ -179,6 +186,7 @@ function switchTabs(direction) {
     }
 }
 
+
 tabs.forEach((tab, index) => {
     tab.addEventListener('click', () => {
         tabIndex = index
@@ -187,6 +195,8 @@ tabs.forEach((tab, index) => {
 })
 
 document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('#pills-tab .nav-link');
+    console.log(tabs);
     if (tabIndex === 0) {
         prevTab.style.display = 'none';
     }
@@ -215,10 +225,12 @@ function displayRooms(rooms, institutionId) {
         card.style.width = '15rem';
         card.innerHTML = 
             // <img src="..." class="card-img-top" alt="${'Image'}">
-            `<div class="card-body">
-                <h5 class="card-title">${room.number || 'Card title'}</h5>
-                <p class="card-text">${institution.name || 'Institution name'} (${institution.address || 'Address'})</p>
-                <button onclick="selectRoom(${room.id})" class="btn btn-primary">Выбрать</button>
+            `<div class="card h-100 gradient-card-alt hover-card">
+                <div class="card-body p-4" >
+                    <h5 class="text-white mb-3">${room.number || 'Card title'}</h5>
+                    <p class="text-light">${institution.name || 'Institution name'} (${institution.address || 'Address'})</p>
+                    <button onclick="selectRoom(${room.id})" class="btn btn-light btn-glow">Выбрать</button>
+                </div>
             </div>
         `;
         container.appendChild(card);

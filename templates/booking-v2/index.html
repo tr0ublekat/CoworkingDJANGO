@@ -5,79 +5,105 @@
 {% block title %}Бронирование{% endblock %}
 
 {% block main %}
-    <h1 style="text-align: center;">Бронирование мест</h1>
-
+<body class = "mainBody">
+    <div class="text-center mb-5 animate-header">
+        <h1 class="display-3 fw-bold gradient-text mb-4" style="text-align: center;">Бронирование мест</h1>
+    </div>
 {% if request.user.is_authenticated %}
 
     {% if error %}
     <h2>Ошибка: {{ error }}</h2>
     {% endif %}
-    <div >
-        <h3 class = "back_1">Карта</h3>
-        <div id="map" class="container back_2" style="width: 100%; height: 600px;"></div>
+    <div class = "card glass-card">
+        <div class = "card-body">
+            <!-- <h3 class = "text-accent text-center">Карта</h3> -->
+            <div id="map" class="container" style="padding: 0; width: 100%; height: 500px;"></div>
+        </div>
     </div>
     <br>
 
-    <div id="selected_address">
-        <h3 class = "back_1">Выбранный адрес</h3>
-        <strong><span id="address_value" class = "back_2"></span></strong>
+    <div id="selected_address" class="card glass-card">
+        <div class = "card-body">
+            <h3 class = "text-accent">Выбранный адрес</h3>
+            <strong><span id="address_value" class = "text-gradient"></span></strong>
+        </div>
     </div><br>
 
     <div class = "custom-tabs" id = "tabs" style="display: none;">
         <!-- Элементы навигации -->
-        <ul class = "nav nav-tabs" id="myTab" role="tablist">
+        <ul class = "nav nav-pills mb-4 justify-content-center" id="pills-tab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="cabinet-tab" data-bs-toggle="tab" data-bs-target="#cabinet" type="button" role="tab" aria-controls="cabinet" aria-selected="true">Кабинет</button>
+                <button class="nav-link active" id="pills-cabinet-tab" data-bs-toggle="pill" data-bs-target="#pills-cabinet" type="button" role="tab" aria-controls="cabinet" aria-selected="true">Кабинет</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="date-tab" data-bs-toggle="tab" data-bs-target="#date" type="button" role="tab" aria-controls="date" aria-selected="false">Дата</button>
+                <button class="nav-link" id="pills-date-tab" data-bs-toggle="pill" data-bs-target="#pills-date" type="button" role="tab" aria-controls="date" aria-selected="false">Дата</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="table-tab" data-bs-toggle="tab" data-bs-target="#table" type="button" role="tab" aria-controls="table" aria-selected="false">Стол</button>
+                <button class="nav-link" id="pills-table-tab" data-bs-toggle="pill" data-bs-target="#pills-table" type="button" role="tab" aria-controls="table" aria-selected="false">Стол</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="participant-tab" data-bs-toggle="tab" data-bs-target="#participant" type="button" role="tab" aria-controls="participant" aria-selected="false">Участники</button>
+                <button class="nav-link" id="pills-participant-tab" data-bs-toggle="pill" data-bs-target="#pills-participant" type="button" role="tab" aria-controls="participant" aria-selected="false">Участники</button>
             </li>
         </ul>
 
-        <div class="tab-content" id="myTabContent">
-            <div class = "tab-pane fade show active" role = "tabpanel" aria-labelledby="cabinet-tab" id = "cabinet">
+        <div class="tab-content" id="pills-TabContent">
+            <div class = "tab-pane fade show active" role = "tabpanel" aria-labelledby="pills-cabinet" id = "pills-cabinet">
                 <div id = "room-select">
-                    <h3 class = "back_1">Выберите кабинет</h3>
-                    <span id="rooms-container" class="container back_2"></span><br><br>
+                    <!-- <h3 class = "back_1">Выберите кабинет</h3> -->
+                    <span id="rooms-container" style="background-color: none;"></span><br><br>
                 </div>
             </div>
             
-            <div class = "tab-pane fade" role = "tabpanel" aria-labelledby="date-tab" id = "date">
-                <h3 class = "back_1">Дата</h3>
-                <form id="dateForm" class="back_2">
-                    <input type="date" required name="data" id="data" placeholder="Input date">
-                </form>
+            <div class = "tab-pane fade" role = "tabpanel" aria-labelledby="pills-date" id = "pills-date">
+                <div class = "card glass-card">
+                    <div class = "card-body">
+                        <div class = "row">
+                            <div class = "col-md-6 mb-3">
+                                <label class = "form-label" style="color: #6366f1;">Выберите дату:</label>
+                                <form id="dateForm">
+                                    <input type="date" class = "form-control" required name="data" id="data" placeholder="Input date">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             
-            <div class = "tab-pane fade" role = "tabpanel" aria-labelledby="table-tab" id = "table">
-                <div id="table-select"></div>
-                <br>
-                <!-- Вывод рещультата выбора столика и интервалов -->
-                <div id = "result-container" style="display: none;">
-                    <h3 class = "back_1">Ваш выбор</h3>
-                    <span id = "result" class = "back_2"></span>
+            <div class = "tab-pane fade" role = "tabpanel" aria-labelledby="pills-table" id = "pills-table">
+                <div class="card glass-card">
+                    <div class="card-body p-4">
+                        <div class="seat-map">
+                            <div class = "text-center">
+                                <div id="table-select"></div>
+                            </div>
+                            <br>
+                            <!-- Вывод рещультата выбора столика и интервалов -->
+                            <div id = "result-container" style="display: none;">
+                                <h3 class="text-accent">Ваш выбор</h3>
+                                <span id = "result" class="selected-seat-info mt-4"></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Добавление участников -->
-            <div class = "tab-pane fade" role = "tabpanel" aria-labelledby="participant-tab" id = "participant">
-                <div id="participant-block" style="display: none;">
-                    <h3 class="back_1">Добавить участника</h3>
-                    <div id="add-participant" class="back_2" style="display: flex; align-items: stretch; gap: 10px;">
-                        <input type="text" id="student-id" name="student-id" placeholder="студ билет"/>
-                        <button id="add-participant-button" class="btn btn-primary">Добавить</button>
+            <div class = "tab-pane fade" role = "tabpanel" aria-labelledby="pills-participant" id = "pills-participant">
+                <div class = "card glass-card">
+                    <div class = "card-body">
+                        <div id="participant-block" style="display: none;">
+                            <h3 class="text-accent">Добавить участника</h3>
+                            <div id="add-participant" style="display: flex; align-items: stretch; gap: 10px;">
+                                <input type="text" class="form-control" id="student-id" name="student-id" placeholder="студ билет"/>
+                                <button id="add-participant-button" class="btn" style="box-shadow: none; background: var(--primary); color: white;">Добавить</button>
+                            </div>
+                        </div><br>
+                        
+                        <div id = "participants-result-container" style="display: none;">
+                            <h3 class="text-accent">Список участников</h3>
+                            <div class="text-gradient" id = "participants-result"></div>
+                        </div>
                     </div>
-                </div><br>
-                
-                <div id = "participants-result-container" style="display: none;">
-                    <h3 class = "back_1">Список участников</h3>
-                    <div id = "participants-result" class = " back_2"></div>
                 </div>
             </div>
         </div>
@@ -85,12 +111,12 @@
 
         <!-- Переключение между вкладками -->
         <div id = "switchTabs">
-            <button onclick="switchTabs(-1)" id = "prevTab" class="btn btn-primary" style="float: left; margin-left: 10px;">Назад</button>
-            <button onclick="switchTabs(1)" id = "nextTab" class="btn btn-primary" style="float: right; margin-right: 10px;">Вперед</button>
+            <button onclick="switchTabs(-1)" id = "prevTab" class="btn" style="box-shadow: none; background: var(--primary); color: white; float: left; margin-left: 10px;">Назад</button>
+            <button onclick="switchTabs(1)" id = "nextTab" class="btn" style="box-shadow: none; background: var(--primary); color: white; float: right; margin-right: 10px;">Вперед</button>
         </div>
 
         <div id = "bookingForm" style="display: none; float: right;">
-            <button id = "submitBooking" class="btn btn-primary">Забронировать</button>
+            <button id = "submitBooking" class="btn" style="box-shadow: none; background: var(--primary); color: white;">Забронировать</button>
         </div>
         <br>
     </div>
@@ -198,7 +224,7 @@
     <h2>Пожалуйста войдите в аккаунт</h2>
 {% endif %}
 
-
+</body>
 {% endblock %}
 
 {% block scripts %}

@@ -1,6 +1,6 @@
 const roomSchemes = {
     '1_1' : `
-    <h3 class = "back_1" >Выберите стол</h3>
+    <h3 class = "text-accent">Выберите стол</h3>
     <div class="room-container">
         <div class="scheme">
             <!-- Столы -->
@@ -62,7 +62,7 @@ const roomSchemes = {
         </div>
     </div>`,
     '1_2' : `
-    <h3 class = "back_1" >Выберите стол</h3>
+    <h3 class = "text-accent">Выберите стол</h3>
     <div class="room-container">
         <div class="scheme">
             <!-- Столы -->
@@ -124,7 +124,7 @@ const roomSchemes = {
         </div>
     </div>`,
     '1_3': `
-    <h3 class = "back_1" >Выберите стол</h3>
+    <h3 class = "text-accent">Выберите стол</h3>
     <div class="room-container">
         <div class="scheme">
             <!-- Столы -->
@@ -186,7 +186,7 @@ const roomSchemes = {
         </div>
     </div>`,
     '2_4': `
-    <h3 class = "back_1" >Выберите стол</h3>
+    <h3 class = "text-accent">Выберите стол</h3>
     <div class="room-container">
         <div class="scheme">
             <!-- Столы -->
@@ -248,7 +248,7 @@ const roomSchemes = {
         </div>
     </div>`,
     '2_5': `
-    <h3 class = "back_1" >Выберите стол</h3>
+    <h3 class = "text-accent">Выберите стол</h3>
     <div class="room-container">
         <div class="scheme">
             <!-- Столы -->
@@ -311,7 +311,7 @@ const roomSchemes = {
         </div>
     </div>`,
     '2_8': `
-    <h3 class = "back_1" >Выберите стол</h3>
+    <h3 class = "text-accent">Выберите стол</h3>
     <div class="room-container">
         <div class="scheme">
             <!-- Столы -->
@@ -374,7 +374,7 @@ const roomSchemes = {
         </div>
     </div>`,
     "3_6": `
-    <h3 class = "back_1" >Выберите стол</h3>
+    <h3 class = "text-accent">Выберите стол</h3>
     <div class="room-container">
         <div class="scheme">
             <!-- Столы -->
@@ -436,7 +436,7 @@ const roomSchemes = {
         </div>
     </div>`,
     '3_7': `
-    <h3 class = "back_1" >Выберите стол</h3>
+    <h3 class = "text-accent">Выберите стол</h3>
     <div class="room-container">
         <div class="scheme">
             <!-- Столы -->

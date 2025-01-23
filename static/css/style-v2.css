@@ -459,9 +459,15 @@ td, th {
 
 .mainBody {
     font-family: "Inter", sans-serif;
-    background: linear-gradient(135deg, #fafaff, #dcdcfe);
+    background: linear-gradient(135deg, #fafaff, #b6b6f9);
     color: #11181c;
     min-height: 100vh;
+}
+
+.myBtn {
+    background: var(--primary);
+    color: var(--input) !important;
+    box-shadow: none !important;
 }
 
 .profileTable {

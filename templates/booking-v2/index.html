@@ -7,7 +7,7 @@
 {% block main %}
 <body class = "mainBody">
     <div class="text-center mb-5 animate-header">
-        <h1 class="display-3 fw-bold gradient-text mb-4" style="text-align: center;">Бронирование мест</h1>
+        <h1 class="display-3 fw-bold gradient-text mb-4">Бронирование мест</h1>
     </div>
 {% if request.user.is_authenticated %}
 
@@ -95,7 +95,7 @@
                             <h3 class="text-accent">Добавить участника</h3>
                             <div id="add-participant" style="display: flex; align-items: stretch; gap: 10px;">
                                 <input type="text" class="form-control" id="student-id" name="student-id" placeholder="студ билет"/>
-                                <button id="add-participant-button" class="btn" style="box-shadow: none; background: var(--primary); color: white;">Добавить</button>
+                                <button id="add-participant-button" class="btn myBtn">Добавить</button>
                             </div>
                         </div><br>
                         
@@ -111,12 +111,12 @@
 
         <!-- Переключение между вкладками -->
         <div id = "switchTabs">
-            <button onclick="switchTabs(-1)" id = "prevTab" class="btn" style="box-shadow: none; background: var(--primary); color: white; float: left; margin-left: 10px;">Назад</button>
-            <button onclick="switchTabs(1)" id = "nextTab" class="btn" style="box-shadow: none; background: var(--primary); color: white; float: right; margin-right: 10px;">Вперед</button>
+            <button onclick="switchTabs(-1)" id = "prevTab" class="btn myBtn" style="float: left; margin-left: 10px;">Назад</button>
+            <button onclick="switchTabs(1)" id = "nextTab" class="btn myBtn" style="float: right; margin-right: 10px;">Вперед</button>
         </div>
 
         <div id = "bookingForm" style="display: none; float: right;">
-            <button id = "submitBooking" class="btn" style="box-shadow: none; background: var(--primary); color: white;">Забронировать</button>
+            <button id = "submitBooking" class="btn myBtn">Забронировать</button>
         </div>
         <br>
     </div>

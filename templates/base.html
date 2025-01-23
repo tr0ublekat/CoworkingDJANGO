@@ -13,10 +13,10 @@
     </title>
 </head>
 
-<nav class="navbar navbar-expand-md navbar-light bg-light">
+<nav class="navbar navbar-expand-md" style="background-color: var(--primary)">
     <div class="container-fluid"> 
         <a href="{% url 'main' %}" class="navbar-brand d-flex align-items-center">
-            <img src="{% static 'img/art.png' %}" class="logo" style="width: 75px; height: 75px;">
+            <img src="{% static 'img/art_2.png' %}" class="logo" style="width: 65px; height: 65px;">
         </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,10 +27,10 @@
             <ul class="navbar-nav mx-auto"> <!-- Убираем marg-left -->
                 {% if request.user.is_authenticated %}
                 <li class="nav-item">
-                    <a href="{% url 'main' %}" class="nav-link">Главная</a>
+                    <a href="{% url 'main' %}" class="nav-link text-white">Главная</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{% url 'booking-v2' %}" class="nav-link">Бронирование</a>
+                    <a href="{% url 'booking-v2' %}" class="nav-link text-white">Бронирование</a>
                 </li>
                 {% endif %}
             </ul>
@@ -39,7 +39,7 @@
                 {% if request.user.is_authenticated %}
                 <ul class="navbar-nav mb-2 mb-md-0 d-flex" style="gap: 10px;">
                     <li class="nav-item">
-                        <a href="{% url 'profile' %}" class="nav-link">Личный кабинет</a>
+                        <a href="{% url 'profile' %}" class="nav-link text-white">Личный кабинет</a>
                     </li>
                     <li class="nav-item">
                         <a class="btn btn-danger" style="height: 40px;" href="{% url 'logout' %}" id="logout">Выйти</a>
@@ -48,10 +48,10 @@
                 {% else %}
                 <ul class="navbar-nav mb-2 mb-md-0 d-flex" style="gap: 10px;">
                     <li class="nav-item">
-                        <a href="{% url 'login' %}" class="btn btn-primary" style="background-color:#3199e6;">Войти</a>
+                        <a href="{% url 'login' %}" class="btn" style="background: var(--background); color: var(--primary);">Войти</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{% url 'register' %}" class="btn btn-outline-primary" style="color:#3199e6;">Регистрация</a>
+                        <a href="{% url 'register' %}" class="btn" style="border-color: var(--background); color: var(--background);">Регистрация</a>
                     </li>
                 </ul>
                 {% endif %}

@@ -74,7 +74,7 @@
                                 <tr style="border: 3px solid; border-bottom: none;">
                                     <form action="remove-book/" method="post">
                                         {% csrf_token %}
-                                    <td style="border-right: none;  border-radius: 40px 0 0 40px;">{{ item.date }}</td>
+                                    <td style="border-right: none;">{{ item.date }}</td>
                                     <td style="border-right: none; border-left: none;">{{ item.place }}</td>
                                     <td style="border-right: none; border-left: none;">
                                         {% if item.time == 1 %}
@@ -102,7 +102,7 @@
                                         <td style="border-right: none; border-left: none;">{{item.room}}</td>
 
                                         <input id="pk" type="hidden" name="pk" value="{{ item.id }}">
-                                        <td style="border-left: none; border-radius: 0 40px 40px 0;">
+                                        <td style="border-left: none;">
                                             {% if item.date > now_date %}
                                                 <input class="btn btn-outline-danger" type="submit" value="Отменить" >
                                             {% elif item.date == now_date and item.time > now_hour|add:"-7" %}

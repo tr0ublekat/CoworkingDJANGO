@@ -351,6 +351,20 @@ input:checked+.slider:before {
     font-size: 100%;
 }
 
+.room {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+
+textarea {
+    width: 90%;
+    height: 150px;
+    margin: 20px auto;
+    display: block;
+}
+
 .profile_container {
     width: 100%; 
     margin: 0 auto; 
@@ -474,8 +488,12 @@ td, th {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0 5px;
-    
 } 
+
+tbody tr {
+    border-radius: 40px; /* Закругление строк, если нужно */
+    overflow: hidden; /* Скрыть элементы, выходящие за пределы */
+}
 
 .profileTableHead {
     position: sticky;
@@ -518,8 +536,8 @@ input {
 }
 
 #participants-result {
-    padding: 0; /* Удалите отступы у контейнера */
-    margin: 0;  /* Удалите поля у контейнера */
+    padding: 0;
+    margin: 0;  
 }
 
 #participants-result ul {

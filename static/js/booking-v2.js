@@ -139,8 +139,6 @@ async function fetchBooking(date, tableId, intervals, studentId, room_id) {
     }
 }
 
-
-
 function switchTabs(direction) {
     tabIndex += direction;
 

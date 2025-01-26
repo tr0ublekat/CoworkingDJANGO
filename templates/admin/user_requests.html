@@ -44,99 +44,76 @@
                     <div class="card glass-card" style="width: 100%; max-width: 600px;">
                         <div class="card-body">
                             <h3 style="text-align: center;">Конструктор кабинета</h3>
-                            <div id="toolbar">
-                                <button id="add-table-2" class="table-type-btn">Добавить столик 2</button>
-                                <button id="add-table-4" class="table-type-btn">Добавить столик 4</button>
-                                <button id="add-table-8" class="table-type-btn">Добавить столик 8</button>
-                                <button id="generate-html">Generate HTML</button>
+                            <div id="toolbar" class="d-flex justify-content-center" style="gap: 10px;">
+                                <button id="add-table-2" class="btn myBtn">Добавить столик 2</button>
+                                <button id="add-table-4" class="btn myBtn">Добавить столик 4</button>
+                                <button id="add-table-8" class="btn myBtn">Добавить столик 8</button>
                             </div>
+                            <br>
                             <div class="room-container">
                                 <div id="room" class="room"></div>
                             </div>
-                            <textarea id="output" placeholder="Generated HTML will appear here..." readonly></textarea>
+                            <br>
+                            <label class = "fw-bold gradient-text" style="font-size: 17px;" for="room-number">Номер кабинета:</label>
+                            <input class="input-field text-gradient" type="number" id="room-number" name="room-number">
+                            <br>
+                            <br>
+                            <label class = "fw-bold gradient-text" style="font-size: 17px;" for="room-capacity">Количество мест:</label>
+                            <input class="input-field text-gradient" type="number" id="room-capacity" name="room-capacity">
+                            <br>
+                            <br>
+                            <button class="btn myBtn" id="generate-html">Сгенерировать код</button>
+                            <textarea class="input-field text-gradient" id="room-code" readonly></textarea>
+                            <br>
+                            <label class = "fw-bold gradient-text" style="font-size: 17px;" for="room-description">Описание кабинета:</label>
+                            <textarea class="input-field text-gradient" id="room-description" name="room-description"></textarea>
+                            <br>
+                            <label class = "fw-bold gradient-text" style="font-size: 17px;" for="room-location">Местоположение:</label>
+                            <select id="room-location" name="room-location">
+                                <option class="input-field text-gradient" value="">Выберите местоположение</option>
+                            </select>
+                            <br>
+                            <br>
+                            <button onclick="confirmRoomCreation()" class="btn myBtn">Создать кабинет</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <script>
-        let tableCount = 0;
-
-        const room = document.getElementById("room");
-        const generateHtmlBtn = document.getElementById("generate-html");
-        const output = document.getElementById("output");
-
-        // Функция для добавления столика
-        function addTable(type) {
-            const tableId = ++tableCount; // Генерация уникального ID для столика
-            const table = document.createElement("button");
-            table.className = "table-button";
-            table.style.position = "absolute"; // Убедитесь, что столик можно позиционировать
-            table.style.left = "10px"; // Начальная позиция (можно изменить)
-            table.style.top = "10px"; // Начальная позиция (можно изменить)
-            table.setAttribute("table_id", tableId); // Установка атрибута table_id
-            table.id = `table_${tableId}`; // Установка ID для кнопки столика
-
-            // Измените содержимое кнопки в зависимости от типа
-            let iconHtml = '';
-            if (type === "2") {
-                iconHtml = `<i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>`;
-            } else if (type === "4") {
-                iconHtml = `<i class="bi bi-4-square-fill icon" style="font-size: 400%;"></i>`;
-            } else if (type === "8") {
-                iconHtml = `<i class="bi bi-8-square-fill my-8-style" style="font-size: 650%;"></i>`;
-            }
-
-            table.innerHTML = iconHtml; // Устанавливаем только иконку
-
-            // Добавьте события перетаскивания
-            table.addEventListener("mousedown", (e) => {
-                let shiftX = e.clientX - table.getBoundingClientRect().left;
-                let shiftY = e.clientY - table.getBoundingClientRect().top;
-
-                const onMouseMove = (event) => {
-                    const roomRect = room.getBoundingClientRect();
-                    const x = event.clientX - roomRect.left - shiftX;
-                    const y = event.clientY - roomRect.top - shiftY;
-
-                    // Проверка на границы контейнера
-                    if (x >= 0 && x <= room.offsetWidth - table.offsetWidth && 
-                        y >= 0 && y <= room.offsetHeight - table.offsetHeight) {
-                        table.style.left = `${x}px`;
-                        table.style.top = `${y}px`;
-                    }
-                };
-
-                const onMouseUp = () => {
-                    document.removeEventListener("mousemove", onMouseMove);
-                    document.removeEventListener("mouseup", onMouseUp);
-                };
-
-                document.addEventListener("mousemove", onMouseMove);
-                document.addEventListener("mouseup", onMouseUp);
-            });
-
-            table.ondragstart = () => false; // Отключить стандартное поведение перетаскивания
-            room.appendChild(table);
-        }
-
-        // Обработчики событий для кнопок добавления столиков
-        document.getElementById("add-table-2").addEventListener("click", () => addTable("2"));
-        document.getElementById("add-table-4").addEventListener("click", () => addTable("4"));
-        document.getElementById("add-table-8").addEventListener("click", () => addTable("8"));
-
-        // Генерация HTML
-        generateHtmlBtn.addEventListener("click", () => {
-            const generatedHtml = Array.from(room.children).map(table => {
-                return `<button class="table-button" style="left: ${table.style.left}; top: ${table.style.top};" table_id="${table.getAttribute('table_id')}" id="${table.id}">
-                            ${table.innerHTML}
-                        </button>`;
-            }).join('\n');
-            
-            output.value = generatedHtml;
-        });
-    </script>
 </body>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/admin.js' %}"></script> 
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const tabScheme = document.getElementById("pills-scheme");
+        const roomLocation = document.getElementById("room-location");
+
+        const loadUniversitiesLocation = async () => {
+            // console.log("Загрузка местоположений...")
+            await fetchInstitutions();
+            roomLocation.innerHTML = '<option value="">Выберите местоположение</option>';
+            institutions.forEach(institution => {
+                const option = document.createElement("option");
+                option.value = institution.id;
+                option.textContent = institution.name;
+                roomLocation.appendChild(option);
+            });
+        };
+
+        // Вызов функции для загрузки данных сразу после загрузки страницы
+        loadUniversitiesLocation();
+
+        // Добавление слушателя события для переключения на вкладку
+        tabScheme.addEventListener('show.bs.tab', (event) => {
+            if (event.target.id === "pills-scheme-tab") {
+                // Загружаем данные только если вкладка "Конструктор кабинета" активируется
+                loadUniversitiesLocation();
+            }
+        });
+    })
+</script>
 {% endblock %}

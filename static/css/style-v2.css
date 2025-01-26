@@ -363,6 +363,7 @@ textarea {
     height: 150px;
     margin: 20px auto;
     display: block;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .profile_container {

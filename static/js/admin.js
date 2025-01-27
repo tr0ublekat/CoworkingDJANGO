@@ -138,3 +138,4 @@ async function confirmRoomCreation() {
     document.getElementById("room-description").value = '';
     document.getElementById("room-location").value = '';
 }
+

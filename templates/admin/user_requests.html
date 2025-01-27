@@ -14,6 +14,9 @@
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="pills-scheme-tab" data-bs-toggle="pill" data-bs-target="#pills-scheme" type="button" role="tab" aria-controls="pills-scheme" aria-selected="false" style="margin: 0 10px;">Конструктор кабинета</button>
             </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-insitute-tab" data-bs-toggle="pill" data-bs-target="#pills-institute" type="button" role="tab" aria-controls="pills-institute" aria-selected="false" style="margin: 0 10px;">Добавление локации</button>
+            </li>
         </ul>
 
         <div class="tab-content" id="pills-TabContent">
@@ -79,6 +82,28 @@
                     </div>
                 </div>
             </div>
+
+            <div class="tab-pane fade" role="tabpanel" aria-labelledby="pills-insitute-tab" id="pills-institute">
+                <div class="d-flex justify-content-center">
+                    <div class="card glass-card" style="width: 100%; max-width: 600px;">
+                        <div class="card-body">
+                            <div id="map" style="width: 100%; height: 500px;"></div>
+                            <br>
+                            <label class = "fw-bold gradient-text" style="font-size: 17px;" for="location-name">Название локации:</label>
+                            <input class="input-field text-gradient" type="text" id="location-name" name="location-name">
+                            <br>
+                            <label class = "fw-bold gradient-text" style="font-size: 17px;" for="location-address">Адрес локации:</label>
+                            <input class="input-field text-gradient" type="text" id="location-address" name="location-address">
+                            <br>
+                            <label class = "fw-bold gradient-text" style="font-size: 17px;" for="location-coordinates">Координаты локации:</label>
+                            <input class="input-field text-gradient" type="text" id="location-coordinates" name="location-coordinates">
+                            <br>
+                            <button onclick="confirmInstituteCreation()" class="btn myBtn">Создать локацию</button>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>
@@ -115,5 +140,82 @@
             }
         });
     })
+</script>
+
+<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=ca5a8ff3-7920-4092-b714-aa2cb85b9508" type="text/javascript"></script>
+<script>
+    ymaps.ready(init);
+
+    function init() {
+        var myPlacemark,
+            myMap = new ymaps.Map('map', {
+                center: [56.14, 47.18],
+                zoom: 9
+            }, {
+                searchControlProvider: 'yandex#search'
+            });
+
+        // Слушаем клик на карте.
+        myMap.events.add('click', function (e) {
+            var coords = e.get('coords');
+            console.log(`Координаты: ${coords}`);
+            // Если метка уже создана – просто передвигаем ее.
+            if (myPlacemark) {
+                myPlacemark.geometry.setCoordinates(coords);
+            }
+            // Если нет – создаем.
+            else {
+                myPlacemark = createPlacemark(coords);
+                myMap.geoObjects.add(myPlacemark);
+                // Слушаем событие окончания перетаскивания на метке.
+                myPlacemark.events.add('dragend', function () {
+                    getAddress(myPlacemark.geometry.getCoordinates());
+                });
+            }
+            getAddress(coords);
+        });
+
+        // Создание метки.
+        function createPlacemark(coords) {
+            return new ymaps.Placemark(coords, {
+                iconCaption: 'поиск...'
+            }, {
+                preset: 'islands#violetDotIconWithCaption',
+                draggable: true
+            });
+        }
+
+        // Определяем адрес по координатам (обратное геокодирование).
+        function getAddress(coords) {
+            myPlacemark.properties.set('iconCaption', 'поиск...');
+            ymaps.geocode(coords).then(function (res) {
+                var firstGeoObject = res.geoObjects.get(0);
+
+                if (firstGeoObject) {
+                    let address = firstGeoObject.getAddressLine()
+
+                    myPlacemark.properties
+                        .set({
+                            // Формируем строку с данными об объекте.
+                            iconCaption: [
+                                // Название населенного пункта или вышестоящее административно-территориальное образование.
+                                firstGeoObject.getLocalities().length ? firstGeoObject.getLocalities() : firstGeoObject.getAdministrativeAreas(),
+                                // Получаем путь до топонима, если метод вернул null, запрашиваем наименование здания.
+                                firstGeoObject.getThoroughfare() || firstGeoObject.getPremise()
+                            ].filter(Boolean).join(', '),
+                            // В качестве контента балуна задаем строку с адресом объекта.
+                            balloonContent: address
+                        });
+
+                    document.getElementById('location-address').value = address
+                    document.getElementById('location-coordinates').value = coords[0] + ', ' + coords[1];
+                } else {
+                    // Если адрес не найден, очищаем поля
+                    document.getElementById('location-address').value = '';
+                    document.getElementById('location-coordinates').value = '';
+                }
+            });
+        }
+    }
 </script>
 {% endblock %}

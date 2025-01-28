@@ -17,7 +17,7 @@ router.register(r'bookings', BookView)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('available-times/', views.available_times, name='available_times'),
-    path('available-student/', views.available_student, name='available_student'),
-    path('book/', views.booking, name='booking'),
+    path('available-times/', views.AvailableTimesAPIView.as_view(), name='available_times'),
+    path('available-student/', views.AvailableStudentAPIView.as_view(), name='available_student'),
+    path('book/', views.BookingAPIView.as_view(), name='booking'),
 ]

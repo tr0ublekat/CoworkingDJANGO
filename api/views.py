@@ -7,6 +7,7 @@ from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
 
 from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -36,6 +37,8 @@ def index(request):
 
 
 class AvailableTimesAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
     @swagger_auto_schema(
         operation_description="Получить доступные временные интервалы для указанной комнаты, даты и места.",
         request_body=openapi.Schema(
@@ -85,6 +88,8 @@ class AvailableTimesAPIView(APIView):
 from django.db import transaction
 
 class BookingAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
     @swagger_auto_schema(
         operation_description="Забронировать место на указанные даты и время.",
         request_body=openapi.Schema(
@@ -139,6 +144,8 @@ class BookingAPIView(APIView):
 
 
 class AvailableStudentAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
     @swagger_auto_schema(
         operation_description="Проверить, доступен ли студент с заданным ID.",
         request_body=openapi.Schema(

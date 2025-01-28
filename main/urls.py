@@ -16,20 +16,25 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include, re_path
+from rest_framework.permissions import IsAuthenticated
+
 from api.views import main as main_page
 
-from rest_framework import permissions
+from main import permissions as perms
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
+from main.permissions import IsAdminUser
+
 schema_view = get_schema_view(
-   openapi.Info(
-      title="Coworking API",
-      default_version='v1',
-      description="Открытое АПИ для взаимодействия с коворкингом",
-   ),
-   public=True,
-   permission_classes=([permissions.AllowAny,])
+    openapi.Info(
+       title="Coworking API",
+       default_version='v1',
+       description="Открытое АПИ для взаимодействия с коворкингом",
+    ),
+    public=False,
+    permission_classes=([perms.IsAdminUser,]),
+
 )
 
 urlpatterns = [

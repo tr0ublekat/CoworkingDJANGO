@@ -205,7 +205,11 @@ hidden {
     border: 1px solid #ccc; 
     border-radius: 5px; 
     box-sizing: border-box; 
-    caret-color: var(--primary);
+    color: var(--primary); 
+    background-color: white;
+    overflow: hidden; 
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .modal {

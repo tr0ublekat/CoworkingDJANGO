@@ -58,22 +58,22 @@
                             </div>
                             <br>
                             <label class = "fw-bold gradient-text" style="font-size: 17px;" for="room-number">Номер кабинета:</label>
-                            <input class="input-field text-gradient" type="number" id="room-number" name="room-number">
+                            <input class="input-field" type="number" id="room-number" name="room-number">
                             <br>
                             <br>
                             <label class = "fw-bold gradient-text" style="font-size: 17px;" for="room-capacity">Количество мест:</label>
-                            <input class="input-field text-gradient" type="number" id="room-capacity" name="room-capacity">
+                            <input class="input-field" type="number" id="room-capacity" name="room-capacity">
                             <br>
                             <br>
                             <button class="btn myBtn" id="generate-html">Сгенерировать код</button>
-                            <textarea class="input-field text-gradient" id="room-code" readonly></textarea>
+                            <textarea class="input-field" id="room-code" readonly></textarea>
                             <br>
                             <label class = "fw-bold gradient-text" style="font-size: 17px;" for="room-description">Описание кабинета:</label>
-                            <textarea class="input-field text-gradient" id="room-description" name="room-description"></textarea>
+                            <textarea class="input-field" id="room-description" name="room-description"></textarea>
                             <br>
                             <label class = "fw-bold gradient-text" style="font-size: 17px;" for="room-location">Местоположение:</label>
                             <select id="room-location" name="room-location">
-                                <option class="input-field text-gradient" value="">Выберите местоположение</option>
+                                <option class="input-field" value="">Выберите местоположение</option>
                             </select>
                             <br>
                             <br>
@@ -90,13 +90,13 @@
                             <div id="map" style="width: 100%; height: 500px;"></div>
                             <br>
                             <label class = "fw-bold gradient-text" style="font-size: 17px;" for="location-name">Название локации:</label>
-                            <input class="input-field text-gradient" type="text" id="location-name" name="location-name">
+                            <input class="input-field" type="text" id="location-name" name="location-name">
                             <br>
                             <label class = "fw-bold gradient-text" style="font-size: 17px;" for="location-address">Адрес локации:</label>
-                            <input class="input-field text-gradient" type="text" id="location-address" name="location-address">
+                            <input class="input-field" type="text" id="location-address" name="location-address">
                             <br>
                             <label class = "fw-bold gradient-text" style="font-size: 17px;" for="location-coordinates">Координаты локации:</label>
-                            <input class="input-field text-gradient" type="text" id="location-coordinates" name="location-coordinates">
+                            <input class="input-field" type="text" id="location-coordinates" name="location-coordinates">
                             <br>
                             <button onclick="confirmInstituteCreation()" class="btn myBtn">Создать локацию</button>
                             <br>
@@ -158,7 +158,7 @@
         // Слушаем клик на карте.
         myMap.events.add('click', function (e) {
             var coords = e.get('coords');
-            console.log(`Координаты: ${coords}`);
+            // console.log(`Координаты: ${coords}`);
             // Если метка уже создана – просто передвигаем ее.
             if (myPlacemark) {
                 myPlacemark.geometry.setCoordinates(coords);

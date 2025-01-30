@@ -26,12 +26,21 @@ const tabs = document.querySelectorAll('#pills-tab .nav-link');
 const prevTab = document.getElementById('prevTab');
 const nextTab = document.getElementById('nextTab');
 
+var placemarks = []; // Массив для хранения меток
+var defaultOptions = {
+    preset: 'islands#blueDotIcon'
+};
+var selectedOptions = {
+    preset: 'islands#greenDotIcon'
+};
+
 url_ip = 'http://127.0.0.1:8000'
 
 async function fetchRooms(institutionId) {
     try {
         const response = await fetch(url_ip + '/api/rooms/');
         rooms = await response.json();
+        console.log(rooms)
         displayRooms(rooms, institutionId);
     } catch (error) {
         console.error(error);
@@ -52,10 +61,43 @@ async function fetchRoomsPopup(institutionId) {
     }
 }
 
-async function fetchInstitutions() {
+async function fetchInstitutions(myMap) {
     try {
         const response = await fetch(url_ip + '/api/institutions/');
         institutions = await response.json();
+
+        institutions.forEach(institution => {
+            const {id, name, address, latitude, longitude, } = institution; // Предполагается, что ваш объект института имеет свойства latitude, longitude и name
+            
+            // Создаем метку для каждого института
+            const placemark = new ymaps.Placemark([latitude, longitude], {
+                hintContent: name // Используем имя института в качестве подсказки
+            }, {
+                preset: 'islands#blueDotIcon' // Можно использовать разные пресеты для меток
+            });
+
+            // Добавляем метку на карту
+            myMap.geoObjects.add(placemark);
+            placemarks.push(placemark); // Сохраняем метку в массив
+
+            // Добавляем обработчик клика на метку
+            placemark.events.add('click', async () => {
+                placemarks.forEach(p => p.options.set(defaultOptions));
+                placemark.options.set(selectedOptions)
+
+                localStorage.setItem('selectedMarkId', id)
+                localStorage.setItem('hintContent', address)
+
+                const addressElement = document.getElementById('address_value');
+                if (addressElement) {
+                    addressElement.innerText = `${name} (${address})`; // Обновляем текст элемента
+                }
+
+                await fetchRooms(id)
+                tab.style.display = "block"
+
+            });
+        });
     } catch (error) {
         console.error(error);
     }
@@ -207,6 +249,13 @@ function displayRooms(rooms, institutionId) {
     container.innerHTML = '';
 
     const filteredRooms = rooms.filter(room => room.institution === institutionId);
+    console.log('Отфильтрованные комнаты:', filteredRooms); // Отладка: выводим отфильтрованные комнаты
+
+    if (filteredRooms.length === 0) {
+        console.warn('Нет комнат для данного института.'); // Если нет отфильтрованных комнат
+        kab.style.display = 'none'; // Скрываем селектор, если нет комнат
+        return;
+    }
 
     kab.style.display = 'block';
 
@@ -222,15 +271,13 @@ function displayRooms(rooms, institutionId) {
         card.className = 'card';
         card.style.width = '15rem';
         card.innerHTML = 
-            // <img src="..." class="card-img-top" alt="${'Image'}">
             `<div class="card h-100 gradient-card-alt hover-card">
-                <div class="card-body p-4" >
+                <div class="card-body p-4">
                     <h5 class="text-white mb-3">${room.number || 'Card title'}</h5>
                     <p class="text-light">${institution.name || 'Institution name'} (${institution.address || 'Address'})</p>
                     <button onclick="selectRoom(${room.id})" class="btn btn-light btn-glow">Выбрать</button>
                 </div>
-            </div>
-        `;
+            </div>`;
         container.appendChild(card);
     });
 }

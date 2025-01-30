@@ -236,10 +236,16 @@
     var participants = [currentuser];
 </script>
 
-<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=ca5a8ff3-7920-4092-b714-aa2cb85b9508" type="text/javascript"></script>
 <script type="text/javascript">
-    var placemark1, placemark2, placemark3;
+    var defaultOptions = {
+        preset: 'islands#blueDotIcon'
+    };
+    var selectedOptions = {
+        preset: 'islands#greenDotIcon'
+    };
 
+    // Вызов функции после инициализации карты
     ymaps.ready(init);
 
     function init() {
@@ -248,66 +254,13 @@
             zoom: 14
         });
 
-        var defaultOptions = {
-            preset: 'islands#blueDotIcon'
-        };
-        var selectedOptions = {
-            preset: 'islands#greenDotIcon'
-        };
-
-        placemark1 = new ymaps.Placemark([56.143890, 47.211975], {
-            hintContent: 'Общежитие №3 Чгу им. И.Н. Ульянова (Московский проспект, 25)'
-        }, defaultOptions);
-
-        placemark2 = new ymaps.Placemark([56.143707, 47.209575], {
-            hintContent: 'ЧГУ им. И.Н. Ульянова (Московский проспект, 29)'
-        }, defaultOptions);
-
-        placemark3 = new ymaps.Placemark([56.132504, 47.163134], {
-            hintContent: 'ЧГУ им. И.Н. Ульянова (Университетская, 38)'
-        }, defaultOptions);
-
-        myMap.geoObjects.add(placemark1);
-        myMap.geoObjects.add(placemark2);
-        myMap.geoObjects.add(placemark3);
-
-        function onPlacemarkClick(placemark, markId) {
-            return async function(e) {
-                if (placemark1 && placemark2 && placemark3) {
-                    placemark1.options.set(defaultOptions);
-                    placemark2.options.set(defaultOptions);
-                    placemark3.options.set(defaultOptions);
-                }
-
-                placemark.options.set(selectedOptions);
-
-                selectedMarkId = markId;
-                hintContent = placemark.properties.get('hintContent');
-
-                var addressElement = document.getElementById('address_value');
-                if (addressElement) {
-                    addressElement.innerText = hintContent;
-                } else {
-                    console.error('Элемент address_value не найден.');
-                }
-
-                saveSelectedMarkToLocalStorage(selectedMarkId, hintContent);
-
-                await fetchInstitutions();
-                tab.style.display = 'block';
-                await fetchRooms(selectedMarkId);
-            };
-        }
-
-        placemark1.events.add('click', onPlacemarkClick(placemark1, 1));
-        placemark2.events.add('click', onPlacemarkClick(placemark2, 2));
-        placemark3.events.add('click', onPlacemarkClick(placemark3, 3));
-
+        // Вызываем функцию для получения институтов и добавления их на карту
+        fetchInstitutions(myMap);
+        
         const savedMarkId = localStorage.getItem('selectedMarkId');
         const savedHintContent = localStorage.getItem('hintContent');
 
         if (savedMarkId && savedHintContent) {
-            const placemarks = [placemark1, placemark2, placemark3];
             const placemark = placemarks.find(p => p && p.properties.get('hintContent') === savedHintContent);
             if (placemark) {
                 onPlacemarkClick(placemark, parseInt(savedMarkId))();

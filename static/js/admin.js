@@ -45,6 +45,36 @@ async function createRoom(number, capacity, code, decsription, location) {
     }
 }
 
+async function createInstitution(name, address, latitude, longitude) {
+    try {
+        const response = await fetch(url_ip + '/api/institutions/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name: name,
+                address: address,
+                latitude: latitude,
+                longitude: longitude
+            })
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json() // Получаем данные ошибки от сервера
+            throw new Error('Ошибка при создании учреждения: ' + (errorData.message || 'Неизвестная ошибка'))
+        }
+
+        const data = await response.json()
+
+        alert('Учреждение успешно создано!')
+
+    } catch (error) {
+        console.error('Booking error:', error)
+        alert('Не удалось создать учреждение: ' + error.message)
+    }
+}
+
 function addTable(type) {
     const tableId = ++tableCount; // Генерация уникального ID для столика
     const table = document.createElement("button");
@@ -118,24 +148,42 @@ generateHtmlBtn.addEventListener("click", () => {
 });
 
 async function confirmRoomCreation() {
-    const number = document.getElementById("room-number").value;
-    const capacity = document.getElementById("room-capacity").value;
-    const code = document.getElementById("room-code").value;
-    const description = document.getElementById("room-description").value;
-    const location = document.getElementById("room-location").value;
+    const number = document.getElementById("room-number").value
+    const capacity = document.getElementById("room-capacity").value
+    const code = document.getElementById("room-code").value
+    const description = document.getElementById("room-description").value
+    const location = document.getElementById("room-location").value
 
     // Проверка на заполненность полей
     if (!number || !capacity || !code || !description || !location) {
-        alert("Пожалуйста, заполните все поля.");
-        return;
+        alert("Пожалуйста, заполните все поля.")
+        return
     }
 
-    await createRoom(number, capacity, code, description, location);
+    await createRoom(number, capacity, code, description, location)
 
-    document.getElementById("room-number").value = '';
-    document.getElementById("room-capacity").value = '';
-    document.getElementById("room-code").value = '';
-    document.getElementById("room-description").value = '';
-    document.getElementById("room-location").value = '';
+    document.getElementById("room-number").value = ''
+    document.getElementById("room-capacity").value = ''
+    document.getElementById("room-code").value = ''
+    document.getElementById("room-description").value = ''
+    document.getElementById("room-location").value = ''
 }
 
+async function confirmInstituteCreation() {
+    const name = document.getElementById("location-name").value
+    const address = document.getElementById("location-address").value
+    const coordinates = document.getElementById("location-coordinates").value
+
+    if (!name|!address|!coordinates) {
+        alert("Пожалуйста, заполните все поля.")
+        return
+    }
+
+    const coordArray = coordinates.split(',').map(coord => coord.trim())
+
+    const latitude = coordArray[0]
+
+    const longitude = coordArray[1]
+
+    await createInstitution(name, address, latitude, longitude)
+}

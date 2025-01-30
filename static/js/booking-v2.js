@@ -27,12 +27,6 @@ const prevTab = document.getElementById('prevTab');
 const nextTab = document.getElementById('nextTab');
 
 var placemarks = []; // Массив для хранения меток
-var defaultOptions = {
-    preset: 'islands#blueDotIcon'
-};
-var selectedOptions = {
-    preset: 'islands#greenDotIcon'
-};
 
 url_ip = 'http://127.0.0.1:8000'
 
@@ -40,7 +34,6 @@ async function fetchRooms(institutionId) {
     try {
         const response = await fetch(url_ip + '/api/rooms/');
         rooms = await response.json();
-        console.log(rooms)
         displayRooms(rooms, institutionId);
     } catch (error) {
         console.error(error);
@@ -71,7 +64,7 @@ async function fetchInstitutions(myMap) {
             
             // Создаем метку для каждого института
             const placemark = new ymaps.Placemark([latitude, longitude], {
-                hintContent: name // Используем имя института в качестве подсказки
+                hintContent: `${name} (${address})` // Используем имя института в качестве подсказки
             }, {
                 preset: 'islands#blueDotIcon' // Можно использовать разные пресеты для меток
             });
@@ -86,7 +79,7 @@ async function fetchInstitutions(myMap) {
                 placemark.options.set(selectedOptions)
 
                 localStorage.setItem('selectedMarkId', id)
-                localStorage.setItem('hintContent', address)
+                localStorage.setItem('hintContent', placemark.properties.get('hintContent'))
 
                 const addressElement = document.getElementById('address_value');
                 if (addressElement) {
@@ -249,11 +242,10 @@ function displayRooms(rooms, institutionId) {
     container.innerHTML = '';
 
     const filteredRooms = rooms.filter(room => room.institution === institutionId);
-    console.log('Отфильтрованные комнаты:', filteredRooms); // Отладка: выводим отфильтрованные комнаты
 
     if (filteredRooms.length === 0) {
-        console.warn('Нет комнат для данного института.'); // Если нет отфильтрованных комнат
-        kab.style.display = 'none'; // Скрываем селектор, если нет комнат
+        console.warn('Нет комнат для данного института.'); 
+        kab.style.display = 'none';
         return;
     }
 
@@ -467,7 +459,6 @@ function loadSelectedMarkFromLocalStorage() {
 }
 
 function selectRoom(roomId) {
-    console.log('Выбранный roomId:', roomId); 
     if (roomId) {
         if (lastSelectedRoomId !== null) {
             const previousButton = document.querySelector(`button[onclick="selectRoom(${lastSelectedRoomId})"]`);
@@ -477,7 +468,6 @@ function selectRoom(roomId) {
             }
         }
         localStorage.setItem('selectedRoomId', roomId);
-        console.log('selectedRoomId сохранен в localStorage:', roomId); 
         
         // Находим кнопку, которая соответствует выбранному кабинету
         const button = document.querySelector(`button[onclick="selectRoom(${roomId})"]`);

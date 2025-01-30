@@ -248,28 +248,30 @@
     // Вызов функции после инициализации карты
     ymaps.ready(init);
 
-    function init() {
+    async function init() {
         var myMap = new ymaps.Map("map", {
             center: [56.14, 47.18],
             zoom: 14
         });
 
         // Вызываем функцию для получения институтов и добавления их на карту
-        fetchInstitutions(myMap);
+        await fetchInstitutions(myMap);
         
         const savedMarkId = localStorage.getItem('selectedMarkId');
         const savedHintContent = localStorage.getItem('hintContent');
 
         if (savedMarkId && savedHintContent) {
-            const placemark = placemarks.find(p => p && p.properties.get('hintContent') === savedHintContent);
+            const placemark = placemarks.find(p => p && p.properties.get('hintContent').trim().toLowerCase() === savedHintContent.trim().toLowerCase());
             if (placemark) {
-                onPlacemarkClick(placemark, parseInt(savedMarkId))();
+                placemark.options.set(selectedOptions)
             }
 
             var addressElement = document.getElementById('address_value');
             if (addressElement) {
                 addressElement.innerText = savedHintContent;
             }
+            await fetchRooms(parseInt(savedMarkId))
+            tab.style.display = "block"
         }
     }
 </script>

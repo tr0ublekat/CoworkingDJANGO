@@ -267,6 +267,8 @@ function displayRooms(rooms, institutionId) {
                 <div class="card-body p-4">
                     <h5 class="text-white mb-3">${room.number || 'Card title'}</h5>
                     <p class="text-light">${institution.name || 'Institution name'} (${institution.address || 'Address'})</p>
+                    <p class="text-light">Вместимость: ${room.capacity || 'Capacity'}</p>
+                    <p class="text-light">${room.description || 'Description'}</p>
                     <button onclick="selectRoom(${room.id})" class="btn btn-light btn-glow">Выбрать</button>
                 </div>
             </div>`;
@@ -485,7 +487,6 @@ function selectRoom(roomId) {
 
 function loadRoomScheme() {
     console.log('Загрузка схемы комнаты...');
-    const savedMarkId = localStorage.getItem('selectedMarkId');
     const roomId = localStorage.getItem('selectedRoomId');
     const schemeContainer = document.getElementById('table-select');
 
@@ -494,11 +495,21 @@ function loadRoomScheme() {
         return;
     }
 
-    if (roomSchemes[`${savedMarkId}_${roomId}`]) {
-        schemeContainer.innerHTML = roomSchemes[`${savedMarkId}_${roomId}`];
-        console.log(`Файл ${savedMarkId}_${roomId}.html успешно загружен`);
+    schemeContainer.innerHTML = 
+        `<h3 class = "text-accent">Выберите стол</h3>
+        <div class="room-container">
+            <div class="scheme">
+            </div>
+        </div>`
+
+    const room = rooms.find(room => room.id === parseInt(roomId));
+
+    if (room) {
+        const schemeDiv = schemeContainer.querySelector('.scheme');
+        schemeDiv.innerHTML = room.code
+        console.log(`Схема комнаты с ID ${roomId} успешно загружена`)
     } else {
-        console.error(`Файл ${savedMarkId}_${roomId}.html не найден в roomSchemes`);
+        console.error(`Комната с ID ${roomId} не найдена в массиве rooms`);
         schemeContainer.innerHTML = '<p>Для данного кабинета не найдена схема</p>';
     }
 }

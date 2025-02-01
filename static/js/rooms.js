@@ -4,7 +4,7 @@ const roomSchemes = {
     <div class="room-container">
         <div class="scheme">
             <!-- Столы -->
-             <button class="table-button" style="left: 0%; top: 0%;" table_id="1" id="table_1">
+            <button class="table-button" style="left: 0%; top: 0%;" table_id="1" id="table_1">
                 <i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>
             </button>
             <button class="table-button" style="left: 15%; top: 0%;" table_id="2" id="table_2">

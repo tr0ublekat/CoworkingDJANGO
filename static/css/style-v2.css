@@ -364,12 +364,20 @@ input:checked+.slider:before {
 
 
 textarea {
-    width: 90%;
     height: 150px;
-    margin: 20px auto;
     display: block;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     white-space: pre-wrap !important;
+    width: 100%; 
+    padding: 10px; 
+    margin: 5px 0; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    box-sizing: border-box; 
+    color: var(--primary); 
+    background-color: white;
+    overflow: auto; 
+    text-overflow: ellipsis;
 }
 
 .profile_container {

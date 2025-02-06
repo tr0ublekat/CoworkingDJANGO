@@ -256,6 +256,15 @@ function updateInputs() {
     }
 }
 
+function updateTableId() {
+    const tables = Array.from(room.getElementsByClassName('table-button'));
+    tables.forEach((table, index) => {
+        const newId = index + 1;
+        table.setAttribute('table_id', newId); 
+        table.id = `table_${newId}`; 
+    });
+}
+
 // Обработчики событий для кнопок добавления столиков
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("add-table-2").addEventListener("click", () => addTable("2"));
@@ -277,6 +286,7 @@ document.addEventListener("DOMContentLoaded", () => {
             room.removeChild(tableToRemove);
             currentTable = null; // Сбрасываем текущий столик
             updateInputs(); // Обновляем поля ввода
+            updateTableId();
         }
     });
 });

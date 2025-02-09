@@ -91,11 +91,32 @@ function addTable(type) {
     // Измените содержимое кнопки в зависимости от типа
     let iconHtml = '';
     if (type === "2") {
-        iconHtml = `<i class="bi bi-2-circle-fill icon" style="font-size: 365%;"></i>`;
+        iconHtml = `
+        <div class="icon-container">
+            <i class="table-circle icon" style="font-size: 365%;">
+                <span class="table-number">${tableId}</span>
+            </i>
+            <span style="margin-top: 0;">2 места</span>
+        </div>
+        `;
     } else if (type === "4") {
-        iconHtml = `<i class="bi bi-4-square-fill icon" style="font-size: 400%;"></i>`;
+        iconHtml = `
+        <div class="icon-container">
+            <i class="table-square icon" style="font-size: 400%;">
+                <span class="table-number">${tableId}</span>
+            </i>
+            <span>4 места</span>
+        </div>
+        `;
     } else if (type === "8") {
-        iconHtml = `<i class="bi bi-8-square-fill my-8-style" style="font-size: 650%;"></i>`;
+        iconHtml = `
+        <div class="icon-container">
+            <i class="table-square-big icon" style="font-size: 650%;">
+                <span class="table-number">${tableId}</span>
+            </i>
+            <span>8 мест</span>
+        </div>
+        `;
     }
 
     table.innerHTML = iconHtml; // Устанавливаем только иконку
@@ -259,10 +280,20 @@ function updateInputs() {
 function updateTableId() {
     const tables = Array.from(room.getElementsByClassName('table-button'));
     tables.forEach((table, index) => {
-        const newId = index + 1;
-        table.setAttribute('table_id', newId); 
-        table.id = `table_${newId}`; 
+        const newId = index + 1; // Новый номер столика
+
+        // Обновляем id элемента
+        const tableNumberSpan = table.querySelector('.table-number');
+        if (tableNumberSpan) {
+            tableNumberSpan.textContent = newId; // Обновляем текст внутри <span>
+        }
+
+        // Обновляем атрибут table_id
+        table.setAttribute('table_id', newId);
     });
+
+    // Обновляем значение tableCount
+    tableCount = tables.length; // Счетчик равен количеству оставшихся столиков
 }
 
 // Обработчики событий для кнопок добавления столиков

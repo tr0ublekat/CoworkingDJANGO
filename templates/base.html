@@ -36,8 +36,20 @@
             </ul>
 
             <div class="d-flex align-items-center"> <!-- Центрируем элементы -->
-                {% if request.user.is_authenticated %}
+                {% if request.user.is_authenticated and request.user.role >= 1 %}
                 <ul class="navbar-nav mb-2 mb-md-0 d-flex" style="gap: 10px;">
+                    <li class="nav-item">
+                        <a href="{% url 'profile' %}" class="nav-link text-white">Личный кабинет</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-danger" style="height: 40px;" href="{% url 'logout' %}" id="logout">Выйти</a>
+                    </li>
+                </ul>
+                {% elif request.user.is_authenticated and request.user.role == 0 %}
+                <ul class="navbar-nav mb-2 mb-md-0 d-flex" style="gap: 10px;">
+                    <li class="nav-item">
+                        <a href="{% url 'user_requests' %}" class="nav-link text-white">Управление</a>
+                    </li>
                     <li class="nav-item">
                         <a href="{% url 'profile' %}" class="nav-link text-white">Личный кабинет</a>
                     </li>

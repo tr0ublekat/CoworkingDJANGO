@@ -290,7 +290,7 @@
 }
 
 input:checked+.slider {
-    background-color: #2196F3;
+    background-color: var(--primary);
 }
 
 input:disabled+.slider {
@@ -329,17 +329,12 @@ input:checked+.slider:before {
     position: absolute;
 }
 
-
 .table-button i {
-    color: #ffcc33;
+    color: var(--primary);
 }
 
 .table-button {
     position: absolute; /* Убедитесь, что кнопки позиционируются правильно */
-}
-
-.icon {
-    font-size: 400%; /* Размер по умолчанию для иконок */
 }
 
 .my-8-style {
@@ -362,6 +357,63 @@ input:checked+.slider:before {
     height: 100%;
 }
 
+.icon-container {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    gap: 0;
+}
+
+.table-number {
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    font-weight: bold;
+    color: var(--card); 
+    font-size: 90%;
+}
+
+.table-circle {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0;
+}
+
+.table-square {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 20%;
+    background: var(--primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0;
+}
+
+.table-square-big {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 20%;
+    background: var(--primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0;
+}
+
+.icon {
+    position: relative;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
 
 textarea {
     height: 150px;

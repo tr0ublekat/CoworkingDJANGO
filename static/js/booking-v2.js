@@ -671,27 +671,32 @@ if (logout) {
 
 document.addEventListener('DOMContentLoaded', () => {
     // Навешиваем событие на динамически создаваемый контейнер
-    document.body.addEventListener('click', function(event) {
+    document.getElementById('table-select').addEventListener('click', function(event) {
         const target = event.target.closest('.scheme button'); // Ищем ближайшую кнопку внутри контейнера
 
         if (target) {
+            const date = document.getElementById('data')?.value; // Получаем дату при клике
+            const roomId = localStorage.getItem('selectedRoomId');
+            const tableId = target.getAttribute('table_id');
+
+            if (!date) {
+                showModal('Пожалуйста, выберите дату.');
+                return; // Если дата не выбрана, выходим из функции
+            }
+
             document.querySelectorAll('.scheme button').forEach(button => {
                 button.style.textShadow = ""; // Сбрасываем тень для всех кнопок
             });
 
-            const tableId = target.getAttribute('table_id');
             console.log('Button clicked, Table ID:', tableId);
-            target.style.textShadow = "0 0 10px blue";
-            const roomId = localStorage.getItem('selectedRoomId');
-            const date = document.getElementById('data')?.value;
+            target.style.textShadow = "0 0 10px var(--background)";
             selectedTable = tableId;
 
-            if (roomId && date && tableId) {
+            if (roomId && tableId) {
                 fetchIntervals(roomId, date, tableId)
                     .then(() => showPopupForTable(tableId))
                     .catch((err) => console.error('Error fetching intervals:', err));
             } else {
-                showModal('Пожалуйста, выберите дату.');
                 console.error('Необходимые данные не найдены.');
             }
         }

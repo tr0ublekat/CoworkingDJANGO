@@ -355,7 +355,7 @@ input:checked+.slider:before {
     background-color: rgb(255, 255, 255);
     height: 400px; /* Высота по умолчанию */
     width: 100%;
-    border-radius: 0 10px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
     border: 5px solid rgb(235, 234, 234);
     font-size: 100%;
 }
@@ -380,7 +380,7 @@ input:checked+.slider:before {
     transform: translate(-50%, -50%); 
     font-weight: bold;
     color: var(--card); 
-    font-size: 90%;
+    font-size: 65%;
 }
 
 .table-circle {

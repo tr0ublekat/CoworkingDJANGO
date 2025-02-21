@@ -265,10 +265,10 @@ function displayRooms(rooms, institutionId) {
         card.innerHTML = 
             `<div class="card h-100 gradient-card-alt hover-card">
                 <div class="card-body p-4">
-                    <h5 class="text-white mb-3">${room.number || 'Card title'}</h5>
-                    <p class="text-light">${institution.name || 'Institution name'} (${institution.address || 'Address'})</p>
-                    <p class="text-light">Вместимость: ${room.capacity || 'Capacity'}</p>
-                    <p class="text-light">${room.description || 'Description'}</p>
+                    <h5 class="text-white mb-3">${room.number || 'Номер кабинета'}</h5>
+                    <p class="text-light">${institution.name || 'Название учреждения'} (${institution.address || 'Address'})</p>
+                    <p class="text-light">Вместимость: ${room.capacity || 'Неизвестно'}</p>
+                    <p class="text-light">${room.description || 'Неизвестно'}</p>
                     <button onclick="selectRoom(${room.id})" class="btn btn-light btn-glow">Выбрать</button>
                 </div>
             </div>`;

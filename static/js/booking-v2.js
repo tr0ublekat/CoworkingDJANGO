@@ -10,6 +10,7 @@ const confirmBooking = document.getElementById('bookingForm');
 const tab = document.getElementById('tabs');
 const addedStudents = new Set();
 let lastSelectedRoomId = null;
+const logout = document.getElementById('logout');
 addedStudents.add(currentuser);
 // Получаем текущую дату
 const today = new Date();
@@ -87,7 +88,7 @@ async function fetchInstitutions(myMap) {
                 }
 
                 await fetchRooms(id)
-                tab.style.display = "block"
+                tab.classList.remove('hidden');
 
             });
         });
@@ -321,10 +322,10 @@ function selectIntervals() {
 
     // Показать блок добавления участника
     const participantBlock = document.getElementById('participant-block');
-    participantBlock.style.display = 'block'; 
+    participantBlock.classList.remove('hidden'); 
 
     const participantsResultCon = document.getElementById('participants-result-container');
-    participantsResultCon.style.display = 'block';
+    participantsResultCon.classList.remove('hidden');
     
     // if (confirmBooking) {
     //     confirmBooking.classList.remove('hidden');
@@ -334,7 +335,7 @@ function selectIntervals() {
 function displayResult() {
     var resultElement = document.getElementById("result");
     var resCon = document.getElementById("result-container");
-    resCon.style.display = 'block';
+    resCon.classList.remove("hidden");
     resultElement.innerHTML = `<p>Выбранный стол: ${selectedTable}</p>
     <p>Выбранные интервалы:</p>
     <ul>
@@ -453,12 +454,12 @@ function saveSelectedMarkToLocalStorage(markId, hint) {
     localStorage.setItem('hintContent', hint);
 }
 
-function loadSelectedMarkFromLocalStorage() {
-    selectedMarkId = localStorage.getItem('selectedMarkId');
-    hintContent = localStorage.getItem('hintContent');
-    savedTable = localStorage.getItem('selectedTable');
-    savedIntervals = JSON.parse(localStorage.getItem('selectedIntervals'));
-}
+// function loadSelectedMarkFromLocalStorage() {
+//     selectedMarkId = localStorage.getItem('selectedMarkId');
+//     hintContent = localStorage.getItem('hintContent');
+//     savedTable = localStorage.getItem('selectedTable');
+//     savedIntervals = JSON.parse(localStorage.getItem('selectedIntervals'));
+// }
 
 function selectRoom(roomId) {
     if (roomId) {
@@ -664,12 +665,16 @@ function clearLocalStorage() {
     localStorage.clear();
 }
 
-const logout = document.getElementById('logout');
 if (logout) {
     logout.addEventListener('click', clearLocalStorage);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    selectedMarkId = localStorage.getItem('selectedMarkId');
+    hintContent = localStorage.getItem('hintContent');
+    if (selectedMarkId && hintContent) {
+        tab.classList.remove('hidden');
+    }
     // Навешиваем событие на динамически создаваемый контейнер
     document.getElementById('table-select').addEventListener('click', function(event) {
         const target = event.target.closest('.scheme button'); // Ищем ближайшую кнопку внутри контейнера

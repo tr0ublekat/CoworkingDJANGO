@@ -16,8 +16,7 @@
     {% endif %}
     <div class = "card glass-card">
         <div class = "card-body">
-            <!-- <h3 class = "text-accent text-center">Карта</h3> -->
-            <div id="map" class="container" style="padding: 0; width: 100%; height: 500px;"></div>
+            <div id="map" class="container"></div>
         </div>
     </div>
     <br>
@@ -29,7 +28,7 @@
         </div>
     </div><br>
 
-    <div class = "custom-tabs" id = "tabs" style="display: none;">
+    <div class = "custom-tabs hidden" id = "tabs">
         <!-- Элементы навигации -->
         <ul class = "nav nav-pills mb-4 justify-content-center" id="pills-tab" role="tablist">
             <li class="nav-item" role="presentation">
@@ -49,8 +48,7 @@
         <div class="tab-content" id="pills-TabContent">
             <div class = "tab-pane fade show active" role = "tabpanel" aria-labelledby="pills-cabinet" id = "pills-cabinet">
                 <div id = "room-select">
-                    <!-- <h3 class = "back_1">Выберите кабинет</h3> -->
-                    <span id="rooms-container" style="background-color: none;"></span><br><br>
+                    <span id="rooms-container"></span><br><br>
                 </div>
             </div>
             
@@ -59,7 +57,7 @@
                     <div class = "card-body">
                         <div class = "row">
                             <div class = "col-md-6 mb-3">
-                                <label class = "form-label" style="color: #6366f1;">Выберите дату:</label>
+                                <label>Выберите дату:</label>
                                 <form id="dateForm">
                                     <input type="date" class = "form-control" required name="data" id="data" placeholder="Input date">
                                 </form>
@@ -78,7 +76,7 @@
                             </div>
                             <br>
                             <!-- Вывод рещультата выбора столика и интервалов -->
-                            <div id = "result-container" style="display: none;">
+                            <div id = "result-container" class = "hidden">
                                 <h3 class="text-accent">Ваш выбор</h3>
                                 <span id = "result" class="selected-seat-info mt-4"></span>
                             </div>
@@ -91,15 +89,15 @@
             <div class = "tab-pane fade" role = "tabpanel" aria-labelledby="pills-participant" id = "pills-participant">
                 <div class = "card glass-card">
                     <div class = "card-body">
-                        <div id="participant-block" style="display: none;">
+                        <div id="participant-block" class = "hidden">
                             <h3 class="text-accent">Добавить участника</h3>
-                            <div id="add-participant" style="display: flex; align-items: stretch; gap: 10px;">
+                            <div id="add-participant">
                                 <input type="text" class="form-control" id="student-id" name="student-id" placeholder="студ билет"/>
                                 <button id="add-participant-button" class="btn myBtn">Добавить</button>
                             </div>
                         </div><br>
                         
-                        <div id = "participants-result-container" style="display: none;">
+                        <div id = "participants-result-container" class="hidden">
                             <h3 class="text-accent">Список участников</h3>
                             <div class="text-gradient" id = "participants-result"></div>
                         </div>
@@ -111,11 +109,11 @@
 
         <!-- Переключение между вкладками -->
         <div id = "switchTabs">
-            <button onclick="switchTabs(-1)" id = "prevTab" class="btn myBtn" style="float: left; margin-left: 10px;">Назад</button>
-            <button onclick="switchTabs(1)" id = "nextTab" class="btn myBtn" style="float: right; margin-right: 10px;">Вперед</button>
+            <button onclick="switchTabs(-1)" id = "prevTab" class="btn myBtn">Назад</button>
+            <button onclick="switchTabs(1)" id = "nextTab" class="btn myBtn">Вперед</button>
         </div>
 
-        <div id = "bookingForm" style="display: none; float: right;">
+        <div id = "bookingForm">
             <button id = "submitBooking" class="btn myBtn">Забронировать</button>
         </div>
         <br>
@@ -124,8 +122,8 @@
 
     <div class="overlay" onclick="closePopup()"></div>
     <!-- Всплывающее окно с интервалами(элементы) -->
-    <div class="popup-interval" style="padding: 10px; display: none; width: auto; max-width: 600px; font-size: 100%; height: auto;">
-        <p style="font-size: 150%; text-align: center;">Выберите <br> интервал</p>
+    <div class="popup-interval">
+        <p>Выберите <br> интервал</p>
         <div  class="check">
             <label class="switch">
                 <input type="checkbox" id="check1" name="check" value="1" data-interval="8:00 - 9:00"/>
@@ -196,22 +194,22 @@
             </label>
             <span>17:00 - 18:00</span>
         </div>
-        <div style="display: flex; flex-direction: column; align-items: center; margin-top: 20px;">
-            <button onclick="selectIntervals()" class="btn btn-primary" style="font-size: 100%; margin-bottom: 10px;">Подтвердить</button>
-            <button onclick="closePopup1()" class="btn btn-danger" style="font-size: 100%;">Закрыть</button> <br>
+        <div class = "popup-interval-buttons">
+            <button onclick="selectIntervals()" class="btn btn-primary">Подтвердить</button>
+            <button onclick="closePopup1()" class="btn btn-danger">Закрыть</button> <br>
         </div>
     </div>
     <br>
 
     <!-- Модальное окно -->
-    <div id="modal" class="modal" style="display: none;">
+    <div id="modal" class="modal">
         <div class="modal-content">
-            <span class="close-button" style="align-items: end;">&times;</span>
+            <span class="close-button">&times;</span>
             <p class="modal-text" id="modal-text"></p>
         </div>
     </div>
 
-    <div id="bookingModal" class="modal" style="display: none;">
+    <div id="bookingModal" class="modal">
         <div class="modal-content">
             <span class="close-button" id="closeModal">&times;</span>
             <h2>Подтверждение бронирования</h2>

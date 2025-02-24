@@ -9,20 +9,20 @@
     <div class="container mt-4">
         <ul class="nav nav-pills mb-4 justify-content-center" id="pills-tab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="pills-requests-tab" data-bs-toggle="pill" data-bs-target="#pills-request" type="button" role="tab" aria-controls="pills-request" aria-selected="true" style="margin: 0 10px;">Запросы на регистрацию</button>
+                <button class="nav-link active" id="pills-requests-tab" data-bs-toggle="pill" data-bs-target="#pills-request" type="button" role="tab" aria-controls="pills-request" aria-selected="true">Запросы на регистрацию</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="pills-scheme-tab" data-bs-toggle="pill" data-bs-target="#pills-scheme" type="button" role="tab" aria-controls="pills-scheme" aria-selected="false" style="margin: 0 10px;">Конструктор кабинета</button>
+                <button class="nav-link" id="pills-scheme-tab" data-bs-toggle="pill" data-bs-target="#pills-scheme" type="button" role="tab" aria-controls="pills-scheme" aria-selected="false">Конструктор кабинета</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="pills-insitute-tab" data-bs-toggle="pill" data-bs-target="#pills-institute" type="button" role="tab" aria-controls="pills-institute" aria-selected="false" style="margin: 0 10px;">Добавление локации</button>
+                <button class="nav-link" id="pills-insitute-tab" data-bs-toggle="pill" data-bs-target="#pills-institute" type="button" role="tab" aria-controls="pills-institute" aria-selected="false">Добавление локации</button>
             </li>
         </ul>
 
         <div class="tab-content" id="pills-TabContent">
             <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="pills-requests-tab" id="pills-request">
                 <div class="d-flex justify-content-center">
-                    <div class="card glass-card" style="width: 100%; max-width: 600px;">
+                    <div class="card-special glass-card-special card-mid">
                         <div class="card-body">
                             {% if users %}
                                 {% for user in users %}
@@ -44,10 +44,10 @@
 
             <div class="tab-pane fade" role="tabpanel" aria-labelledby="pills-scheme-tab" id="pills-scheme">
                 <div class="d-flex justify-content-center">
-                    <div class="card glass-card" style="width: 100%;">
+                    <div class="card glass-card">
                         <div class="card-body">
-                            <h3 style="text-align: center;">Конструктор кабинета</h3>
-                            <div id="toolbar" class="d-flex justify-content-center" style="gap: 10px;">
+                            <h3>Конструктор кабинета</h3>
+                            <div id="toolbar" class="d-flex justify-content-center">
                                 <button id="add-table-2" class="btn myBtn">Добавить столик 2</button>
                                 <button id="add-table-4" class="btn myBtn">Добавить столик 4</button>
                                 <button id="add-table-8" class="btn myBtn">Добавить столик 8</button>
@@ -58,18 +58,18 @@
                                 <div id="room" class="room"></div>
                             </div>
                             <br>
-                            <div id="wall-controls" class="d-flex justify-content-center hidden" style="gap: 10px; flex-wrap: wrap;">
-                                <div style="display: flex; flex-direction: column; align-items: center;">
+                            <div id="wall-controls" class="d-flex justify-content-center hidden">
+                                <div class = "wall-label">
                                     <label for="wall-width">Ширина (%):</label>
-                                    <input type="number" id="wall-width" value="10" min="1" max="100" style="width: 80px;">%
-                                    <input type="range" id="wall-width-slider" value="10" min="1" max="100" style="width: 150px;">
+                                    <input type="number" id="wall-width" value="10" min="1" max="100">%
+                                    <input type="range" id="wall-width-slider" value="10" min="1" max="100">
                                 </div>
-                                <div style="display: flex; flex-direction: column; align-items: center;">
+                                <div class = "wall-label">
                                     <label for="wall-height">Высота (%):</label>
-                                    <input type="number" id="wall-height" value="2" min="1" max="100" style="width: 80px;">%
-                                    <input type="range" id="wall-height-slider" value="2" min="1" max="100" style="width: 150px;">
+                                    <input type="number" id="wall-height" value="2" min="1" max="100">%
+                                    <input type="range" id="wall-height-slider" value="2" min="1" max="100">
                                 </div>
-                                <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 5px;"> <!-- Изменено на flex-start и добавлен gap -->
+                                <div class = "wall-radio"> 
                                     <label>
                                         <input type="radio" name="wall-orientation" value="horizontal" checked> Горизонтальная
                                     </label>
@@ -82,21 +82,21 @@
                                 <button id="delete-element" class="btn btn-danger">Удалить элемент</button>
                             </div>
                             <br>
-                            <label class = "fw-bold gradient-text" style="font-size: 17px;" for="room-number">Номер кабинета:</label>
+                            <label for="room-number">Номер кабинета:</label>
                             <input class="input-field" type="number" id="room-number" name="room-number">
                             <br>
                             <br>
-                            <label class = "fw-bold gradient-text" style="font-size: 17px;" for="room-capacity">Количество мест:</label>
+                            <label for="room-capacity">Количество мест:</label>
                             <input class="input-field" type="number" id="room-capacity" name="room-capacity">
                             <br>
                             <br>
                             <button class="btn myBtn" id="generate-html">Сгенерировать код</button>
                             <textarea id="room-code" readonly></textarea>
                             <br>
-                            <label class = "fw-bold gradient-text" style="font-size: 17px;" for="room-description">Описание кабинета:</label>
+                            <label for="room-description">Описание кабинета:</label>
                             <textarea id="room-description" name="room-description"></textarea>
                             <br>
-                            <label class = "fw-bold gradient-text" style="font-size: 17px;" for="room-location">Местоположение:</label>
+                            <label for="room-location">Местоположение:</label>
                             <select id="room-location" name="room-location">
                                 <option class="input-field" value="">Выберите местоположение</option>
                             </select>
@@ -110,17 +110,17 @@
 
             <div class="tab-pane fade" role="tabpanel" aria-labelledby="pills-insitute-tab" id="pills-institute">
                 <div class="d-flex justify-content-center">
-                    <div class="card glass-card" style="width: 100%; max-width: 600px;">
+                    <div class="card glass-card">
                         <div class="card-body">
-                            <div id="map" style="width: 100%; height: 500px;"></div>
+                            <div id="map"></div>
                             <br>
-                            <label class = "fw-bold gradient-text" style="font-size: 17px;" for="location-name">Название локации:</label>
+                            <label for="location-name">Название локации:</label>
                             <input class="input-field" type="text" id="location-name" name="location-name">
                             <br>
-                            <label class = "fw-bold gradient-text" style="font-size: 17px;" for="location-address">Адрес локации:</label>
+                            <label for="location-address">Адрес локации:</label>
                             <input class="input-field" type="text" id="location-address" name="location-address">
                             <br>
-                            <label class = "fw-bold gradient-text" style="font-size: 17px;" for="location-coordinates">Координаты локации:</label>
+                            <label for="location-coordinates">Координаты локации:</label>
                             <input class="input-field" type="text" id="location-coordinates" name="location-coordinates">
                             <br>
                             <button onclick="confirmInstituteCreation()" class="btn myBtn">Создать локацию</button>

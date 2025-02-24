@@ -5,63 +5,54 @@
 {% block title %}Личный кабинет{% endblock %}
 
 {% block main %}
-    <!-- <h1 style="text-align: center;">Профиль</h1> -->
 
 {% if request.user.is_authenticated %}
     <body class="mainBody">
         <div class= "profile_container">
-            <div style="flex: 1; margin-right: 20px;">
-                <!-- <p>TEST PROFILE</p> -->
-
-            <!-- <p class="fw-bold gradient-text" style="text-align: center; font-size: 25px;">Мои данные</p> -->
-            <span class="user-icon" style="text-decoration: none; width: 100px; height: 100px; 
-            border-radius: 50%; background-color: #6366f1; color: white; display: flex; 
-            align-items: center; justify-content: center; font-size: 300%; margin-left: 50%; 
-            transform: translate(-50%);">
-                {{ request.user.last_name|slice:":1" }}{{ request.user.first_name|slice:":1" }}
-            </span>
-            <div style="margin-top: 10px; text-align: center;">
-                <input id="userId" value="{{ request.user.student_id }}" readonly style="color: #6366f1; border: none; background: transparent; box-shadow: none;
-                text-align: center; font-size: 16px; outline: none; width: 40%;"/>
-                <button onclick="copyId()" style=" background-color: transparent; border: none;"><i class="bi bi-copy" style="font-size: 13px;"></i></button>
-            </div>
-            <label class = "fw-bold gradient-text" style="font-size: 17px;" for="last_name">Фамилия</label>
-            <input type="text" name="last_name" class="input-field text-gradient" value="{{ request.user.last_name }}" readonly><br>
-            <label class = "fw-bold gradient-text" style="font-size: 17px;" for="first_name">Имя</label>
-            <input type="text" name="first_name" class="input-field text-gradient" value="{{ request.user.first_name }}" readonly><br>
-            
-            <label class = "fw-bold gradient-text" style="font-size: 17px;" for="middle_name">Отчество</label>
-            <input type="text" name="middle_name" class="input-field text-gradient" value="{{ request.user.middle_name }}" readonly><br>
-            <label class = "fw-bold gradient-text" style="font-size: 17px;" for="email">Email</label>
-            <input type="email" name="email" class="input-field text-gradient" value="{{ request.user.email }}" readonly><br>
-            <!-- <label for="student_id">Студ. билет</label>
-            <input type="number" name="student_id" class="input-field" value="{{ request.user.student_id }}" readonly><br> -->
-            {% if request.user.role == 0 %}
-            <label class = "fw-bold gradient-text" style="font-size: 17px;" for="role">Роль</label>
-            <input type="text" name="role" class="input-field text-gradient" value="Администратор" readonly><br>
-            <!-- Администратор -->
-            {% elif request.user.role == 1 %}
-            <label class = "fw-bold gradient-text" style="font-size: 17px;" for="role">Роль</label>
-            <input type="text" name="role" class="input-field text-gradient" value="Студент" readonly><br>
-            <!-- Студент -->
-            {% elif request.user.role == 2 %}
-            <label class = "fw-bold gradient-text" style="font-size: 17px;" for="role">Роль</label>
-            <input type="text" name="role" class="input-field text-gradient" value="Преподаватель" readonly><br>
-            <!-- Преподаватель -->
-            {% elif request.user.role == 3 %}
-            <label class = "fw-bold gradient-text" style="font-size: 17px;" for="role">Роль</label>
-            <input type="text" name="role" class="input-field text-gradient" value="Сотрудник" readonly><br>
-            <!-- СотрудникS -->
-            {% endif %}
+            <div class="profile-info">
+                <span class="user-icon">
+                    {{ request.user.last_name|slice:":1" }}{{ request.user.first_name|slice:":1" }}
+                </span>
+                <div class="user-id">
+                    <input id="userId" value="{{ request.user.student_id }}" readonly/>
+                    <button onclick="copyId()"><i class="bi bi-copy"></i></button>
+                </div>
+                <label for="last_name">Фамилия</label>
+                <input type="text" name="last_name" class="input-field text-gradient" value="{{ request.user.last_name }}" readonly><br>
+                <label for="first_name">Имя</label>
+                <input type="text" name="first_name" class="input-field text-gradient" value="{{ request.user.first_name }}" readonly><br>
+                
+                <label for="middle_name">Отчество</label>
+                <input type="text" name="middle_name" class="input-field text-gradient" value="{{ request.user.middle_name }}" readonly><br>
+                <label for="email">Email</label>
+                <input type="email" name="email" class="input-field text-gradient" value="{{ request.user.email }}" readonly><br>
+                <!-- <label for="student_id">Студ. билет</label>
+                <input type="number" name="student_id" class="input-field" value="{{ request.user.student_id }}" readonly><br> -->
+                {% if request.user.role == 0 %}
+                <label for="role">Роль</label>
+                <input type="text" name="role" class="input-field text-gradient" value="Администратор" readonly><br>
+                <!-- Администратор -->
+                {% elif request.user.role == 1 %}
+                <label for="role">Роль</label>
+                <input type="text" name="role" class="input-field text-gradient" value="Студент" readonly><br>
+                <!-- Студент -->
+                {% elif request.user.role == 2 %}
+                <label for="role">Роль</label>
+                <input type="text" name="role" class="input-field text-gradient" value="Преподаватель" readonly><br>
+                <!-- Преподаватель -->
+                {% elif request.user.role == 3 %}
+                <label for="role">Роль</label>
+                <input type="text" name="role" class="input-field text-gradient" value="Сотрудник" readonly><br>
+                <!-- СотрудникS -->
+                {% endif %}
             </div>
 
             <br>
-            <div style="flex: 5; width: 100%; margin-top: 120px;">
-                <!-- <p class="fw-bold gradient-text" style="text-align: center; font-size: 25px;">Мои бронирования</p> -->
+            <div class="profile-bookings">
                 {% if bookings %}
                 <table class = "profileTable">
                     <thead class = "profileTableHead">
-                        <tr class = "fw-bold gradient-text" style="text-align: center; font-size: 17px;">
+                        <tr class = "fw-bold gradient-text">
                             <td>Дата</td>
                             <td>Столик</td>
                             <td>Время</td>
@@ -71,12 +62,12 @@
                     </thead>
                     <tbody>
                         {% for item in bookings %}
-                                <tr style="border: 3px solid; border-bottom: none;">
+                                <tr>
                                     <form action="remove-book/" method="post">
                                         {% csrf_token %}
-                                    <td style="border-right: none;">{{ item.date }}</td>
-                                    <td style="border-right: none; border-left: none;">{{ item.place }}</td>
-                                    <td style="border-right: none; border-left: none;">
+                                    <td class="start-Column">{{ item.date }}</td>
+                                    <td class="mid-Column">{{ item.place }}</td>
+                                    <td class="mid-Column">
                                         {% if item.time == 1 %}
                                         8:00-9:00
                                         {% elif item.time == 2 %}
@@ -99,10 +90,10 @@
                                         17:00-18:00
                                         {% endif %}</td>
 
-                                        <td style="border-right: none; border-left: none;">{{item.room}}</td>
+                                        <td class="mid-Column">{{item.room}}</td>
 
                                         <input id="pk" type="hidden" name="pk" value="{{ item.id }}">
-                                        <td style="border-left: none;">
+                                        <td class="end-Column">
                                             {% if item.date > now_date %}
                                                 <input class="btn btn-outline-danger" type="submit" value="Отменить" >
                                             {% elif item.date == now_date and item.time > now_hour|add:"-7" %}
@@ -116,7 +107,7 @@
                         {% endfor %}
                         </tbody>
                     {% else %}
-                        <p style = "text-align: center; font-size: large;">Бронирования отсутствуют</p>
+                        <p class = "booking-lack">Бронирования отсутствуют</p>
                     {% endif %}
                 </table>
             </div>
